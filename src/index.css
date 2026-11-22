@@ -1,0 +1,397 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* NAFAS Dark Medical Technology Palette */
+    --bg-main: #071F2E;
+    --bg-secondary: #0B2D40;
+    --bg-card: #123B50;
+    --bg-elevated: #19465B;
+
+    /* Primary Teal & Accent Cyan */
+    --teal-primary: #13B8B0;
+    --cyan-accent: #43C7D1;
+
+    /* Text & Borders */
+    --text-main: #F3F7F8;
+    --text-secondary: #A9C0CC;
+    --border-clinical: #285064;
+
+    /* Semantic Clinical Tokens */
+    --status-success: #16A36A;
+    --status-warning: #E9A23B;
+    --status-danger: #DC5252;
+
+    /* Legacy compatibility aliases mapped to Dark Medical Theme */
+    --nafas-navy: #071F2E;
+    --nafas-teal: #13B8B0;
+    --nafas-cyan: #43C7D1;
+    --nafas-bg: #071F2E;
+    --nafas-surface: #123B50;
+    --nafas-text: #F3F7F8;
+    --nafas-secondary: #A9C0CC;
+    --nafas-border: #285064;
+    --nafas-success: #16A36A;
+    --nafas-warning: #E9A23B;
+    --nafas-danger: #DC5252;
+  }
+
+  body {
+    background-color: #071F2E;
+    color: #F3F7F8;
+  }
+
+  html[lang="en"] {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  html[lang="ar"] {
+    font-family: 'IBM Plex Sans Arabic', 'Cairo', sans-serif;
+    line-height: 1.75;
+  }
+
+  html[lang="ar"] h1,
+  html[lang="ar"] h2,
+  html[lang="ar"] h3,
+  html[lang="ar"] h4,
+  html[lang="ar"] .font-heading {
+    font-family: 'Cairo', 'IBM Plex Sans Arabic', sans-serif;
+    line-height: 1.35;
+  }
+
+  html[lang="en"] h1,
+  html[lang="en"] h2,
+  html[lang="en"] h3,
+  html[lang="en"] h4,
+  html[lang="en"] .font-heading {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Anatomical & Clinical Telemetry Keyframes */
+@keyframes nafas-breathe {
+  0%, 100% {
+    transform: scaleY(1) translateY(0);
+  }
+  50% {
+    transform: scaleY(1.018) translateY(-1.5px);
+  }
+}
+
+@keyframes nafas-cough-pulse {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  20% {
+    transform: translate3d(2px, 3px, 0) rotate(1.5deg);
+  }
+  40% {
+    transform: translate3d(-1px, 0, 0) rotate(-0.8deg);
+  }
+  65% {
+    transform: translate3d(2px, 3px, 0) rotate(1.8deg);
+  }
+}
+
+@keyframes nafas-choking-tremor {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  25% {
+    transform: translate3d(-1.5px, -1px, 0);
+  }
+  50% {
+    transform: translate3d(1.5px, 0.5px, 0);
+  }
+  75% {
+    transform: translate3d(-1px, 1px, 0);
+  }
+}
+
+@keyframes nafas-rescuer-thrust {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  30% {
+    transform: translate3d(-5px, -5px, 0);
+  }
+  60% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes nafas-cpr-pump {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40% {
+    transform: translate3d(0, 6px, 0);
+  }
+}
+
+@keyframes nafas-bolus-expel {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.9);
+    opacity: 1;
+  }
+  50% {
+    transform: translate3d(0, -28px, 0) scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(28px, -48px, 0) scale(0.95);
+    opacity: 0.2;
+  }
+}
+
+@keyframes nafas-airflow-dash {
+  0% {
+    stroke-dashoffset: 36;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes nafas-camera-push {
+  0% {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  100% {
+    transform: scale(1.03) translate3d(0, -1%, 0);
+  }
+}
+
+.rig-breathe {
+  animation: nafas-breathe 3.4s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+.rig-cough {
+  animation: nafas-cough-pulse 1.15s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+.rig-tremor {
+  animation: nafas-choking-tremor 0.55s ease-in-out infinite;
+}
+
+.rig-thrust {
+  animation: nafas-rescuer-thrust 0.95s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.rig-cpr {
+  animation: nafas-cpr-pump 0.65s ease-in-out infinite;
+}
+
+.rig-expel {
+  animation: nafas-bolus-expel 1.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+.anim-airflow {
+  animation: nafas-airflow-dash 1.1s linear infinite;
+}
+
+.anim-camera-push {
+  animation: nafas-camera-push 7s ease-out forwards;
+}
+
+@keyframes nafasSceneLoadSweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(320%);
+  }
+}
+
+@keyframes nafasCrossfadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes nafasHeroOrbitSlow {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes nafasHeroOrbitReverse {
+  from {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+}
+
+@keyframes nafasEcgDraw {
+  0% {
+    stroke-dashoffset: 520;
+    opacity: 0.35;
+  }
+  55% {
+    stroke-dashoffset: 0;
+    opacity: 0.95;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.55;
+  }
+}
+
+@keyframes nafasMiniEcgLoop {
+  0% {
+    stroke-dashoffset: 140;
+  }
+  65% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -140;
+  }
+}
+
+@keyframes nafasHeroStaggerIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes nafasCtaPulseOnce {
+  0% {
+    box-shadow: 0 0 24px rgba(19, 184, 176, 0.38);
+  }
+  50% {
+    box-shadow: 0 0 42px rgba(67, 199, 209, 0.72), 0 0 0 6px rgba(19, 184, 176, 0.16);
+  }
+  100% {
+    box-shadow: 0 0 24px rgba(19, 184, 176, 0.38);
+  }
+}
+
+.hero-orbit-cw {
+  animation: nafasHeroOrbitSlow 44s linear infinite;
+}
+
+.hero-orbit-ccw {
+  animation: nafasHeroOrbitReverse 58s linear infinite;
+}
+
+.hero-ecg-draw {
+  stroke-dasharray: 520;
+  stroke-dashoffset: 0;
+  animation: nafasEcgDraw 2.4s cubic-bezier(0.22, 1, 0.36, 1) 1 forwards;
+}
+
+.hero-mini-ecg {
+  stroke-dasharray: 140;
+  animation: nafasMiniEcgLoop 2.8s linear infinite;
+}
+
+.hero-stagger-1 {
+  animation: nafasHeroStaggerIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
+}
+
+.hero-stagger-2 {
+  animation: nafasHeroStaggerIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both;
+}
+
+.hero-stagger-3 {
+  animation: nafasHeroStaggerIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.32s both;
+}
+
+.hero-stagger-4 {
+  animation: nafasHeroStaggerIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.44s both;
+}
+
+.hero-stagger-5 {
+  animation: nafasHeroStaggerIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.56s both;
+}
+
+.hero-cta-pulse-once {
+  animation: nafasCtaPulseOnce 1.4s ease-in-out 1.6s 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rig-breathe,
+  .rig-cough,
+  .rig-tremor,
+  .rig-thrust,
+  .rig-cpr,
+  .rig-expel,
+  .anim-airflow,
+  .anim-camera-push,
+  .hero-orbit-cw,
+  .hero-orbit-ccw,
+  .hero-ecg-draw,
+  .hero-mini-ecg,
+  .hero-stagger-1,
+  .hero-stagger-2,
+  .hero-stagger-3,
+  .hero-stagger-4,
+  .hero-stagger-5,
+  .hero-cta-pulse-once {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    stroke-dashoffset: 0 !important;
+  }
+}
+
+html.reduced-motion .rig-breathe,
+html.reduced-motion .rig-cough,
+html.reduced-motion .rig-tremor,
+html.reduced-motion .rig-thrust,
+html.reduced-motion .rig-cpr,
+html.reduced-motion .rig-expel,
+html.reduced-motion .anim-airflow,
+html.reduced-motion .anim-camera-push,
+html.reduced-motion .hero-orbit-cw,
+html.reduced-motion .hero-orbit-ccw,
+html.reduced-motion .hero-ecg-draw,
+html.reduced-motion .hero-mini-ecg,
+html.reduced-motion .hero-stagger-1,
+html.reduced-motion .hero-stagger-2,
+html.reduced-motion .hero-stagger-3,
+html.reduced-motion .hero-stagger-4,
+html.reduced-motion .hero-stagger-5,
+html.reduced-motion .hero-cta-pulse-once {
+  animation: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+  stroke-dashoffset: 0 !important;
+}
+
+@media print {
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #FFFFFF !important;
+    color: #071F2E !important;
+  }
+}

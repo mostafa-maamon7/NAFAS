@@ -1,0 +1,426 @@
+{
+  "music_calm_adult_1": {
+    "folder": "music",
+    "durationSec": 84.04,
+    "beforeLufs": -18.24,
+    "integratedLufs": -23.36,
+    "truePeakDbtp": -6.45,
+    "lraLu": 7.2
+  },
+  "music_calm_adult_2": {
+    "folder": "music",
+    "durationSec": 84.04,
+    "beforeLufs": -17.94,
+    "integratedLufs": -23.34,
+    "truePeakDbtp": -6.72,
+    "lraLu": 7.5
+  },
+  "music_calm_child_1": {
+    "folder": "music",
+    "durationSec": 84.04,
+    "beforeLufs": -18.01,
+    "integratedLufs": -23.27,
+    "truePeakDbtp": -7.05,
+    "lraLu": 7
+  },
+  "music_calm_child_2": {
+    "folder": "music",
+    "durationSec": 84.04,
+    "beforeLufs": -17.46,
+    "integratedLufs": -23.34,
+    "truePeakDbtp": -8.76,
+    "lraLu": 7
+  },
+  "music_calm_infant_1": {
+    "folder": "music",
+    "durationSec": 84.04,
+    "beforeLufs": -18.36,
+    "integratedLufs": -23.28,
+    "truePeakDbtp": -6.45,
+    "lraLu": 8.3
+  },
+  "music_calm_infant_2": {
+    "folder": "music",
+    "durationSec": 84.04,
+    "beforeLufs": -18.03,
+    "integratedLufs": -23.27,
+    "truePeakDbtp": -6.99,
+    "lraLu": 5.8
+  },
+  "music_hopeful": {
+    "folder": "music",
+    "durationSec": 84.04,
+    "beforeLufs": -17.23,
+    "integratedLufs": -23.32,
+    "truePeakDbtp": -7.17,
+    "lraLu": 8.2
+  },
+  "music_neutral": {
+    "folder": "music",
+    "durationSec": 84.04,
+    "beforeLufs": -18.23,
+    "integratedLufs": -23.28,
+    "truePeakDbtp": -8.51,
+    "lraLu": 7
+  },
+  "music_tension": {
+    "folder": "music",
+    "durationSec": 84.04,
+    "beforeLufs": -19.49,
+    "integratedLufs": -23.31,
+    "truePeakDbtp": -8.95,
+    "lraLu": 9.2
+  },
+  "amb_family_dining": {
+    "folder": "ambience",
+    "durationSec": 22.05,
+    "beforeLufs": -22.74,
+    "integratedLufs": -23.26,
+    "truePeakDbtp": -3.13,
+    "lraLu": 4
+  },
+  "amb_home_nursery": {
+    "folder": "ambience",
+    "durationSec": 18.05,
+    "beforeLufs": -25.06,
+    "integratedLufs": -23.26,
+    "truePeakDbtp": -2.55,
+    "lraLu": 2.3
+  },
+  "amb_office_lounge": {
+    "folder": "ambience",
+    "durationSec": 22.05,
+    "beforeLufs": -22.89,
+    "integratedLufs": -23.25,
+    "truePeakDbtp": -5.09,
+    "lraLu": 2.3
+  },
+  "amb_school_cafeteria": {
+    "folder": "ambience",
+    "durationSec": 22.05,
+    "beforeLufs": -22.54,
+    "integratedLufs": -23.31,
+    "truePeakDbtp": -15.74,
+    "lraLu": 2
+  },
+  "body_cough_adult_strong": {
+    "folder": "sfx",
+    "durationSec": 2.53,
+    "beforeLufs": -15.66,
+    "integratedLufs": -23.26,
+    "truePeakDbtp": -14.65,
+    "lraLu": 0
+  },
+  "body_cough_child_strong": {
+    "folder": "sfx",
+    "durationSec": 0.57,
+    "beforeLufs": -16.25,
+    "integratedLufs": -21.21,
+    "truePeakDbtp": -12.54,
+    "lraLu": 0
+  },
+  "body_cough_infant": {
+    "folder": "sfx",
+    "durationSec": 0.97,
+    "beforeLufs": -32.72,
+    "integratedLufs": -21.14,
+    "truePeakDbtp": -5.47,
+    "lraLu": 0
+  },
+  "body_cry_infant_loud": {
+    "folder": "sfx",
+    "durationSec": 3.03,
+    "beforeLufs": -17.37,
+    "integratedLufs": -23.26,
+    "truePeakDbtp": -7.6,
+    "lraLu": 0.1
+  },
+  "body_gasp_child": {
+    "folder": "sfx",
+    "durationSec": 1.1,
+    "beforeLufs": -16.23,
+    "integratedLufs": -21.14,
+    "truePeakDbtp": -11.63,
+    "lraLu": 0
+  },
+  "body_gasp_female": {
+    "folder": "sfx",
+    "durationSec": 1.04,
+    "beforeLufs": -16.25,
+    "integratedLufs": -21.18,
+    "truePeakDbtp": -10.78,
+    "lraLu": 0
+  },
+  "body_gasp_male": {
+    "folder": "sfx",
+    "durationSec": 1.2,
+    "beforeLufs": -16.25,
+    "integratedLufs": -21.2,
+    "truePeakDbtp": -9.39,
+    "lraLu": 0
+  },
+  "body_heartbeat_calm": {
+    "folder": "sfx",
+    "durationSec": 1.1,
+    "beforeLufs": -20.87,
+    "integratedLufs": -21.22,
+    "truePeakDbtp": -5.17,
+    "lraLu": 0
+  },
+  "body_inhale_relief_female": {
+    "folder": "sfx",
+    "durationSec": 1.65,
+    "beforeLufs": -17.24,
+    "integratedLufs": -21.22,
+    "truePeakDbtp": -10.19,
+    "lraLu": 0
+  },
+  "body_inhale_relief_male": {
+    "folder": "sfx",
+    "durationSec": 2.64,
+    "beforeLufs": -17.58,
+    "integratedLufs": -23.26,
+    "truePeakDbtp": -10.83,
+    "lraLu": 0
+  },
+  "sfx_aed_beep": {
+    "folder": "sfx",
+    "durationSec": 0.99,
+    "beforeLufs": -13.07,
+    "integratedLufs": -21.26,
+    "truePeakDbtp": -11.53,
+    "lraLu": 0
+  },
+  "sfx_ambulance_distant": {
+    "folder": "sfx",
+    "durationSec": 5.54,
+    "beforeLufs": -25.83,
+    "integratedLufs": -23.26,
+    "truePeakDbtp": -11.2,
+    "lraLu": 3.4
+  },
+  "sfx_back_blow_1": {
+    "folder": "sfx",
+    "durationSec": 0.55,
+    "beforeLufs": -24.06,
+    "integratedLufs": -51.05,
+    "truePeakDbtp": -28.63,
+    "lraLu": 0
+  },
+  "sfx_back_blow_2": {
+    "folder": "sfx",
+    "durationSec": 0.5,
+    "beforeLufs": -33.45,
+    "integratedLufs": -21.25,
+    "truePeakDbtp": -3.12,
+    "lraLu": 0
+  },
+  "sfx_back_blow_3": {
+    "folder": "sfx",
+    "durationSec": 0.42,
+    "beforeLufs": -23,
+    "integratedLufs": -23,
+    "truePeakDbtp": -20.39,
+    "lraLu": 0
+  },
+  "sfx_back_blow_4": {
+    "folder": "sfx",
+    "durationSec": 0.55,
+    "beforeLufs": -33.42,
+    "integratedLufs": -21.18,
+    "truePeakDbtp": -7.38,
+    "lraLu": 0
+  },
+  "sfx_back_blow_5": {
+    "folder": "sfx",
+    "durationSec": 0.55,
+    "beforeLufs": -39.15,
+    "integratedLufs": -21.25,
+    "truePeakDbtp": -3.63,
+    "lraLu": 0
+  },
+  "sfx_body_collapse": {
+    "folder": "sfx",
+    "durationSec": 0.73,
+    "beforeLufs": -37.62,
+    "integratedLufs": -39.76,
+    "truePeakDbtp": -18.28,
+    "lraLu": 0
+  },
+  "sfx_chair_scrape": {
+    "folder": "sfx",
+    "durationSec": 1.15,
+    "beforeLufs": -37.65,
+    "integratedLufs": -21.25,
+    "truePeakDbtp": -0.45,
+    "lraLu": 0
+  },
+  "sfx_hand_place": {
+    "folder": "sfx",
+    "durationSec": 0.55,
+    "beforeLufs": -43.88,
+    "integratedLufs": -21.37,
+    "truePeakDbtp": -9.42,
+    "lraLu": 0
+  },
+  "sfx_infant_blow_1": {
+    "folder": "sfx",
+    "durationSec": 0.47,
+    "beforeLufs": -15.15,
+    "integratedLufs": -21.25,
+    "truePeakDbtp": -9.11,
+    "lraLu": 0
+  },
+  "sfx_infant_blow_2": {
+    "folder": "sfx",
+    "durationSec": 0.47,
+    "beforeLufs": -41.35,
+    "integratedLufs": -21.25,
+    "truePeakDbtp": -4.65,
+    "lraLu": 0
+  },
+  "sfx_infant_blow_3": {
+    "folder": "sfx",
+    "durationSec": 0.47,
+    "beforeLufs": -50.65,
+    "integratedLufs": -21.25,
+    "truePeakDbtp": -3.42,
+    "lraLu": 0
+  },
+  "sfx_infant_blow_4": {
+    "folder": "sfx",
+    "durationSec": 0.47,
+    "beforeLufs": -17.25,
+    "integratedLufs": -21.25,
+    "truePeakDbtp": -6.12,
+    "lraLu": 0
+  },
+  "sfx_infant_thrust_1": {
+    "folder": "sfx",
+    "durationSec": 0.44,
+    "beforeLufs": -14.75,
+    "integratedLufs": -21.25,
+    "truePeakDbtp": -9.46,
+    "lraLu": 0
+  },
+  "sfx_infant_thrust_2": {
+    "folder": "sfx",
+    "durationSec": 0.47,
+    "beforeLufs": -10.95,
+    "integratedLufs": -21.25,
+    "truePeakDbtp": -12.08,
+    "lraLu": 0
+  },
+  "sfx_infant_thrust_3": {
+    "folder": "sfx",
+    "durationSec": 0.42,
+    "beforeLufs": -23,
+    "integratedLufs": -23,
+    "truePeakDbtp": -20.26,
+    "lraLu": 0
+  },
+  "sfx_infant_thrust_4": {
+    "folder": "sfx",
+    "durationSec": 0.47,
+    "beforeLufs": -11.55,
+    "integratedLufs": -21.25,
+    "truePeakDbtp": -11.48,
+    "lraLu": 0
+  },
+  "sfx_object_pop": {
+    "folder": "sfx",
+    "durationSec": 0.34,
+    "beforeLufs": -23,
+    "integratedLufs": -23,
+    "truePeakDbtp": -18.62,
+    "lraLu": 0
+  },
+  "sfx_phone_dial": {
+    "folder": "sfx",
+    "durationSec": 1.44,
+    "beforeLufs": -17.23,
+    "integratedLufs": -21.26,
+    "truePeakDbtp": -19.45,
+    "lraLu": 0
+  },
+  "sfx_thrust_1": {
+    "folder": "sfx",
+    "durationSec": 0.55,
+    "beforeLufs": -37.47,
+    "integratedLufs": -21.08,
+    "truePeakDbtp": -2.33,
+    "lraLu": 0
+  },
+  "sfx_thrust_2": {
+    "folder": "sfx",
+    "durationSec": 0.55,
+    "beforeLufs": -36.75,
+    "integratedLufs": -21.25,
+    "truePeakDbtp": -6.37,
+    "lraLu": 0
+  },
+  "sfx_thrust_3": {
+    "folder": "sfx",
+    "durationSec": 0.55,
+    "beforeLufs": -42.89,
+    "integratedLufs": -21.29,
+    "truePeakDbtp": -7.39,
+    "lraLu": 0
+  },
+  "sfx_thrust_4": {
+    "folder": "sfx",
+    "durationSec": 0.5,
+    "beforeLufs": -28.85,
+    "integratedLufs": -21.25,
+    "truePeakDbtp": -9.57,
+    "lraLu": 0
+  },
+  "sfx_thrust_5": {
+    "folder": "sfx",
+    "durationSec": 0.55,
+    "beforeLufs": -14.99,
+    "integratedLufs": -21.22,
+    "truePeakDbtp": -7.97,
+    "lraLu": 0
+  },
+  "sfx_ui_page": {
+    "folder": "sfx",
+    "durationSec": 0.6,
+    "beforeLufs": -34.55,
+    "integratedLufs": -21.24,
+    "truePeakDbtp": -12.04,
+    "lraLu": 0
+  },
+  "sfx_ui_select": {
+    "folder": "sfx",
+    "durationSec": 0.31,
+    "beforeLufs": -23,
+    "integratedLufs": -23,
+    "truePeakDbtp": -17.11,
+    "lraLu": 0
+  },
+  "sfx_ui_star": {
+    "folder": "sfx",
+    "durationSec": 1.54,
+    "beforeLufs": -31.53,
+    "integratedLufs": -21.17,
+    "truePeakDbtp": -5.17,
+    "lraLu": 0
+  },
+  "sfx_ui_wrong_soft": {
+    "folder": "sfx",
+    "durationSec": 0.99,
+    "beforeLufs": -37.92,
+    "integratedLufs": -21.12,
+    "truePeakDbtp": -2.98,
+    "lraLu": 0
+  },
+  "sfx_utensil_drop": {
+    "folder": "sfx",
+    "durationSec": 0.89,
+    "beforeLufs": -20.4,
+    "integratedLufs": -21.27,
+    "truePeakDbtp": -6.16,
+    "lraLu": 0
+  }
+}

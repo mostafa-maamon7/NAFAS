@@ -1,0 +1,6 @@
+{
+  "name": "NAFAS – نَفَس",
+  "description": "Bilingual interactive first-aid education and choking emergency simulation platform for Adult, Child, and Infant scenarios.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

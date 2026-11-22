@@ -1,0 +1,1712 @@
+[
+  {
+    "imageId": "A1_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "a1-hs-face",
+    "measured": {
+      "x": 0.415,
+      "y": 0.355
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A1_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "a1-hs-cough",
+    "measured": {
+      "x": 0.412,
+      "y": 0.46
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A1_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "a1-hs-posture",
+    "measured": {
+      "x": 0.375,
+      "y": 0.625
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A2_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "a2-hs-panic",
+    "measured": {
+      "x": 0.485,
+      "y": 0.31
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A2_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "a2-hs-lips",
+    "measured": {
+      "x": 0.483,
+      "y": 0.446
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A2_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "a2-hs-voice",
+    "measured": {
+      "x": 0.548,
+      "y": 0.515
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A2_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "a2-hs-throat",
+    "measured": {
+      "x": 0.508,
+      "y": 0.625
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A3_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "a3-hs-response",
+    "measured": {
+      "x": 0.685,
+      "y": 0.315
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A3_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "a3-hs-mouth",
+    "measured": {
+      "x": 0.655,
+      "y": 0.368
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A3_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "a3-hs-breathing",
+    "measured": {
+      "x": 0.64,
+      "y": 0.62
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A4_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "a4-hs-eyes",
+    "measured": {
+      "x": 0.495,
+      "y": 0.27
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A4_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "a4-hs-neck",
+    "measured": {
+      "x": 0.505,
+      "y": 0.425
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A4_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "a4-hs-chest",
+    "measured": {
+      "x": 0.495,
+      "y": 0.545
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A4_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "a4-hs-abdomen",
+    "measured": {
+      "x": 0.492,
+      "y": 0.725
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C1_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "c1-hs-eyes",
+    "measured": {
+      "x": 0.445,
+      "y": 0.425
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C1_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "c1-hs-lips",
+    "measured": {
+      "x": 0.45,
+      "y": 0.53
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C1_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "c1-hs-hands",
+    "measured": {
+      "x": 0.428,
+      "y": 0.648
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C2_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "c2-hs-unresp",
+    "measured": {
+      "x": 0.515,
+      "y": 0.545
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C2_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "c2-hs-breath",
+    "measured": {
+      "x": 0.51,
+      "y": 0.61
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C2_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "c2-hs-surface",
+    "measured": {
+      "x": 0.445,
+      "y": 0.695
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C3_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "c3-hs-speak",
+    "measured": {
+      "x": 0.55,
+      "y": 0.355
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C3_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "c3-hs-cough",
+    "measured": {
+      "x": 0.562,
+      "y": 0.455
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C3_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "c3-hs-color",
+    "measured": {
+      "x": 0.415,
+      "y": 0.545
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I1_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "i1-hs-cry",
+    "measured": {
+      "x": 0.635,
+      "y": 0.405
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I1_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "i1-hs-cough",
+    "measured": {
+      "x": 0.622,
+      "y": 0.462
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I1_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "i1-hs-infant",
+    "measured": {
+      "x": 0.618,
+      "y": 0.585
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I2_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "i2-hs-unresp",
+    "measured": {
+      "x": 0.625,
+      "y": 0.478
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I2_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "i2-hs-breath",
+    "measured": {
+      "x": 0.658,
+      "y": 0.542
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I2_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "i2-hs-surface",
+    "measured": {
+      "x": 0.665,
+      "y": 0.72
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I3_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "i3-hs-cry",
+    "measured": {
+      "x": 0.482,
+      "y": 0.422
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I3_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "i3-hs-cough",
+    "measured": {
+      "x": 0.492,
+      "y": 0.51
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I3_S5",
+    "targetFilter": "all",
+    "viewport": "375px",
+    "hotspotId": "i3-hs-color",
+    "measured": {
+      "x": 0.485,
+      "y": 0.635
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A2_OA2",
+    "targetFilter": "left",
+    "viewport": "375px",
+    "hotspotId": "a2-target-back",
+    "measured": {
+      "x": 0.335,
+      "y": 0.465
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A2_OA2",
+    "targetFilter": "right",
+    "viewport": "375px",
+    "hotspotId": "a2-target-belly",
+    "measured": {
+      "x": 0.725,
+      "y": 0.575
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C1_OA2",
+    "targetFilter": "left",
+    "viewport": "375px",
+    "hotspotId": "c1-target-back",
+    "measured": {
+      "x": 0.32,
+      "y": 0.555
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C1_OA2",
+    "targetFilter": "right",
+    "viewport": "375px",
+    "hotspotId": "c1-target-belly",
+    "measured": {
+      "x": 0.785,
+      "y": 0.655
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I1_OA2",
+    "targetFilter": "left",
+    "viewport": "375px",
+    "hotspotId": "i1-target-back",
+    "measured": {
+      "x": 0.312,
+      "y": 0.565
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I1_OA2",
+    "targetFilter": "right",
+    "viewport": "375px",
+    "hotspotId": "i1-target-chest",
+    "measured": {
+      "x": 0.768,
+      "y": 0.595
+    },
+    "hitPx": {
+      "w": 47,
+      "h": 47
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A1_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "a1-hs-face",
+    "measured": {
+      "x": 0.415,
+      "y": 0.355
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A1_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "a1-hs-cough",
+    "measured": {
+      "x": 0.412,
+      "y": 0.46
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A1_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "a1-hs-posture",
+    "measured": {
+      "x": 0.375,
+      "y": 0.625
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A2_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "a2-hs-panic",
+    "measured": {
+      "x": 0.485,
+      "y": 0.31
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A2_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "a2-hs-lips",
+    "measured": {
+      "x": 0.483,
+      "y": 0.446
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A2_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "a2-hs-voice",
+    "measured": {
+      "x": 0.548,
+      "y": 0.515
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A2_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "a2-hs-throat",
+    "measured": {
+      "x": 0.508,
+      "y": 0.625
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A3_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "a3-hs-response",
+    "measured": {
+      "x": 0.685,
+      "y": 0.315
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A3_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "a3-hs-mouth",
+    "measured": {
+      "x": 0.655,
+      "y": 0.368
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A3_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "a3-hs-breathing",
+    "measured": {
+      "x": 0.64,
+      "y": 0.62
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A4_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "a4-hs-eyes",
+    "measured": {
+      "x": 0.495,
+      "y": 0.27
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A4_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "a4-hs-neck",
+    "measured": {
+      "x": 0.505,
+      "y": 0.425
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A4_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "a4-hs-chest",
+    "measured": {
+      "x": 0.495,
+      "y": 0.545
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A4_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "a4-hs-abdomen",
+    "measured": {
+      "x": 0.492,
+      "y": 0.725
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C1_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "c1-hs-eyes",
+    "measured": {
+      "x": 0.445,
+      "y": 0.425
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C1_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "c1-hs-lips",
+    "measured": {
+      "x": 0.45,
+      "y": 0.53
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C1_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "c1-hs-hands",
+    "measured": {
+      "x": 0.428,
+      "y": 0.648
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C2_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "c2-hs-unresp",
+    "measured": {
+      "x": 0.515,
+      "y": 0.545
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C2_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "c2-hs-breath",
+    "measured": {
+      "x": 0.51,
+      "y": 0.61
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C2_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "c2-hs-surface",
+    "measured": {
+      "x": 0.445,
+      "y": 0.695
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C3_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "c3-hs-speak",
+    "measured": {
+      "x": 0.55,
+      "y": 0.355
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C3_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "c3-hs-cough",
+    "measured": {
+      "x": 0.562,
+      "y": 0.455
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C3_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "c3-hs-color",
+    "measured": {
+      "x": 0.415,
+      "y": 0.545
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I1_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "i1-hs-cry",
+    "measured": {
+      "x": 0.635,
+      "y": 0.405
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I1_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "i1-hs-cough",
+    "measured": {
+      "x": 0.622,
+      "y": 0.462
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I1_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "i1-hs-infant",
+    "measured": {
+      "x": 0.618,
+      "y": 0.585
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I2_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "i2-hs-unresp",
+    "measured": {
+      "x": 0.625,
+      "y": 0.478
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I2_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "i2-hs-breath",
+    "measured": {
+      "x": 0.658,
+      "y": 0.542
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I2_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "i2-hs-surface",
+    "measured": {
+      "x": 0.665,
+      "y": 0.72
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I3_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "i3-hs-cry",
+    "measured": {
+      "x": 0.482,
+      "y": 0.422
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I3_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "i3-hs-cough",
+    "measured": {
+      "x": 0.492,
+      "y": 0.51
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I3_S5",
+    "targetFilter": "all",
+    "viewport": "768px",
+    "hotspotId": "i3-hs-color",
+    "measured": {
+      "x": 0.485,
+      "y": 0.635
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A2_OA2",
+    "targetFilter": "left",
+    "viewport": "768px",
+    "hotspotId": "a2-target-back",
+    "measured": {
+      "x": 0.335,
+      "y": 0.465
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A2_OA2",
+    "targetFilter": "right",
+    "viewport": "768px",
+    "hotspotId": "a2-target-belly",
+    "measured": {
+      "x": 0.725,
+      "y": 0.575
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C1_OA2",
+    "targetFilter": "left",
+    "viewport": "768px",
+    "hotspotId": "c1-target-back",
+    "measured": {
+      "x": 0.32,
+      "y": 0.555
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C1_OA2",
+    "targetFilter": "right",
+    "viewport": "768px",
+    "hotspotId": "c1-target-belly",
+    "measured": {
+      "x": 0.785,
+      "y": 0.655
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I1_OA2",
+    "targetFilter": "left",
+    "viewport": "768px",
+    "hotspotId": "i1-target-back",
+    "measured": {
+      "x": 0.312,
+      "y": 0.565
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I1_OA2",
+    "targetFilter": "right",
+    "viewport": "768px",
+    "hotspotId": "i1-target-chest",
+    "measured": {
+      "x": 0.768,
+      "y": 0.595
+    },
+    "hitPx": {
+      "w": 98,
+      "h": 98
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A1_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "a1-hs-face",
+    "measured": {
+      "x": 0.415,
+      "y": 0.355
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A1_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "a1-hs-cough",
+    "measured": {
+      "x": 0.412,
+      "y": 0.46
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A1_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "a1-hs-posture",
+    "measured": {
+      "x": 0.375,
+      "y": 0.625
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A2_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "a2-hs-panic",
+    "measured": {
+      "x": 0.485,
+      "y": 0.31
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A2_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "a2-hs-lips",
+    "measured": {
+      "x": 0.483,
+      "y": 0.446
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A2_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "a2-hs-voice",
+    "measured": {
+      "x": 0.548,
+      "y": 0.515
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A2_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "a2-hs-throat",
+    "measured": {
+      "x": 0.508,
+      "y": 0.625
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A3_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "a3-hs-response",
+    "measured": {
+      "x": 0.685,
+      "y": 0.315
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A3_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "a3-hs-mouth",
+    "measured": {
+      "x": 0.655,
+      "y": 0.368
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A3_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "a3-hs-breathing",
+    "measured": {
+      "x": 0.64,
+      "y": 0.62
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A4_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "a4-hs-eyes",
+    "measured": {
+      "x": 0.495,
+      "y": 0.27
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A4_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "a4-hs-neck",
+    "measured": {
+      "x": 0.505,
+      "y": 0.425
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A4_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "a4-hs-chest",
+    "measured": {
+      "x": 0.495,
+      "y": 0.545
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A4_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "a4-hs-abdomen",
+    "measured": {
+      "x": 0.492,
+      "y": 0.725
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C1_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "c1-hs-eyes",
+    "measured": {
+      "x": 0.445,
+      "y": 0.425
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C1_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "c1-hs-lips",
+    "measured": {
+      "x": 0.45,
+      "y": 0.53
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C1_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "c1-hs-hands",
+    "measured": {
+      "x": 0.428,
+      "y": 0.648
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C2_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "c2-hs-unresp",
+    "measured": {
+      "x": 0.515,
+      "y": 0.545
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C2_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "c2-hs-breath",
+    "measured": {
+      "x": 0.51,
+      "y": 0.61
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C2_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "c2-hs-surface",
+    "measured": {
+      "x": 0.445,
+      "y": 0.695
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C3_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "c3-hs-speak",
+    "measured": {
+      "x": 0.55,
+      "y": 0.355
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C3_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "c3-hs-cough",
+    "measured": {
+      "x": 0.562,
+      "y": 0.455
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C3_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "c3-hs-color",
+    "measured": {
+      "x": 0.415,
+      "y": 0.545
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I1_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "i1-hs-cry",
+    "measured": {
+      "x": 0.635,
+      "y": 0.405
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I1_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "i1-hs-cough",
+    "measured": {
+      "x": 0.622,
+      "y": 0.462
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I1_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "i1-hs-infant",
+    "measured": {
+      "x": 0.618,
+      "y": 0.585
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I2_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "i2-hs-unresp",
+    "measured": {
+      "x": 0.625,
+      "y": 0.478
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I2_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "i2-hs-breath",
+    "measured": {
+      "x": 0.658,
+      "y": 0.542
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I2_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "i2-hs-surface",
+    "measured": {
+      "x": 0.665,
+      "y": 0.72
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I3_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "i3-hs-cry",
+    "measured": {
+      "x": 0.482,
+      "y": 0.422
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I3_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "i3-hs-cough",
+    "measured": {
+      "x": 0.492,
+      "y": 0.51
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I3_S5",
+    "targetFilter": "all",
+    "viewport": "1280px",
+    "hotspotId": "i3-hs-color",
+    "measured": {
+      "x": 0.485,
+      "y": 0.635
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A2_OA2",
+    "targetFilter": "left",
+    "viewport": "1280px",
+    "hotspotId": "a2-target-back",
+    "measured": {
+      "x": 0.335,
+      "y": 0.465
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "A2_OA2",
+    "targetFilter": "right",
+    "viewport": "1280px",
+    "hotspotId": "a2-target-belly",
+    "measured": {
+      "x": 0.725,
+      "y": 0.575
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C1_OA2",
+    "targetFilter": "left",
+    "viewport": "1280px",
+    "hotspotId": "c1-target-back",
+    "measured": {
+      "x": 0.32,
+      "y": 0.555
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "C1_OA2",
+    "targetFilter": "right",
+    "viewport": "1280px",
+    "hotspotId": "c1-target-belly",
+    "measured": {
+      "x": 0.785,
+      "y": 0.655
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I1_OA2",
+    "targetFilter": "left",
+    "viewport": "1280px",
+    "hotspotId": "i1-target-back",
+    "measured": {
+      "x": 0.312,
+      "y": 0.565
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  },
+  {
+    "imageId": "I1_OA2",
+    "targetFilter": "right",
+    "viewport": "1280px",
+    "hotspotId": "i1-target-chest",
+    "measured": {
+      "x": 0.768,
+      "y": 0.595
+    },
+    "hitPx": {
+      "w": 111,
+      "h": 111
+    },
+    "status": "PASS"
+  }
+]
