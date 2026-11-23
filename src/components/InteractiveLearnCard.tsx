@@ -31,6 +31,8 @@ export const InteractiveLearnCard: React.FC<InteractiveLearnCardProps> = ({
           <img
             src={asset.src}
             alt={asset.alt[language]}
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover"
           />
           <div className="absolute top-3 start-3">

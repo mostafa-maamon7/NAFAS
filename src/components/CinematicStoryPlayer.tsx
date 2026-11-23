@@ -125,7 +125,6 @@ export const CinematicStoryPlayer: React.FC<CinematicStoryPlayerProps> = ({
   const [phase, setPhase] = useState<LevelPlayPhase>('story_intro');
   const [introBeatIdx, setIntroBeatIdx] = useState(0);
   const [typedText, setTypedText] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
 
   // Step 2: Look (on S5)
   const [inspectedHotspots, setInspectedHotspots] = useState<string[]>([]);
@@ -167,7 +166,8 @@ export const CinematicStoryPlayer: React.FC<CinematicStoryPlayerProps> = ({
   const transitionTokenRef = useRef(0);
   const pendingWatchIdxRef = useRef<number | null>(null);
 
-  const autoTimerRef = useRef<number | null>(null);
+  const activeTimeoutsRef = useRef<Set<number>>(new Set());
+  const activeIntervalsRef = useRef<Set<number>>(new Set());
   const lastRhythmTapRef = useRef<number>(0);
 
   // Subscribe to audio engine state, subtle sound captions & live QA cue events
@@ -260,12 +260,26 @@ export const CinematicStoryPlayer: React.FC<CinematicStoryPlayerProps> = ({
     [extractImageId, level.id]
   );
 
+  const scheduleTimeout = useCallback((fn: () => void, ms: number): number => {
+    const id = window.setTimeout(() => {
+      activeTimeoutsRef.current.delete(id);
+      fn();
+    }, ms);
+    activeTimeoutsRef.current.add(id);
+    return id;
+  }, []);
+
+  const scheduleInterval = useCallback((fn: () => void, ms: number): number => {
+    const id = window.setInterval(fn, ms);
+    activeIntervalsRef.current.add(id);
+    return id;
+  }, []);
+
   const clearAutoTimers = useCallback(() => {
-    if (autoTimerRef.current !== null) {
-      window.clearInterval(autoTimerRef.current);
-      window.clearTimeout(autoTimerRef.current);
-      autoTimerRef.current = null;
-    }
+    activeTimeoutsRef.current.forEach((id) => window.clearTimeout(id));
+    activeTimeoutsRef.current.clear();
+    activeIntervalsRef.current.forEach((id) => window.clearInterval(id));
+    activeIntervalsRef.current.clear();
   }, []);
 
   // Calibrated Look rings for the current S5 image
@@ -454,6 +468,14 @@ export const CinematicStoryPlayer: React.FC<CinematicStoryPlayerProps> = ({
     return null;
   }, [level.id]);
 
+  // Seamlessly prefetch next level opening images & audio as soon as the user finishes the current level
+  useEffect(() => {
+    if (!sequenceComplete || !nextLevel) return;
+    if (imagePreloader.shouldConserveBandwidth()) return;
+    imagePreloader.warmLevelOnHover(nextLevel);
+    nafasAudio.prefetchLevelAudio(nextLevel.id);
+  }, [sequenceComplete, nextLevel]);
+
   // Current story beat (S1-S5)
   const currentBeat = useMemo(() => {
     const beats = level.storyBeats;
@@ -520,39 +542,11 @@ export const CinematicStoryPlayer: React.FC<CinematicStoryPlayerProps> = ({
     return currentBeat ? currentBeat.text[language] : '';
   }, [phase, selectedChoice, activeOutcomePlaybackFrame, level.storyBeats, currentBeat, language]);
 
-  // Fast synced caption reveal (starts at the exact crossfade frame, completes in <= 520ms total; instant on reduced motion)
+  // Instant synced caption reveal (never swallows clicks or lags behind scene image transitions)
   useEffect(() => {
     if (entryStep !== 'playing') return;
-    if (prefersReducedMotion || phase !== 'story_intro' || !activeCaptionText) {
-      setTypedText(activeCaptionText);
-      setIsTyping(false);
-      return;
-    }
-    const words = activeCaptionText.split(' ');
-    if (words.length <= 2) {
-      setTypedText(activeCaptionText);
-      setIsTyping(false);
-      return;
-    }
-    const totalSteps = Math.min(words.length, 16);
-    const stepMs = Math.max(22, Math.floor(460 / totalSteps));
-    setTypedText(words[0] || '');
-    setIsTyping(true);
-    let step = 1;
-    const timer = window.setInterval(() => {
-      step += 1;
-      const wordIdx = Math.min(
-        words.length,
-        Math.ceil((step / totalSteps) * words.length)
-      );
-      setTypedText(words.slice(0, wordIdx).join(' '));
-      if (wordIdx >= words.length) {
-        window.clearInterval(timer);
-        setIsTyping(false);
-      }
-    }, stepMs);
-    return () => window.clearInterval(timer);
-  }, [activeCaptionText, captionRevealKey, phase, entryStep, prefersReducedMotion]);
+    setTypedText(activeCaptionText);
+  }, [activeCaptionText, captionRevealKey, phase, entryStep]);
 
   // Speak caption if Voice-Over hook is enabled
   useEffect(() => {
@@ -706,13 +700,8 @@ export const CinematicStoryPlayer: React.FC<CinematicStoryPlayerProps> = ({
     }
   }, [lookHotspots, inspectedHotspots, handleInspectHotspot]);
 
-  // Advance WATCH beats (S1 -> S5 -> LOOK) atomically gated on image decode
+  // Advance WATCH beats (S1 -> S5 -> LOOK) immediately on every tap
   const handleAdvanceWatch = useCallback(() => {
-    if (isTyping && !isLoadingNextImage) {
-      setTypedText(activeCaptionText);
-      setIsTyping(false);
-      return;
-    }
     const baseIdx = pendingWatchIdxRef.current ?? introBeatIdx;
     const nextIdx = baseIdx + 1;
     if (nextIdx < level.storyBeats.length) {
@@ -723,20 +712,14 @@ export const CinematicStoryPlayer: React.FC<CinematicStoryPlayerProps> = ({
         setIntroBeatIdx(nextIdx);
       });
     } else {
+      pendingWatchIdxRef.current = null;
       const s5Beat = level.storyBeats[level.storyBeats.length - 1];
       commitSceneTransition(s5Beat?.mediaKey, () => {
         nafasAudio.playPageTurn();
         setPhase('assess_signs');
       });
     }
-  }, [
-    isTyping,
-    isLoadingNextImage,
-    activeCaptionText,
-    introBeatIdx,
-    level.storyBeats,
-    commitSceneTransition,
-  ]);
+  }, [introBeatIdx, level.storyBeats, commitSceneTransition]);
 
   // Trigger a short 1.6% scene punch pulse and compute rhythm timing feedback
   const triggerRhythmTapFeedback = useCallback(() => {
@@ -745,16 +728,16 @@ export const CinematicStoryPlayer: React.FC<CinematicStoryPlayerProps> = ({
     lastRhythmTapRef.current = now;
     if (delta > 1350) {
       setRhythmQuality('slow');
-    } else if (delta >= 320 && delta <= 950) {
+    } else if (delta >= 260 && delta <= 950) {
       setRhythmQuality('good');
     } else {
       setRhythmQuality('steady');
     }
     setPunchPulse(true);
-    window.setTimeout(() => {
+    scheduleTimeout(() => {
       setPunchPulse(false);
-    }, 140);
-  }, []);
+    }, 120);
+  }, [scheduleTimeout]);
 
   // Complete outcome sequence and reveal verdict + stars + XP (max 120 XP = 3 stars * 40)
   const finishOutcomeSequence = useCallback(
@@ -771,29 +754,30 @@ export const CinematicStoryPlayer: React.FC<CinematicStoryPlayerProps> = ({
         // Max 120 XP for 3 stars (40 XP per star)
         const targetXp = earnedStars * 40;
 
-        // Animate stars & XP
+        // Animate stars & XP cleanly using tracked timers
         for (let s = 1; s <= earnedStars; s++) {
-          window.setTimeout(() => {
+          scheduleTimeout(() => {
             setDisplayedStars(s);
             nafasAudio.playStarPing(s - 1);
-          }, s * 220);
+          }, s * 160);
         }
         let xpStep = 0;
-        const xpTimer = window.setInterval(() => {
-          xpStep += 12;
+        const xpTimer = scheduleInterval(() => {
+          xpStep += 15;
           if (xpStep >= targetXp) {
             setDisplayedXp(targetXp);
             window.clearInterval(xpTimer);
+            activeIntervalsRef.current.delete(xpTimer);
           } else {
             setDisplayedXp(xpStep);
           }
-        }, 35);
+        }, 30);
       } else {
         setDisplayedStars(0);
         setDisplayedXp(0);
       }
     },
-    [clearAutoTimers]
+    [clearAutoTimers, scheduleTimeout, scheduleInterval]
   );
 
   // Interactive handlers for severe choking "Do it yourself" on OA2
@@ -850,9 +834,9 @@ export const CinematicStoryPlayer: React.FC<CinematicStoryPlayerProps> = ({
       commitSceneTransition(oa3Key, () => {
         setOutcomeFrameIdx(2);
       });
-      window.setTimeout(() => {
+      scheduleTimeout(() => {
         finishOutcomeSequence(selectedChoice, mistakesMade);
-      }, 900);
+      }, 550);
     }
   };
 
@@ -864,17 +848,25 @@ export const CinematicStoryPlayer: React.FC<CinematicStoryPlayerProps> = ({
       clearAutoTimers();
       setAutoPerforming(true);
 
-      if (level.severity === 'severe' && level.patientState === 'conscious') {
-        setOutcomeFrameIdx(1);
-        // Step 1: Animate hand marker to back-blows target on left panel
-        setRescueStage('place_hands_back');
-        setAutoAnimateHand(true);
+      const oa2Key =
+        activeChoice.consequenceBeat.playbackFrames?.[1]?.mediaKey ??
+        activeChoice.consequenceBeat.mediaKey;
+      const oa3Key =
+        activeChoice.consequenceBeat.playbackFrames?.[2]?.mediaKey ??
+        activeChoice.consequenceBeat.mediaKey;
 
-        autoTimerRef.current = window.setTimeout(() => {
+      if (level.severity === 'severe' && level.patientState === 'conscious') {
+        commitSceneTransition(oa2Key, () => {
+          setOutcomeFrameIdx(1);
+          setRescueStage('place_hands_back');
+          setAutoAnimateHand(true);
+        });
+
+        scheduleTimeout(() => {
           setAutoAnimateHand(false);
           setRescueStage('rhythm_back_blows');
           let step = 0;
-          autoTimerRef.current = window.setInterval(() => {
+          scheduleInterval(() => {
             step += 1;
             if (step <= 5) {
               setBlowCount(step);
@@ -882,7 +874,6 @@ export const CinematicStoryPlayer: React.FC<CinematicStoryPlayerProps> = ({
               triggerRhythmTapFeedback();
               nafasAudio.playBackBlow(step);
             } else if (step === 6) {
-              // Step 2: Animate hand marker to belly/chest-thrusts target on right panel
               setRescueStage('place_hands_front');
               setAutoAnimateHand(true);
             } else if (step === 8) {
@@ -899,27 +890,36 @@ export const CinematicStoryPlayer: React.FC<CinematicStoryPlayerProps> = ({
               );
             } else if (step > 13) {
               clearAutoTimers();
-              setOutcomeFrameIdx(2);
-              window.setTimeout(() => {
+              commitSceneTransition(oa3Key, () => {
+                setOutcomeFrameIdx(2);
+              });
+              scheduleTimeout(() => {
                 finishOutcomeSequence(activeChoice, mistakesMade);
-              }, 900);
+              }, 550);
             }
-          }, 280);
-        }, 560);
+          }, 230);
+        }, 420);
       } else {
-        // Smoothly step through OA1 -> OA2 -> OA3
-        setOutcomeFrameIdx(1);
-        autoTimerRef.current = window.setTimeout(() => {
-          setOutcomeFrameIdx(2);
-          autoTimerRef.current = window.setTimeout(() => {
+        // Smoothly step through OA2 -> OA3 using commitSceneTransition
+        commitSceneTransition(oa2Key, () => {
+          setOutcomeFrameIdx(1);
+        });
+        scheduleTimeout(() => {
+          commitSceneTransition(oa3Key, () => {
+            setOutcomeFrameIdx(2);
+          });
+          scheduleTimeout(() => {
             finishOutcomeSequence(activeChoice, mistakesMade);
-          }, 950);
-        }, 950);
+          }, 550);
+        }, 550);
       }
     },
     [
       selectedChoice,
       clearAutoTimers,
+      commitSceneTransition,
+      scheduleTimeout,
+      scheduleInterval,
       level.severity,
       level.patientState,
       level.id,
@@ -934,24 +934,36 @@ export const CinematicStoryPlayer: React.FC<CinematicStoryPlayerProps> = ({
   const startMildWatchTimer = useCallback(
     (choice: StoryLevelChoice, currentMistakes: number) => {
       clearAutoTimers();
-      setMildStepStage('watch');
-      setOutcomeFrameIdx(1);
+      const oa2Key =
+        choice.consequenceBeat.playbackFrames?.[1]?.mediaKey ??
+        choice.consequenceBeat.mediaKey;
+      const oa3Key =
+        choice.consequenceBeat.playbackFrames?.[2]?.mediaKey ??
+        choice.consequenceBeat.mediaKey;
+
+      commitSceneTransition(oa2Key, () => {
+        setMildStepStage('watch');
+        setOutcomeFrameIdx(1);
+      });
+
       let prog = 20;
       setMildObserveProgress(20);
-      autoTimerRef.current = window.setInterval(() => {
+      scheduleInterval(() => {
         prog += 20;
         setMildObserveProgress(prog);
         if (prog >= 100) {
           clearAutoTimers();
           setEarnedPracticeBadge(true);
-          setOutcomeFrameIdx(2);
-          window.setTimeout(() => {
+          commitSceneTransition(oa3Key, () => {
+            setOutcomeFrameIdx(2);
+          });
+          scheduleTimeout(() => {
             finishOutcomeSequence(choice, currentMistakes);
-          }, 850);
+          }, 500);
         }
-      }, 480);
+      }, 340);
     },
-    [clearAutoTimers, finishOutcomeSequence]
+    [clearAutoTimers, commitSceneTransition, scheduleInterval, scheduleTimeout, finishOutcomeSequence]
   );
 
   // Handle choosing one of the 3 decision cards (atomically gated on first outcome image decode)
@@ -990,21 +1002,21 @@ export const CinematicStoryPlayer: React.FC<CinematicStoryPlayerProps> = ({
         setPhase('final_debrief');
 
         if (choice.outcome !== 'optimal') {
-          autoTimerRef.current = window.setTimeout(() => {
+          scheduleTimeout(() => {
             finishOutcomeSequence(choice, updatedMistakes);
-          }, 1500);
+          }, 850);
           return;
         }
 
         if (level.severity === 'severe' && level.patientState === 'conscious') {
           nafasAudio.playEmsCall();
           setRescueStage('ems_activated');
-          autoTimerRef.current = window.setTimeout(() => {
+          scheduleTimeout(() => {
             commitSceneTransition(secondOutcomeKey, () => {
               setOutcomeFrameIdx(1);
               setRescueStage('place_hands_back');
             });
-          }, 1400);
+          }, 700);
         } else if (
           level.patientState === 'unconscious' ||
           level.severity === 'unresponsive'
@@ -1018,6 +1030,7 @@ export const CinematicStoryPlayer: React.FC<CinematicStoryPlayerProps> = ({
     [
       clearAutoTimers,
       commitSceneTransition,
+      scheduleTimeout,
       mistakesMade,
       level.id,
       level.severity,
@@ -1065,13 +1078,25 @@ export const CinematicStoryPlayer: React.FC<CinematicStoryPlayerProps> = ({
     nafasAudio.playUnresponsiveStep();
     const next = unresponsiveStepIdx + 1;
     setUnresponsiveStepIdx(next);
-    if (next === 2) setOutcomeFrameIdx(1);
+    if (next === 2) {
+      const oa2Key =
+        selectedChoice.consequenceBeat.playbackFrames?.[1]?.mediaKey ??
+        selectedChoice.consequenceBeat.mediaKey;
+      commitSceneTransition(oa2Key, () => {
+        setOutcomeFrameIdx(1);
+      });
+    }
     if (next >= unresponsiveSteps.length) {
       setEarnedPracticeBadge(true);
-      setOutcomeFrameIdx(2);
-      window.setTimeout(() => {
+      const oa3Key =
+        selectedChoice.consequenceBeat.playbackFrames?.[2]?.mediaKey ??
+        selectedChoice.consequenceBeat.mediaKey;
+      commitSceneTransition(oa3Key, () => {
+        setOutcomeFrameIdx(2);
+      });
+      scheduleTimeout(() => {
         finishOutcomeSequence(selectedChoice, mistakesMade);
-      }, 850);
+      }, 550);
     }
   };
 
@@ -1082,12 +1107,17 @@ export const CinematicStoryPlayer: React.FC<CinematicStoryPlayerProps> = ({
     );
     if (!optimalChoice) return;
     clearAutoTimers();
-    setSelectedChoice(optimalChoice);
-    setIsAnnotatedReplay(true);
-    setSequenceComplete(true);
-    setRescueStage('completed');
-    setOutcomeFrameIdx(0);
-    nafasAudio.playPageTurn();
+    const oa1Key =
+      optimalChoice.consequenceBeat.playbackFrames?.[0]?.mediaKey ??
+      optimalChoice.consequenceBeat.mediaKey;
+    commitSceneTransition(oa1Key, () => {
+      setSelectedChoice(optimalChoice);
+      setIsAnnotatedReplay(true);
+      setSequenceComplete(true);
+      setRescueStage('completed');
+      setOutcomeFrameIdx(0);
+      nafasAudio.playPageTurn();
+    });
   };
 
   // Keyboard Accessibility (Space/Enter to advance, 1/2/3 for choices, Esc for More menu)
@@ -1902,6 +1932,7 @@ export const CinematicStoryPlayer: React.FC<CinematicStoryPlayerProps> = ({
             activeHandTarget={activeHandTarget}
             autoAnimateHandToTarget={autoAnimateHand}
             onHandTargetReached={() => {
+              if (autoPerforming) return;
               if (rescueStage === 'place_hands_back') {
                 handlePlaceHandsBack();
               } else if (rescueStage === 'place_hands_front') {
@@ -2866,8 +2897,13 @@ export const CinematicStoryPlayer: React.FC<CinematicStoryPlayerProps> = ({
                       <button
                         key={fr.id}
                         type="button"
-                        onClick={() => setOutcomeFrameIdx(i)}
-                        className={`px-2 py-2 rounded-xl text-[11px] font-extrabold border transition-all ${
+                        onClick={() => {
+                          commitSceneTransition(fr.mediaKey, () => {
+                            nafasAudio.playPageTurn();
+                            setOutcomeFrameIdx(i);
+                          });
+                        }}
+                        className={`px-2 py-2 rounded-xl text-[11px] font-extrabold border transition-all cursor-pointer ${
                           outcomeFrameIdx === i
                             ? 'bg-[#13B8B0] text-[#071F2E] border-[#13B8B0]'
                             : 'bg-[#123B50] text-[#A9C0CC] border-[#285064]'
@@ -3007,8 +3043,16 @@ export const CinematicStoryPlayer: React.FC<CinematicStoryPlayerProps> = ({
                     {nextLevel ? (
                       <button
                         type="button"
+                        onMouseEnter={() => {
+                          imagePreloader.warmLevelOnHover(nextLevel);
+                          nafasAudio.prefetchLevelAudio(nextLevel.id);
+                        }}
+                        onPointerDown={() => {
+                          imagePreloader.preloadLevelSequence(nextLevel);
+                          nafasAudio.prefetchLevelAudio(nextLevel.id);
+                        }}
                         onClick={() => startLevel(nextLevel.id)}
-                        className="w-full inline-flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#13B8B0] hover:bg-[#43C7D1] text-[#071F2E] font-extrabold text-sm shadow-lg min-h-[48px]"
+                        className="w-full inline-flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#13B8B0] hover:bg-[#43C7D1] text-[#071F2E] font-extrabold text-sm shadow-lg min-h-[48px] cursor-pointer"
                       >
                         <span>
                           {isAr

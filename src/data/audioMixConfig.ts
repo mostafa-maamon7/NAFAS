@@ -187,7 +187,7 @@ export const DEFAULT_CUE_MIX_TABLE: Record<string, CueMixEntry> = {
   sfx_chair_scrape: { gainDb: -1.0, pan: -0.15, pitchJitterPct: 2, gainJitterDb: 1.0, triggersDuck: true, role: 'Chair pushed back during onset' },
   sfx_utensil_drop: { gainDb: -1.5, pan: 0.15, pitchJitterPct: 2, gainJitterDb: 1.0, triggersDuck: false, role: 'Cutlery clink on table' },
   sfx_body_collapse: { gainDb: -0.5, pan: 0, pitchJitterPct: 1.5, gainJitterDb: 0.8, triggersDuck: true, role: 'Cushioned collapse onto floor' },
-  sfx_phone_dial: { gainDb: 0.0, pan: 0.2, pitchJitterPct: 0, gainJitterDb: 0.5, triggersDuck: true, role: 'Calling EMS (123/911) tone' },
+  sfx_phone_dial: { gainDb: 0.0, pan: 0.2, pitchJitterPct: 0, gainJitterDb: 0.5, triggersDuck: true, role: 'Calling Egypt Ambulance (123) tone' },
   sfx_ambulance_distant: { gainDb: -4.5, pan: 0.25, pitchJitterPct: 0, gainJitterDb: 0.5, filterHz: 2400, triggersDuck: false, role: 'Very soft distant EMS arrival on OA3 only' },
   sfx_aed_beep: { gainDb: -2.0, pan: 0.1, pitchJitterPct: 0, gainJitterDb: 0.5, filterHz: 5200, triggersDuck: false, role: 'Calm AED instruction chime' },
   sfx_ui_page: { gainDb: -2.5, pan: 0, pitchJitterPct: 2, gainJitterDb: 0.8, triggersDuck: false, role: 'Subtle story beat page turn' },

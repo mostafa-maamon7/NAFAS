@@ -105,6 +105,9 @@ class NafasAudioEngine {
 
   private bufferCache = new Map<string, AudioBuffer>();
   private loadingPromises = new Map<string, Promise<AudioBuffer | null>>();
+  private rawBytesCache = new Map<string, ArrayBuffer>();
+  private rawBytesInFlight = new Map<string, Promise<ArrayBuffer | null>>();
+  private prefetchedLevels = new Set<string>();
 
   // Currently playing looped sources
   private currentMusicSource: AudioBufferSourceNode | null = null;
@@ -737,6 +740,126 @@ class NafasAudioEngine {
     return el.canPlayType('audio/ogg; codecs="vorbis"') !== '';
   }
 
+  private shouldConserveBandwidth(): boolean {
+    if (typeof navigator === 'undefined') return false;
+    const conn = (
+      navigator as Navigator & {
+        connection?: { saveData?: boolean; effectiveType?: string };
+      }
+    ).connection;
+    if (!conn) return false;
+    return Boolean(
+      conn.saveData ||
+        conn.effectiveType === 'slow-2g' ||
+        conn.effectiveType === '2g'
+    );
+  }
+
+  /**
+   * Silently prefetch raw audio bytes over HTTP into memory WITHOUT touching AudioContext.
+   * Safe to run on SimulationCenterView hover/idle with zero autoplay warnings or CPU decode spikes.
+   */
+  private async fetchRawBytes(soundId: string): Promise<ArrayBuffer | null> {
+    if (this.bufferCache.has(soundId)) return null;
+    if (this.rawBytesCache.has(soundId)) {
+      return this.rawBytesCache.get(soundId) || null;
+    }
+    const inFlight = this.rawBytesInFlight.get(soundId);
+    if (inFlight) return inFlight;
+
+    const entry: AudioAssetEntry | undefined = AUDIO_MANIFEST_BY_ID[soundId];
+    if (!entry || entry.status !== 'ready' || !entry.file) {
+      return null;
+    }
+
+    const promise = (async () => {
+      const urls = [entry.file];
+      if (entry.oggFile && this.canPlayOgg()) {
+        urls.push(entry.oggFile);
+      }
+      for (const url of urls) {
+        try {
+          const res = await fetch(url);
+          if (!res.ok) continue;
+          const arrayBuf = await res.arrayBuffer();
+          this.rawBytesCache.set(soundId, arrayBuf);
+          return arrayBuf;
+        } catch {
+          // Try fallback format
+        }
+      }
+      return null;
+    })();
+
+    this.rawBytesInFlight.set(soundId, promise);
+    const result = await promise;
+    this.rawBytesInFlight.delete(soundId);
+    return result;
+  }
+
+  /** Idle prefetch of tiny shared UI sound effects (page turn, select, hand snap, star chime) */
+  public prefetchCoreUiSounds() {
+    if (typeof window === 'undefined' || this.shouldConserveBandwidth()) return;
+    const coreIds = [
+      'sfx_ui_page',
+      'sfx_ui_select',
+      'sfx_hand_place',
+      'sfx_ui_star',
+    ];
+    void (async () => {
+      for (let i = 0; i < coreIds.length; i += 2) {
+        await Promise.all(
+          coreIds.slice(i, i + 2).map((id) => this.fetchRawBytes(id).catch(() => null))
+        );
+      }
+    })();
+  }
+
+  /**
+   * Prefetch a level's opening audio assets (calm music, ambience, and core UI SFX)
+   * silently into memory on card hover/focus/pointerdown or before level transition.
+   */
+  public prefetchLevelAudio(levelId: string) {
+    if (typeof window === 'undefined' || this.shouldConserveBandwidth()) return;
+    const upper = levelId.toUpperCase();
+    if (this.prefetchedLevels.has(upper)) return;
+    this.prefetchedLevels.add(upper);
+
+    const sheet = getLevelAudioCueSheet(upper);
+    const ids = Array.from(
+      new Set<string>([
+        sheet.userActions.pageTurn,
+        sheet.userActions.hotspotTap,
+        sheet.userActions.choiceSelect,
+        sheet.userActions.handPlace,
+        this.resolveTrackForLevelAndMood(upper, 'calm'),
+        sheet.ambienceId,
+      ])
+    ).filter((id) => !this.bufferCache.has(id) && !this.rawBytesCache.has(id));
+
+    if (ids.length === 0) return;
+
+    void (async () => {
+      for (let i = 0; i < ids.length; i += 2) {
+        await Promise.all(
+          ids.slice(i, i + 2).map((id) => this.fetchRawBytes(id).catch(() => null))
+        );
+      }
+    })();
+  }
+
+  public getPrefetchSummary(): {
+    decodedBuffers: number;
+    prefetchedRawBytes: number;
+    prefetchedLevels: string[];
+  } {
+    return {
+      decodedBuffers: this.bufferCache.size,
+      prefetchedRawBytes: this.rawBytesCache.size,
+      prefetchedLevels: Array.from(this.prefetchedLevels),
+    };
+  }
+
   public async loadBuffer(soundId: string): Promise<AudioBuffer | null> {
     if (this.bufferCache.has(soundId)) {
       return this.bufferCache.get(soundId) || null;
@@ -753,6 +876,23 @@ class NafasAudioEngine {
     if (!ctx) return null;
 
     const promise = (async () => {
+      // Fast path: decode directly from prefetched RAM bytes (zero network delay)
+      const prefetched =
+        this.rawBytesCache.get(soundId) ||
+        (this.rawBytesInFlight.has(soundId)
+          ? await this.rawBytesInFlight.get(soundId)
+          : null);
+      if (prefetched) {
+        try {
+          const decoded = await ctx.decodeAudioData(prefetched.slice(0));
+          this.bufferCache.set(soundId, decoded);
+          this.rawBytesCache.delete(soundId);
+          return decoded;
+        } catch {
+          this.rawBytesCache.delete(soundId);
+        }
+      }
+
       const urls = [entry.file];
       if (entry.oggFile && this.canPlayOgg()) {
         urls.push(entry.oggFile);
@@ -778,45 +918,76 @@ class NafasAudioEngine {
     return result;
   }
 
-  /** Preload all sounds required for a level so interactive taps have zero latency */
+  /** Preload sounds required for a level in throttled waves so UI & images stay 60fps */
   public preloadLevelAssets(levelId: string) {
     const sheet = getLevelAudioCueSheet(levelId);
-    const ids = new Set<string>();
-    ids.add(this.resolveTrackForLevelAndMood(levelId, 'calm'));
-    ids.add(this.resolveTrackForLevelAndMood(levelId, 'tension'));
-    ids.add(this.resolveTrackForLevelAndMood(levelId, 'hopeful'));
-    ids.add(this.resolveTrackForLevelAndMood(levelId, 'neutral'));
-    ids.add(sheet.ambienceId);
+
+    // Wave 1 (immediate): tiny UI feedback clips + starting calm music + ambience
+    const immediateIds = new Set<string>([
+      sheet.userActions.pageTurn,
+      sheet.userActions.hotspotTap,
+      sheet.userActions.choiceSelect,
+      sheet.userActions.handPlace,
+      this.resolveTrackForLevelAndMood(levelId, 'calm'),
+      sheet.ambienceId,
+    ]);
+
+    // Wave 2 (background, low concurrency): beat cues, outcome cues, mood tracks, pools
+    const deferredIds = new Set<string>();
+    deferredIds.add(this.resolveTrackForLevelAndMood(levelId, 'tension'));
+    deferredIds.add(this.resolveTrackForLevelAndMood(levelId, 'hopeful'));
+    deferredIds.add(this.resolveTrackForLevelAndMood(levelId, 'neutral'));
+    deferredIds.add(sheet.userActions.starChime);
 
     Object.values(sheet.beats).forEach((b) =>
-      b.cues.forEach((c) => ids.add(c.sound))
+      b.cues.forEach((c) => deferredIds.add(c.sound))
     );
     Object.values(sheet.outcomes).forEach((o) =>
-      o.cues.forEach((c) => ids.add(c.sound))
+      o.cues.forEach((c) => deferredIds.add(c.sound))
     );
-
-    ids.add(sheet.userActions.hotspotTap);
-    ids.add(sheet.userActions.choiceSelect);
-    ids.add(sheet.userActions.handPlace);
-    ids.add(sheet.userActions.pageTurn);
-    ids.add(sheet.userActions.starChime);
     if (sheet.userActions.unresponsiveStep) {
-      ids.add(sheet.userActions.unresponsiveStep);
+      deferredIds.add(sheet.userActions.unresponsiveStep);
     }
     if (sheet.userActions.backBlowPool) {
       SOUND_VARIATION_POOLS[sheet.userActions.backBlowPool].forEach((id) =>
-        ids.add(id)
+        deferredIds.add(id)
       );
     }
     if (sheet.userActions.frontThrustPool) {
       SOUND_VARIATION_POOLS[sheet.userActions.frontThrustPool].forEach((id) =>
-        ids.add(id)
+        deferredIds.add(id)
       );
     }
 
-    ids.forEach((id) => {
-      this.loadBuffer(id).catch(() => {});
-    });
+    immediateIds.forEach((id) => deferredIds.delete(id));
+
+    const runWave = async () => {
+      // Load immediate clips first (2 at a time)
+      const immList = Array.from(immediateIds).filter(
+        (id) => !this.bufferCache.has(id)
+      );
+      for (let i = 0; i < immList.length; i += 2) {
+        if (this.state.activeLevelId !== levelId) return;
+        await Promise.all(
+          immList.slice(i, i + 2).map((id) => this.loadBuffer(id).catch(() => null))
+        );
+      }
+
+      // Gently decode deferred clips 2 at a time with short yields
+      const defList = Array.from(deferredIds).filter(
+        (id) => !this.bufferCache.has(id)
+      );
+      for (let i = 0; i < defList.length; i += 2) {
+        if (this.state.activeLevelId !== levelId) return;
+        await new Promise((r) => window.setTimeout(r, 60));
+        if (this.state.activeLevelId !== levelId) return;
+        await Promise.all(
+          defList.slice(i, i + 2).map((id) => this.loadBuffer(id).catch(() => null))
+        );
+      }
+    };
+
+    void runWave();
   }
 
   // =========================================================================

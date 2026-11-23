@@ -59,7 +59,7 @@ export const UI_TRANSLATIONS = {
       shortText:
         'NAFAS is an educational and simulation platform. It does not replace emergency medical services or certified hands-on first-aid training.',
       emergencyAction:
-        'In a real emergency, call your local emergency number immediately:',
+        'In a real emergency in Egypt, call Egyptian Ambulance (123) or Emergency Services immediately:',
       reviewNotice:
         'All medical educational content and scenario logic are aligned with Resuscitation Council UK (2025) and American Red Cross first-aid guidelines and Dr. Mai Mahran’s choking lecture.',
     },
@@ -282,7 +282,7 @@ export const UI_TRANSLATIONS = {
       shortText:
         'منصة «نَفَس» هي منصة تعليمية وتدريبية قائمة على المحاكاة، ولا تُعد بديلاً عن خدمات الطوارئ الطبية أو دورات الإسعافات الأولية المعتمدة.',
       emergencyAction:
-        'في حالات الطوارئ الحقيقية، اتصل فوراً برقم الطوارئ المحلي:',
+        'في حالات الطوارئ الحقيقية داخل مصر، اتصل فوراً بهيئة الإسعاف المصرية (123) أو الطوارئ:',
       reviewNotice:
         'جميع المحتويات التعليمية ومسارات المحاكاة مبنية على محاضرة د. مي مهران وإرشادات مجلس الإنعاش البريطاني (2025) والصليب الأحمر الأمريكي، وتخضع للمراجعة الأكاديمية والطبية.',
     },

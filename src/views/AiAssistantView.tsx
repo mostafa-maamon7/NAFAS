@@ -79,8 +79,8 @@ export const AiAssistantView: React.FC = () => {
           ar: 'عاجل: بروتوكول طوارئ الاختناق الفوري',
         },
         message: {
-          en: 'If someone is choking right now, STOP using this app and call emergency services (997 / 123 / 999 / 911 / 112) on speakerphone immediately. If they cannot cough or speak: perform 5 back blows and 5 abdominal thrusts (or 5 back blows and 5 two-finger chest thrusts for an infant <1 yr).',
-          ar: 'إذا كان هناك شخص يختنق الآن، توقف فوراً عن استخدام التطبيق واتصل بالإسعاف (997 / 123 / 999 / 911 / 112) عبر مكبر الصوت. إذا لم يستطع السعال أو الكلام: نفّذ 5 ضربات ظهرية و5 ضغطات بطنية (أو 5 ضربات ظهرية و5 ضغطات صدرية بإصبعين للرضيع أقل من سنة).',
+          en: 'If someone is choking right now, STOP using this app and call Egyptian Ambulance (123) or Emergency Police (122) on speakerphone immediately. If they cannot cough or speak: perform 5 back blows and 5 abdominal thrusts (or 5 back blows and 5 two-finger chest thrusts for an infant <1 yr).',
+          ar: 'إذا كان هناك شخص يختنق الآن، توقف فوراً عن استخدام التطبيق واتصل بهيئة الإسعاف المصرية (123) أو النجدة (122) عبر مكبر الصوت. إذا لم يستطع السعال أو الكلام: نفّذ 5 ضربات ظهرية و5 ضغطات بطنية (أو 5 ضربات ظهرية و5 ضغطات صدرية بإصبعين للرضيع أقل من سنة).',
         },
       });
       return;
@@ -175,14 +175,31 @@ export const AiAssistantView: React.FC = () => {
             </h2>
             <p className="text-xs text-[#A9C0CC] mt-0.5">
               {isAr
-                ? 'إذا كانت هناك حالة اختناق حقيقية الآن، لا تنتظر الإجابة هنا — اتصل فوراً برقم الطوارئ المحلي وابدأ الإسعاف الأولي.'
-                : 'If this is a real, ongoing choking emergency, call your local emergency number immediately and begin physical rescue maneuvers.'}
+                ? 'إذا كانت هناك حالة اختناق حقيقية الآن، لا تنتظر الإجابة هنا — اتصل فوراً بهيئة الإسعاف المصرية (123) أو الطوارئ وابدأ الإسعاف الأولي.'
+                : 'If this is a real, ongoing choking emergency in Egypt, call Egyptian Ambulance (123) immediately and begin physical rescue maneuvers.'}
             </p>
           </div>
         </div>
 
-        <div className="px-4 py-2 rounded-xl bg-[#071F2E] border border-[#DC5252]/50 text-[#DC5252] text-xs sm:text-sm font-extrabold tracking-wider whitespace-nowrap self-start sm:self-center">
-          997 · 123 · 999 · 911 · 112
+        <div className="flex flex-wrap items-center gap-2 self-start sm:self-center shrink-0">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#DC5252]/15 border border-[#DC5252]/60 text-[#F3F7F8] text-xs font-extrabold whitespace-nowrap">
+            <span>{isAr ? 'الإسعاف' : 'Ambulance'}</span>
+            <span dir="ltr" className="[unicode-bidi:isolate] tabular-nums text-[#FF7A85]">
+              123
+            </span>
+          </span>
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-[#071F2E] border border-[#285064] text-[#C8DCE6] text-xs font-bold whitespace-nowrap">
+            <span>{isAr ? 'النجدة' : 'Police'}</span>
+            <span dir="ltr" className="[unicode-bidi:isolate] tabular-nums text-[#43C7D1]">
+              122
+            </span>
+          </span>
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-[#071F2E] border border-[#285064] text-[#C8DCE6] text-xs font-bold whitespace-nowrap">
+            <span>{isAr ? 'المطافئ' : 'Fire'}</span>
+            <span dir="ltr" className="[unicode-bidi:isolate] tabular-nums text-[#43C7D1]">
+              180
+            </span>
+          </span>
         </div>
       </section>
 

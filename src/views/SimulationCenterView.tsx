@@ -1,4 +1,11 @@
-import React, { useMemo, useState } from 'react';
+import React, {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import {
   Play,
   CheckCircle2,
@@ -8,6 +15,7 @@ import {
   HelpCircle,
   ShieldCheck,
   RotateCcw,
+  GraduationCap,
 } from 'lucide-react';
 import { useNafas } from '../context/NafasContext';
 import {
@@ -18,9 +26,26 @@ import {
   validateStoryLevels,
 } from '../data/storyLevels';
 import { AgeCategory, StoryLevel } from '../types/nafas';
-import { CinematicStoryPlayer } from '../components/CinematicStoryPlayer';
 import { STORY_MEDIA } from '../data/storyMedia';
 import { InteractiveLearnCard } from '../components/InteractiveLearnCard';
+import { imagePreloader } from '../utils/imagePreloader';
+import { nafasAudio } from '../utils/nafasAudio';
+
+// Code-split & prefetchable lazy loader for the heavy CinematicStoryPlayer module
+let playerModulePromise: Promise<{
+  default: React.ComponentType<{ level: StoryLevel }>;
+}> | null = null;
+
+const loadCinematicStoryPlayer = () => {
+  if (!playerModulePromise) {
+    playerModulePromise = import('../components/CinematicStoryPlayer').then(
+      (mod) => ({ default: mod.CinematicStoryPlayer })
+    );
+  }
+  return playerModulePromise;
+};
+
+const LazyCinematicStoryPlayer = React.lazy(loadCinematicStoryPlayer);
 
 // 3 Final Quick Self-Check Quiz Questions (Warm, plain-language explanations, zero slide numbers in UI)
 const LECTURE_MINI_QUIZ = [
@@ -198,8 +223,119 @@ export const SimulationCenterView: React.FC = () => {
     );
   }, [simulationCampaignFilter]);
 
+  // Unified resource prefetch coordinator (JS chunk + WebP images + silent audio bytes)
+  const prefetchLevelResources = useCallback(
+    (lvl: StoryLevel, mode: 'viewport' | 'hover' | 'intent') => {
+      if (mode === 'viewport') {
+        imagePreloader.prefetchLevelCover(lvl);
+        return;
+      }
+      void loadCinematicStoryPlayer();
+      nafasAudio.prefetchLevelAudio(lvl.id);
+      if (mode === 'intent') {
+        imagePreloader.preloadLevelSequence(lvl);
+      } else {
+        imagePreloader.warmLevelOnHover(lvl);
+      }
+    },
+    []
+  );
+
+  // 1. Idle Prefetch: quietly warm the lazy player chunk, core UI SFX, and featured Level A2
+  useEffect(() => {
+    if (activeLevel) return;
+    if (typeof window === 'undefined') return;
+
+    const runIdlePrefetch = () => {
+      void loadCinematicStoryPlayer();
+      nafasAudio.prefetchCoreUiSounds();
+      if (!imagePreloader.shouldConserveBandwidth()) {
+        imagePreloader.warmLevelOnHover(referenceLevelA2);
+        nafasAudio.prefetchLevelAudio(referenceLevelA2.id);
+      }
+    };
+
+    const winWithIdle = window as Window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+
+    if (typeof winWithIdle.requestIdleCallback === 'function') {
+      const idleId = winWithIdle.requestIdleCallback(runIdlePrefetch, {
+        timeout: 1200,
+      });
+      return () => winWithIdle.cancelIdleCallback?.(idleId);
+    }
+
+    const timerId = window.setTimeout(runIdlePrefetch, 350);
+    return () => window.clearTimeout(timerId);
+  }, [activeLevel, referenceLevelA2]);
+
+  // 2. Viewport-Aware Prefetch: IntersectionObserver warms S1 cover frames as level cards near the viewport
+  const cardElementRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+  const levelByIdMap = useMemo(() => {
+    const map = new Map<string, StoryLevel>();
+    CORE_STORY_LEVELS.forEach((l) => map.set(l.id, l));
+    return map;
+  }, []);
+
+  useEffect(() => {
+    if (activeLevel) return;
+    if (typeof IntersectionObserver === 'undefined') return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const levelId = entry.target.getAttribute('data-level-id');
+          if (!levelId) continue;
+          const lvl = levelByIdMap.get(levelId);
+          if (lvl) {
+            prefetchLevelResources(lvl, 'viewport');
+          }
+          observer.unobserve(entry.target);
+        }
+      },
+      { rootMargin: '220px 0px', threshold: 0.01 }
+    );
+
+    cardElementRefs.current.forEach((node) => {
+      observer.observe(node);
+    });
+
+    return () => observer.disconnect();
+  }, [activeLevel, filteredCoreLevels, levelByIdMap, prefetchLevelResources]);
+
+  const handleLaunchLevel = useCallback(
+    (lvl: StoryLevel) => {
+      prefetchLevelResources(lvl, 'intent');
+      startLevel(lvl.id);
+    },
+    [prefetchLevelResources, startLevel]
+  );
+
   if (activeLevel) {
-    return <CinematicStoryPlayer level={activeLevel} />;
+    return (
+      <Suspense
+        fallback={
+          <div
+            data-testid="level-player-loading-fallback"
+            className="max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-4"
+          >
+            <div className="h-14 rounded-2xl bg-[#0B2D40] border border-[#285064] animate-pulse" />
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+              <div className="lg:col-span-8 aspect-[640/357] rounded-2xl bg-[#0B2D40] border border-[#285064] animate-pulse" />
+              <div className="lg:col-span-4 space-y-3">
+                <div className="h-32 rounded-2xl bg-[#0B2D40] border border-[#285064] animate-pulse" />
+                <div className="h-44 rounded-2xl bg-[#0B2D40] border border-[#285064] animate-pulse" />
+              </div>
+            </div>
+          </div>
+        }
+      >
+        <LazyCinematicStoryPlayer level={activeLevel} />
+      </Suspense>
+    );
   }
 
   const filterTabs: {
@@ -229,9 +365,10 @@ export const SimulationCenterView: React.FC = () => {
     },
   ];
 
-  const renderLevelCard = (lvl: StoryLevel) => {
+  const renderLevelCard = (lvl: StoryLevel, index: number) => {
     const coverKey = lvl.storyBeats[0]?.mediaKey || 'hero_nafas_awareness';
     const coverAsset = STORY_MEDIA[coverKey] || STORY_MEDIA.hero_nafas_awareness;
+    const isAboveFoldCard = index < 3;
 
     const severityBadge =
       lvl.severity === 'mild'
@@ -255,6 +392,18 @@ export const SimulationCenterView: React.FC = () => {
     return (
       <div
         key={lvl.id}
+        data-level-id={lvl.id}
+        ref={(el) => {
+          if (el) {
+            cardElementRefs.current.set(lvl.id, el);
+          } else {
+            cardElementRefs.current.delete(lvl.id);
+          }
+        }}
+        onMouseEnter={() => prefetchLevelResources(lvl, 'hover')}
+        onFocus={() => prefetchLevelResources(lvl, 'hover')}
+        onPointerDown={() => prefetchLevelResources(lvl, 'intent')}
+        onTouchStart={() => prefetchLevelResources(lvl, 'hover')}
         className="bg-[#0B2D40] border border-[#285064] hover:border-[#43C7D1] rounded-2xl overflow-hidden flex flex-col justify-between shadow-xl transition-all"
       >
         <div>
@@ -263,6 +412,9 @@ export const SimulationCenterView: React.FC = () => {
             <img
               src={coverAsset.src}
               alt={coverAsset.alt[language]}
+              loading={isAboveFoldCard ? 'eager' : 'lazy'}
+              decoding="async"
+              fetchPriority={isAboveFoldCard ? 'auto' : 'low'}
               className={`w-full h-full object-cover ${
                 coverAsset.cameraCrop || ''
               }`}
@@ -312,7 +464,7 @@ export const SimulationCenterView: React.FC = () => {
         <div className="p-5 pt-0">
           <button
             type="button"
-            onClick={() => startLevel(lvl.id)}
+            onClick={() => handleLaunchLevel(lvl)}
             className="w-full min-h-[48px] px-4 py-2.5 rounded-xl bg-[#13B8B0] hover:bg-[#43C7D1] text-[#071F2E] font-extrabold text-sm inline-flex items-center justify-center gap-2 transition-colors cursor-pointer"
           >
             <Play className="w-4 h-4 fill-current" />
@@ -380,7 +532,10 @@ export const SimulationCenterView: React.FC = () => {
             <div className="flex flex-wrap items-center gap-3 pt-1">
               <button
                 type="button"
-                onClick={() => startLevel('A2')}
+                onMouseEnter={() => prefetchLevelResources(referenceLevelA2, 'hover')}
+                onFocus={() => prefetchLevelResources(referenceLevelA2, 'hover')}
+                onPointerDown={() => prefetchLevelResources(referenceLevelA2, 'intent')}
+                onClick={() => handleLaunchLevel(referenceLevelA2)}
                 className="min-h-[50px] px-6 py-3 rounded-xl bg-[#13B8B0] hover:bg-[#43C7D1] text-[#071F2E] font-extrabold text-sm sm:text-base inline-flex items-center gap-2 shadow-lg cursor-pointer"
               >
                 <Play className="w-4 h-4 fill-current" />
@@ -393,7 +548,26 @@ export const SimulationCenterView: React.FC = () => {
 
               <button
                 type="button"
-                onClick={() => startLevel('C1')}
+                onMouseEnter={() => {
+                  const c1 = getStoryLevelById('C1');
+                  if (c1) prefetchLevelResources(c1, 'hover');
+                }}
+                onFocus={() => {
+                  const c1 = getStoryLevelById('C1');
+                  if (c1) prefetchLevelResources(c1, 'hover');
+                }}
+                onPointerDown={() => {
+                  const c1 = getStoryLevelById('C1');
+                  if (c1) prefetchLevelResources(c1, 'intent');
+                }}
+                onClick={() => {
+                  const c1 = getStoryLevelById('C1');
+                  if (c1) {
+                    handleLaunchLevel(c1);
+                  } else {
+                    startLevel('C1');
+                  }
+                }}
                 className="min-h-[50px] px-5 py-3 rounded-xl bg-[#123B50] hover:bg-[#19465B] border border-[#43C7D1]/50 text-[#F3F7F8] font-bold text-xs sm:text-sm inline-flex items-center gap-2 cursor-pointer"
               >
                 <Play className="w-3.5 h-3.5 text-[#43C7D1]" />
@@ -404,17 +578,37 @@ export const SimulationCenterView: React.FC = () => {
                 </span>
               </button>
             </div>
+
+            <div className="pt-1">
+              <button
+                type="button"
+                data-testid="sim-supervision-credit"
+                onClick={() => navigateTo('about')}
+                className="inline-flex items-center gap-2 text-xs text-[#9EB9C6] hover:text-[#F3F7F8] transition-colors cursor-pointer"
+              >
+                <GraduationCap className="w-3.5 h-3.5 text-[#43C7D1] shrink-0" />
+                <span>
+                  {isAr ? 'محتوى ومحاكاة تحت إشراف ' : 'Simulation & curriculum supervised by '}
+                  <strong className="font-bold text-[#E6F4F7]">
+                    {isAr ? 'د. مي مهران' : 'Dr. Mai Mahran'}
+                  </strong>
+                </span>
+              </button>
+            </div>
           </div>
 
           <div className="lg:col-span-5">
             <div
-              onClick={() => startLevel('A2')}
+              onMouseEnter={() => prefetchLevelResources(referenceLevelA2, 'hover')}
+              onFocus={() => prefetchLevelResources(referenceLevelA2, 'hover')}
+              onPointerDown={() => prefetchLevelResources(referenceLevelA2, 'intent')}
+              onClick={() => handleLaunchLevel(referenceLevelA2)}
               role="button"
               tabIndex={0}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
-                  startLevel('A2');
+                  handleLaunchLevel(referenceLevelA2);
                 }
               }}
               className="relative aspect-video rounded-xl overflow-hidden border border-[#43C7D1]/50 bg-[#071F2E] cursor-pointer"
@@ -422,6 +616,9 @@ export const SimulationCenterView: React.FC = () => {
               <img
                 src={STORY_MEDIA.a2_s3_clutch_throat_silent.src}
                 alt={STORY_MEDIA.a2_s3_clutch_throat_silent.alt[language]}
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
                 className="w-full h-full object-cover"
               />
             </div>

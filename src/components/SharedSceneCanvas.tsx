@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import {
   CalibratedHotspot,
   clampNormalizedCoords,
@@ -8,6 +8,7 @@ import {
 } from '../data/hotspotCalibration';
 import { getManifestEntry } from '../data/imageManifest';
 import { Language } from '../types/nafas';
+import { imagePreloader } from '../utils/imagePreloader';
 
 export interface SharedSceneCanvasProps {
   imageId: string;
@@ -87,12 +88,12 @@ export const SharedSceneCanvas: React.FC<SharedSceneCanvasProps> = ({
   const [renderedWidth, setRenderedWidth] = useState<number>(640);
   const [parallax, setParallax] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
+  const resolvedSrc = imagePreloader.getResolvedUrl(imageSrc);
+
   // ============================================================================
-  // SYNCHRONOUS DOUBLE-BUFFERED A/B STAGE
-  // Incoming decoded image commits to the active buffer on the EXACT SAME render
-  // frame as the caption (0ms skew, zero desync frames even under 4x CPU load).
-  // The outgoing buffer stays underneath at its frozen Ken Burns scale while the
-  // incoming buffer crossfades 0 -> 1 cleanly over 400ms (0ms reduced-motion).
+  // PERSISTENT DOUBLE-BUFFERED HTML <img> A/B STAGE
+  // Both <img> nodes stay permanently mounted (zero SVG <image> remount decode
+  // lag or blink). Transitions run purely on GPU-composited opacity & transform.
   // ============================================================================
   const [bufferState, setBufferState] = useState<{
     activeSlot: 'A' | 'B';
@@ -104,55 +105,54 @@ export const SharedSceneCanvas: React.FC<SharedSceneCanvasProps> = ({
     transitionId: 0,
     slotA: {
       imageId,
-      imageSrc,
+      imageSrc: resolvedSrc,
       imageAlt,
       scale: 1,
       kenBurnsActive: false,
     },
     slotB: {
       imageId,
-      imageSrc,
+      imageSrc: resolvedSrc,
       imageAlt,
       scale: 1,
       kenBurnsActive: false,
     },
   }));
 
-  const currentActiveBuf =
-    bufferState.activeSlot === 'A' ? bufferState.slotA : bufferState.slotB;
-
-  // Synchronous state update during render when imageSrc changes (React-recommended derived commit)
-  if (currentActiveBuf.imageSrc !== imageSrc) {
-    const incomingSlot: 'A' | 'B' = bufferState.activeSlot === 'A' ? 'B' : 'A';
-    const nextSlotData: BufferSlotState = {
-      imageId,
-      imageSrc,
-      imageAlt,
-      scale: 1,
-      kenBurnsActive: false,
-    };
-    setBufferState({
-      activeSlot: incomingSlot,
-      transitionId: bufferState.transitionId + 1,
-      slotA: incomingSlot === 'A' ? nextSlotData : bufferState.slotA,
-      slotB: incomingSlot === 'B' ? nextSlotData : bufferState.slotB,
+  useLayoutEffect(() => {
+    setBufferState((prev) => {
+      const currentBuf = prev.activeSlot === 'A' ? prev.slotA : prev.slotB;
+      if (currentBuf.imageSrc !== resolvedSrc) {
+        const incomingSlot: 'A' | 'B' = prev.activeSlot === 'A' ? 'B' : 'A';
+        const nextSlotData: BufferSlotState = {
+          imageId,
+          imageSrc: resolvedSrc,
+          imageAlt,
+          scale: 1,
+          kenBurnsActive: false,
+        };
+        return {
+          activeSlot: incomingSlot,
+          transitionId: prev.transitionId + 1,
+          slotA: incomingSlot === 'A' ? nextSlotData : prev.slotA,
+          slotB: incomingSlot === 'B' ? nextSlotData : prev.slotB,
+        };
+      }
+      if (currentBuf.imageId !== imageId || currentBuf.imageAlt !== imageAlt) {
+        const updatedSlot: BufferSlotState = {
+          ...currentBuf,
+          imageId,
+          imageAlt,
+        };
+        return {
+          ...prev,
+          slotA: prev.activeSlot === 'A' ? updatedSlot : prev.slotA,
+          slotB: prev.activeSlot === 'B' ? updatedSlot : prev.slotB,
+        };
+      }
+      return prev;
     });
-  } else if (
-    currentActiveBuf.imageId !== imageId ||
-    currentActiveBuf.imageAlt !== imageAlt
-  ) {
-    // Sync language alt/id without re-triggering crossfade
-    const updatedSlot: BufferSlotState = {
-      ...currentActiveBuf,
-      imageId,
-      imageAlt,
-    };
-    setBufferState((prev) => ({
-      ...prev,
-      slotA: prev.activeSlot === 'A' ? updatedSlot : prev.slotA,
-      slotB: prev.activeSlot === 'B' ? updatedSlot : prev.slotB,
-    }));
-  }
+  }, [resolvedSrc, imageId, imageAlt]);
 
   const activeSlot = bufferState.activeSlot;
   const slotA = bufferState.slotA;
@@ -197,6 +197,11 @@ export const SharedSceneCanvas: React.FC<SharedSceneCanvasProps> = ({
     x: activeHandTarget?.initialDragPos?.x ?? 0.18,
     y: activeHandTarget?.initialDragPos?.y ?? 0.28,
   });
+  const handPosRef = useRef(handPos);
+  handPosRef.current = handPos;
+  const onHandTargetReachedRef = useRef(onHandTargetReached);
+  onHandTargetReachedRef.current = onHandTargetReached;
+
   const [isDraggingHand, setIsDraggingHand] = useState(false);
   const [isDraggingEditorId, setIsDraggingEditorId] = useState<string | null>(null);
   const handTargetTriggeredRef = useRef<string | null>(null);
@@ -229,49 +234,45 @@ export const SharedSceneCanvas: React.FC<SharedSceneCanvasProps> = ({
       return;
     }
     handTargetTriggeredRef.current = null;
-    setHandPos(
-      activeHandTarget.initialDragPos ?? {
-        x: activeHandTarget.panel === 'right' ? 0.88 : 0.16,
-        y: 0.28,
-      }
-    );
+    const initial = activeHandTarget.initialDragPos ?? {
+      x: activeHandTarget.panel === 'right' ? 0.88 : 0.16,
+      y: 0.28,
+    };
+    handPosRef.current = initial;
+    setHandPos(initial);
   }, [activeHandTarget]);
 
   // "Do it for me" smooth animation of hand marker directly to target.(x, y)
+  // NOTE: Uses handPosRef (NOT handPos in deps) so RAF runs once smoothly without restarting!
   useEffect(() => {
     if (!activeHandTarget || !autoAnimateHandToTarget) return;
-    const startX = handPos.x;
-    const startY = handPos.y;
+    const startX = handPosRef.current.x;
+    const startY = handPosRef.current.y;
     const endX = activeHandTarget.x;
     const endY = activeHandTarget.y;
-    const duration = prefersReducedMotion ? 50 : 520;
+    const duration = prefersReducedMotion ? 40 : 380;
     const startTime = performance.now();
 
     let rafId = 0;
     const step = (now: number) => {
       const t = Math.min(1, (now - startTime) / duration);
       const ease = 1 - Math.pow(1 - t, 3);
-      setHandPos({
+      const nextPos = {
         x: Number((startX + (endX - startX) * ease).toFixed(4)),
         y: Number((startY + (endY - startY) * ease).toFixed(4)),
-      });
+      };
+      handPosRef.current = nextPos;
+      setHandPos(nextPos);
       if (t < 1) {
         rafId = requestAnimationFrame(step);
       } else if (handTargetTriggeredRef.current !== activeHandTarget.id) {
         handTargetTriggeredRef.current = activeHandTarget.id;
-        onHandTargetReached?.(activeHandTarget);
+        onHandTargetReachedRef.current?.(activeHandTarget);
       }
     };
     rafId = requestAnimationFrame(step);
     return () => cancelAnimationFrame(rafId);
-  }, [
-    activeHandTarget,
-    autoAnimateHandToTarget,
-    prefersReducedMotion,
-    onHandTargetReached,
-    handPos.x,
-    handPos.y,
-  ]);
+  }, [activeHandTarget, autoAnimateHandToTarget, prefersReducedMotion]);
 
   // Active scale on the interactive overlay group (strictly 1.0 during Look & hand placement; 1.016 during rhythm punchPulse)
   const overlayScale = !prefersReducedMotion && punchPulse ? 1.016 : 1;
@@ -466,6 +467,77 @@ export const SharedSceneCanvas: React.FC<SharedSceneCanvasProps> = ({
         </div>
       )}
 
+      {/* ====================================================================
+          PERSISTENT DOUBLE-BUFFERED HTML <img> LAYERS (A & B)
+          Permanently mounted beneath the interactive SVG overlay for instant
+          GPU-composited crossfades with zero SVG <image> re-decode flicker.
+          ==================================================================== */}
+      <div
+        data-testid="shared-scene-buffers"
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+        style={{
+          filter:
+            !prefersReducedMotion && desaturationPct > 0
+              ? `grayscale(${desaturationPct}%)`
+              : undefined,
+          transition: 'filter 380ms ease',
+        }}
+      >
+        {(['A', 'B'] as const).map((slotKey) => {
+          const buf = slotKey === 'A' ? slotA : slotB;
+          const isVisible = activeSlot === slotKey;
+          const slotScale =
+            !prefersReducedMotion && punchPulse && isVisible
+              ? Number((buf.scale * 1.016).toFixed(4))
+              : buf.scale;
+          const slotTx = isVisible ? activeTranslate.x : 0;
+          const slotTy = isVisible ? activeTranslate.y : 0;
+          const fadeMs = prefersReducedMotion ? 0 : Math.min(220, crossfadeDurationMs);
+
+          return (
+            <div
+              key={slotKey}
+              data-testid={`scene-buffer-${slotKey}`}
+              data-buffer-active={isVisible ? 'true' : 'false'}
+              data-buffer-image-id={buf.imageId}
+              className="absolute inset-0 w-full h-full will-change-transform"
+              style={{
+                opacity: isVisible ? 1 : 0,
+                zIndex: isVisible ? 2 : 1,
+                transition: `opacity ${fadeMs}ms ease-out`,
+              }}
+            >
+              <img
+                data-testid={
+                  isVisible
+                    ? 'shared-scene-image'
+                    : `shared-scene-image-standby-${slotKey}`
+                }
+                src={buf.imageSrc}
+                alt={isVisible ? buf.imageAlt : ''}
+                aria-hidden={!isVisible}
+                decoding="sync"
+                loading="eager"
+                draggable={false}
+                className="w-full h-full object-fill block select-none"
+                style={{
+                  transformOrigin: '50% 50%',
+                  transform: `translate3d(${slotTx}px, ${slotTy}px, 0) scale(${slotScale})`,
+                  transition:
+                    isDraggingHand || isDraggingEditorId
+                      ? 'none'
+                      : punchPulse
+                      ? 'transform 100ms cubic-bezier(0.2, 0.9, 0.3, 1.1)'
+                      : buf.kenBurnsActive && isVisible
+                      ? 'transform 7000ms cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                      : 'transform 260ms ease-out',
+                }}
+              />
+            </div>
+          );
+        })}
+      </div>
+
       <svg
         ref={svgRef}
         width={naturalWidth}
@@ -490,7 +562,7 @@ export const SharedSceneCanvas: React.FC<SharedSceneCanvasProps> = ({
           }
           onSceneTap?.();
         }}
-        className="w-full h-full block touch-none"
+        className="relative z-10 w-full h-full block touch-none"
       >
         <defs>
           {/* Edge-first radial gradient for spotlight dimming (max 25% opacity at edges, 14% interior) */}
@@ -540,76 +612,6 @@ export const SharedSceneCanvas: React.FC<SharedSceneCanvasProps> = ({
             );
           })()}
         </defs>
-
-        {/* ====================================================================
-            DOUBLE-BUFFERED IMAGE LAYERS (A & B) IN THE SHARED VIEWBOX
-            Each buffer retains its own Ken Burns scale during crossfade so
-            camera motion NEVER jumps or restarts on transition.
-            ==================================================================== */}
-        <g
-          data-testid="shared-scene-buffers"
-          style={{
-            filter:
-              !prefersReducedMotion && desaturationPct > 0
-                ? `grayscale(${desaturationPct}%)`
-                : undefined,
-            transition: 'filter 450ms ease',
-          }}
-        >
-          {(activeSlot === 'A' ? (['B', 'A'] as const) : (['A', 'B'] as const)).map((slotKey) => {
-            const buf = slotKey === 'A' ? slotA : slotB;
-            const isVisible = activeSlot === slotKey;
-            const slotScale =
-              !prefersReducedMotion && punchPulse && isVisible
-                ? Number((buf.scale * 1.016).toFixed(4))
-                : buf.scale;
-            const slotTx = isVisible ? activeTranslate.x : 0;
-            const slotTy = isVisible ? activeTranslate.y : 0;
-            const shouldAnimateIn =
-              isVisible && bufferState.transitionId > 0 && crossfadeDurationMs > 0;
-
-            return (
-              <g
-                key={isVisible ? `${slotKey}-t${bufferState.transitionId}` : `${slotKey}-bg`}
-                data-testid={`scene-buffer-${slotKey}`}
-                data-buffer-active={isVisible ? 'true' : 'false'}
-                data-buffer-image-id={buf.imageId}
-                style={{
-                  opacity: 1,
-                  animation: shouldAnimateIn
-                    ? `nafasCrossfadeIn ${crossfadeDurationMs}ms ease-out both`
-                    : undefined,
-                  pointerEvents: 'none',
-                }}
-              >
-                <g
-                  style={{
-                    transformOrigin: `${naturalWidth / 2}px ${naturalHeight / 2}px`,
-                    transform: `translate3d(${slotTx}px, ${slotTy}px, 0) scale(${slotScale})`,
-                    transition:
-                      isDraggingHand || isDraggingEditorId
-                        ? 'none'
-                        : punchPulse
-                        ? 'transform 110ms cubic-bezier(0.2, 0.9, 0.3, 1.1)'
-                        : buf.kenBurnsActive && isVisible
-                        ? 'transform 7000ms cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-                        : 'transform 350ms ease-out',
-                  }}
-                >
-                  <image
-                    data-testid={isVisible ? 'shared-scene-image' : `shared-scene-image-standby-${slotKey}`}
-                    href={buf.imageSrc}
-                    x={0}
-                    y={0}
-                    width={naturalWidth}
-                    height={naturalHeight}
-                    preserveAspectRatio="none"
-                  />
-                </g>
-              </g>
-            );
-          })}
-        </g>
 
         {/* ====================================================================
             SHARED OVERLAY GROUP (<g>): Hotspots, Spotlight Mask, Hand Targets

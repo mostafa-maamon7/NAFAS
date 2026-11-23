@@ -16,9 +16,13 @@ import {
   VolumeX,
   RotateCcw,
   AlertCircle,
+  GraduationCap,
 } from 'lucide-react';
 import { useNafas } from '../context/NafasContext';
 import { HeroRespiratoryModel3D } from '../components/HeroRespiratoryModel3D';
+import { getStoryLevelById } from '../data/storyLevels';
+import { imagePreloader } from '../utils/imagePreloader';
+import { nafasAudio } from '../utils/nafasAudio';
 
 const DEMO_VIDEO_CAPTIONS: {
   start: number;
@@ -331,6 +335,16 @@ export const HomeView: React.FC = () => {
               <button
                 type="button"
                 data-testid="hero-start-simulation-btn"
+                onMouseEnter={() => {
+                  const a2 = getStoryLevelById('A2');
+                  if (a2) imagePreloader.warmLevelOnHover(a2);
+                  nafasAudio.prefetchLevelAudio('A2');
+                }}
+                onPointerDown={() => {
+                  const a2 = getStoryLevelById('A2');
+                  if (a2) imagePreloader.preloadLevelSequence(a2);
+                  nafasAudio.prefetchLevelAudio('A2');
+                }}
                 onClick={handleStartSimulation}
                 className="hero-cta-pulse-once min-h-[48px] px-7 sm:px-8 py-3 rounded-full bg-gradient-to-r from-[#13B8B0] to-[#43C7D1] hover:from-[#18C8C0] hover:to-[#53D5DF] text-[#071F2E] font-bold text-[15px] sm:text-base inline-flex items-center justify-center gap-2.5 shadow-[0_0_24px_rgba(19,184,176,0.38)] transition-all active:scale-95 cursor-pointer whitespace-nowrap"
               >
@@ -346,6 +360,28 @@ export const HomeView: React.FC = () => {
               >
                 <BookOpen className="w-4 h-4 text-[#43C7D1]" />
                 <span>{isAr ? 'استكشف التعلم' : 'Explore Learning'}</span>
+              </button>
+            </div>
+
+            {/* Subtle, Refined Academic Supervision Attribution */}
+            <div className="hero-stagger-5 pt-1">
+              <button
+                type="button"
+                data-testid="hero-supervision-credit"
+                onClick={() => navigateTo('about')}
+                className="group inline-flex items-center gap-2 text-xs sm:text-[13px] text-[#9EB9C6] hover:text-[#F3F7F8] transition-colors cursor-pointer"
+              >
+                <span
+                  className="w-5 h-[1.5px] bg-[#13B8B0]/70 group-hover:w-7 group-hover:bg-[#43C7D1] transition-all"
+                  aria-hidden="true"
+                />
+                <GraduationCap className="w-3.5 h-3.5 text-[#43C7D1] shrink-0" />
+                <span>
+                  {isAr ? 'مشروع أكاديمي تحت إشراف ' : 'Academic project supervised by '}
+                  <span className="font-bold text-[#E6F4F7] group-hover:text-[#43C7D1] transition-colors">
+                    {isAr ? 'د. مي مهران' : 'Dr. Mai Mahran'}
+                  </span>
+                </span>
               </button>
             </div>
           </div>

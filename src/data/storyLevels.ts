@@ -246,8 +246,8 @@ export const SPECIAL_LEARN_CARDS: SpecialCaseLearnCard[] = [
     mediaKey: 's3_self_thrust_decision',
     steps: [
       {
-        en: '1. Call emergency services (123 / 997 / 112) and put the phone on speaker immediately so responders can trace and hear you.',
-        ar: '١. اتصل بالإسعاف فوراً وافتح السبيكر جنبك عشان المسعفين يتحركوا لمكانك حتى لو مش قادر تتكلم.',
+        en: '1. Call Egyptian Ambulance (123) and put the phone on speaker immediately so responders can trace and hear you.',
+        ar: '١. اتصل بهيئة الإسعاف المصرية (١٢٣) فوراً وافتح السبيكر جنبك عشان المسعفين يتحركوا لمكانك حتى لو مش قادر تتكلم.',
       },
       {
         en: '2. Make a fist with one hand above your navel and below your breastbone, grasp it with your other hand, and thrust inward and upward.',
@@ -534,24 +534,28 @@ export function runStoryLevelsMasterAudit(): StoryLevelsAuditReport {
 
 export const EMERGENCY_CONTACTS: EmergencyContact[] = [
   {
-    country: { en: 'Egypt Ambulance', ar: 'إسعاف مصر' },
+    country: { en: 'Egypt Ambulance', ar: 'هيئة الإسعاف المصرية' },
     number: '123',
-    notes: { en: 'National Emergency Ambulance', ar: 'الإسعاف الوطني للطوارئ' },
+    notes: {
+      en: 'Official 24/7 Medical Emergency & Choking Response',
+      ar: 'الرقم الرسمي لطوارئ الإسعاف على مدار الساعة في مصر',
+    },
   },
   {
-    country: { en: 'Saudi Arabia / Gulf', ar: 'السعودية / الخليج' },
-    number: '997 / 911',
-    notes: { en: 'Red Crescent Emergency', ar: 'الهلال الأحمر للطوارئ' },
+    country: { en: 'Egypt Emergency Police', ar: 'شرطة النجدة المصرية' },
+    number: '122',
+    notes: {
+      en: 'Official National Police & Emergency Dispatch',
+      ar: 'الرقم الرسمي لبلاغات الطوارئ والنجدة في مصر',
+    },
   },
   {
-    country: { en: 'Europe / International', ar: 'أوروبا / الرقم الموحد' },
-    number: '112',
-    notes: { en: 'Universal Emergency Number', ar: 'رقم الطوارئ الدولي الموحد' },
-  },
-  {
-    country: { en: 'UK / Commonwealth', ar: 'بريطانيا' },
-    number: '999',
-    notes: { en: 'Emergency Medical Services', ar: 'خدمات الطوارئ الطبية' },
+    country: { en: 'Egypt Civil Defense & Fire', ar: 'الحماية المدنية والمطافئ' },
+    number: '180',
+    notes: {
+      en: 'Official Fire & Rapid Rescue Services',
+      ar: 'الرقم الرسمي للحماية المدنية والإنقاذ السريع في مصر',
+    },
   },
 ];
 

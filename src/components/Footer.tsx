@@ -1,4 +1,5 @@
 import React from 'react';
+import { GraduationCap } from 'lucide-react';
 import { useNafas } from '../context/NafasContext';
 import { NafasLogoLockup } from './Navbar';
 
@@ -105,18 +106,35 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* Bottom Row: Educational Prototype Disclaimer */}
-        <div className="pt-3 border-t border-[#285064] flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-[#A9C0CC] text-center sm:text-start">
+        {/* Bottom Row: Educational Prototype Disclaimer + Subtle Academic Supervision */}
+        <div className="pt-3 border-t border-[#285064] flex flex-col md:flex-row items-center justify-between gap-2.5 text-xs text-[#A9C0CC] text-center md:text-start">
           <p>
             {isAr
               ? 'نَفَس هو نموذج أولي تعليمي ولا يُغني عن الخدمات الطبية المتخصصة أو التدريب المعتمد على الإسعافات الأولية.'
               : 'NAFAS is an educational prototype and does not replace professional medical services or certified first-aid training.'}
           </p>
-          <p className="text-[#A9C0CC]/75 shrink-0">
-            {isAr
-              ? '© مشروع نَفَس الأكاديمي'
-              : '© NAFAS Academic Prototype'}
-          </p>
+          <div className="flex flex-wrap items-center justify-center gap-2.5 shrink-0">
+            <span
+              data-testid="footer-supervision-credit"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#071F2E]/80 border border-[#1E4B63] text-[#C6DCE6]"
+            >
+              <GraduationCap className="w-3.5 h-3.5 text-[#43C7D1] shrink-0" />
+              <span>
+                {isAr ? 'تحت إشراف ' : 'Supervised by '}
+                <strong className="font-bold text-[#F3F7F8]">
+                  {isAr ? 'د. مي مهران' : 'Dr. Mai Mahran'}
+                </strong>
+              </span>
+            </span>
+            <span className="hidden sm:inline text-[#285064]" aria-hidden="true">
+              ·
+            </span>
+            <span className="text-[#A9C0CC]/75">
+              {isAr
+                ? '© مشروع نَفَس الأكاديمي'
+                : '© NAFAS Academic Prototype'}
+            </span>
+          </div>
         </div>
       </div>
     </footer>
