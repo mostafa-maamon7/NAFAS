@@ -100,10 +100,15 @@ function enrichStoryLevel(level: StoryLevel): StoryLevel {
 }
 
 export const CORE_STORY_LEVELS: StoryLevel[] = [
-  ...ADULT_CORE_LEVELS,
   ...CHILD_CORE_LEVELS,
+  ...ADULT_CORE_LEVELS,
   ...INFANT_CORE_LEVELS,
-].map(enrichStoryLevel);
+].map((level, index) =>
+  enrichStoryLevel({
+    ...level,
+    levelNumber: index + 1,
+  })
+);
 
 /**
  * Per NAFAS-Levels-Restructure.md Section 5:

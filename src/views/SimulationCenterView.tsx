@@ -208,9 +208,13 @@ export const SimulationCenterView: React.FC = () => {
     [activeLevelId]
   );
 
-  // Reference Level A2 ("Silence in the Lab" — Mohamed, 34 yrs) per NAFAS-Levels-Restructure.md
+  // Starting Level C1 ("Cafeteria Alarm" — Marwan, 6 yrs) & Reference Adult Level A2 (Mohamed, 34 yrs)
+  const firstLevelC1 = useMemo(
+    () => STORY_LEVELS.find((l) => l.id === 'C1') || STORY_LEVELS[0],
+    []
+  );
   const referenceLevelA2 = useMemo(
-    () => STORY_LEVELS.find((l) => l.id === 'A2') || STORY_LEVELS[1],
+    () => STORY_LEVELS.find((l) => l.id === 'A2') || STORY_LEVELS[4],
     []
   );
 
@@ -241,7 +245,7 @@ export const SimulationCenterView: React.FC = () => {
     []
   );
 
-  // 1. Idle Prefetch: quietly warm the lazy player chunk, core UI SFX, and featured Level A2
+  // 1. Idle Prefetch: quietly warm the lazy player chunk, core UI SFX, and starting Level C1
   useEffect(() => {
     if (activeLevel) return;
     if (typeof window === 'undefined') return;
@@ -250,8 +254,8 @@ export const SimulationCenterView: React.FC = () => {
       void loadCinematicStoryPlayer();
       nafasAudio.prefetchCoreUiSounds();
       if (!imagePreloader.shouldConserveBandwidth()) {
-        imagePreloader.warmLevelOnHover(referenceLevelA2);
-        nafasAudio.prefetchLevelAudio(referenceLevelA2.id);
+        imagePreloader.warmLevelOnHover(firstLevelC1);
+        nafasAudio.prefetchLevelAudio(firstLevelC1.id);
       }
     };
 
@@ -269,7 +273,7 @@ export const SimulationCenterView: React.FC = () => {
 
     const timerId = window.setTimeout(runIdlePrefetch, 350);
     return () => window.clearTimeout(timerId);
-  }, [activeLevel, referenceLevelA2]);
+  }, [activeLevel, firstLevelC1]);
 
   // 2. Viewport-Aware Prefetch: IntersectionObserver warms S1 cover frames as level cards near the viewport
   const cardElementRefs = useRef<Map<string, HTMLDivElement>>(new Map());
@@ -349,14 +353,14 @@ export const SimulationCenterView: React.FC = () => {
       count: CORE_STORY_LEVELS.length,
     },
     {
-      id: 'adult',
-      label: isAr ? 'البالغ — A1–A4 (٤)' : 'Adult — A1–A4 (4)',
-      count: CORE_STORY_LEVELS.filter((l) => l.ageGroup === 'adult').length,
+      id: 'child',
+      label: isAr ? 'مروان — C1–C3 (٣)' : 'Marwan — C1–C3 (3)',
+      count: CORE_STORY_LEVELS.filter((l) => l.ageGroup === 'child').length,
     },
     {
-      id: 'child',
-      label: isAr ? 'الطفل — C1–C3 (٣)' : 'Child — C1–C3 (3)',
-      count: CORE_STORY_LEVELS.filter((l) => l.ageGroup === 'child').length,
+      id: 'adult',
+      label: isAr ? 'محمد والحامل — A1–A4 (٤)' : 'Mohamed & Pregnancy — A1–A4 (4)',
+      count: CORE_STORY_LEVELS.filter((l) => l.ageGroup === 'adult').length,
     },
     {
       id: 'infant',
@@ -428,9 +432,9 @@ export const SimulationCenterView: React.FC = () => {
               >
                 {isAr ? severityBadge.ar : severityBadge.en}
               </span>
-              {lvl.id === 'A2' && (
+              {lvl.id === 'C1' && (
                 <span className="px-2.5 py-1 rounded-lg bg-[#13B8B0] text-[#071F2E] text-[11px] font-extrabold">
-                  {isAr ? 'المستوى المرجعي ★' : 'Reference Level ★'}
+                  {isAr ? 'ابدأ من هنا ★' : 'Start Here ★'}
                 </span>
               )}
             </div>
@@ -482,7 +486,7 @@ export const SimulationCenterView: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-10">
       {/* =================================================================== */}
-      {/* FEATURED REFERENCE LEVEL BANNER: LEVEL A2 ("SILENCE IN THE LAB")    */}
+      {/* FEATURED STARTING LEVEL BANNER: LEVEL C1 (MARWAN — CAFETERIA)       */}
       {/* =================================================================== */}
       <section className="bg-[#0B2D40] text-[#F3F7F8] rounded-2xl p-5 sm:p-7 border-2 border-[#13B8B0] shadow-2xl">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
@@ -492,8 +496,8 @@ export const SimulationCenterView: React.FC = () => {
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>
                   {isAr
-                    ? 'المستوى المرجعي الأساسي · A2'
-                    : 'PRIMARY REFERENCE LEVEL · A2'}
+                    ? 'المستوى الأول · C1'
+                    : 'STARTING LEVEL · C1'}
                 </span>
               </span>
 
@@ -520,61 +524,45 @@ export const SimulationCenterView: React.FC = () => {
 
             <div className="space-y-2">
               <h1 className="text-2xl sm:text-3xl font-extrabold text-[#F3F7F8]">
-                A2 · {referenceLevelA2.title[language]} —{' '}
-                {referenceLevelA2.character.name[language]} (
-                {referenceLevelA2.character.age[language]})
+                C1 · {firstLevelC1.title[language]} —{' '}
+                {firstLevelC1.character.name[language]} (
+                {firstLevelC1.character.age[language]})
               </h1>
               <p className="text-sm sm:text-base text-[#A9C0CC] leading-relaxed">
-                {referenceLevelA2.hook[language]}
+                {firstLevelC1.hook[language]}
               </p>
             </div>
 
             <div className="flex flex-wrap items-center gap-3 pt-1">
               <button
                 type="button"
-                onMouseEnter={() => prefetchLevelResources(referenceLevelA2, 'hover')}
-                onFocus={() => prefetchLevelResources(referenceLevelA2, 'hover')}
-                onPointerDown={() => prefetchLevelResources(referenceLevelA2, 'intent')}
-                onClick={() => handleLaunchLevel(referenceLevelA2)}
+                onMouseEnter={() => prefetchLevelResources(firstLevelC1, 'hover')}
+                onFocus={() => prefetchLevelResources(firstLevelC1, 'hover')}
+                onPointerDown={() => prefetchLevelResources(firstLevelC1, 'intent')}
+                onClick={() => handleLaunchLevel(firstLevelC1)}
                 className="min-h-[50px] px-6 py-3 rounded-xl bg-[#13B8B0] hover:bg-[#43C7D1] text-[#071F2E] font-extrabold text-sm sm:text-base inline-flex items-center gap-2 shadow-lg cursor-pointer"
               >
                 <Play className="w-4 h-4 fill-current" />
                 <span>
                   {isAr
-                    ? 'ابدأ المستوى المرجعي A2 (محمد — المعمل)'
-                    : 'Start Reference Level A2 (Mohamed — Lab)'}
+                    ? 'ابدأ المستوى الأول C1 (مروان — كافيتريا المدرسة)'
+                    : 'Start First Level C1 (Marwan — School Cafeteria)'}
                 </span>
               </button>
 
               <button
                 type="button"
-                onMouseEnter={() => {
-                  const c1 = getStoryLevelById('C1');
-                  if (c1) prefetchLevelResources(c1, 'hover');
-                }}
-                onFocus={() => {
-                  const c1 = getStoryLevelById('C1');
-                  if (c1) prefetchLevelResources(c1, 'hover');
-                }}
-                onPointerDown={() => {
-                  const c1 = getStoryLevelById('C1');
-                  if (c1) prefetchLevelResources(c1, 'intent');
-                }}
-                onClick={() => {
-                  const c1 = getStoryLevelById('C1');
-                  if (c1) {
-                    handleLaunchLevel(c1);
-                  } else {
-                    startLevel('C1');
-                  }
-                }}
+                onMouseEnter={() => prefetchLevelResources(referenceLevelA2, 'hover')}
+                onFocus={() => prefetchLevelResources(referenceLevelA2, 'hover')}
+                onPointerDown={() => prefetchLevelResources(referenceLevelA2, 'intent')}
+                onClick={() => handleLaunchLevel(referenceLevelA2)}
                 className="min-h-[50px] px-5 py-3 rounded-xl bg-[#123B50] hover:bg-[#19465B] border border-[#43C7D1]/50 text-[#F3F7F8] font-bold text-xs sm:text-sm inline-flex items-center gap-2 cursor-pointer"
               >
                 <Play className="w-3.5 h-3.5 text-[#43C7D1]" />
                 <span>
                   {isAr
-                    ? 'جرّب المستوى C1 (مروان — كافيتريا المدرسة)'
-                    : 'Play Level C1 (Marwan — School Cafeteria)'}
+                    ? 'انتقل إلى المستوى A2 (محمد — المعمل)'
+                    : 'Jump to Level A2 (Mohamed — Lab)'}
                 </span>
               </button>
             </div>
@@ -599,23 +587,23 @@ export const SimulationCenterView: React.FC = () => {
 
           <div className="lg:col-span-5">
             <div
-              onMouseEnter={() => prefetchLevelResources(referenceLevelA2, 'hover')}
-              onFocus={() => prefetchLevelResources(referenceLevelA2, 'hover')}
-              onPointerDown={() => prefetchLevelResources(referenceLevelA2, 'intent')}
-              onClick={() => handleLaunchLevel(referenceLevelA2)}
+              onMouseEnter={() => prefetchLevelResources(firstLevelC1, 'hover')}
+              onFocus={() => prefetchLevelResources(firstLevelC1, 'hover')}
+              onPointerDown={() => prefetchLevelResources(firstLevelC1, 'intent')}
+              onClick={() => handleLaunchLevel(firstLevelC1)}
               role="button"
               tabIndex={0}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
-                  handleLaunchLevel(referenceLevelA2);
+                  handleLaunchLevel(firstLevelC1);
                 }
               }}
               className="relative aspect-video rounded-xl overflow-hidden border border-[#43C7D1]/50 bg-[#071F2E] cursor-pointer"
             >
               <img
-                src={STORY_MEDIA.a2_s3_clutch_throat_silent.src}
-                alt={STORY_MEDIA.a2_s3_clutch_throat_silent.alt[language]}
+                src={STORY_MEDIA.c1_s3_clutch_neck_wide_eyes.src}
+                alt={STORY_MEDIA.c1_s3_clutch_neck_wide_eyes.alt[language]}
                 loading="eager"
                 decoding="async"
                 fetchPriority="high"
@@ -627,20 +615,20 @@ export const SimulationCenterView: React.FC = () => {
       </section>
 
       {/* =================================================================== */}
-      {/* 10 RESTRUCTURED STORY LEVELS (A1–A4, C1–C3, I1–I3)                  */}
+      {/* 10 RESTRUCTURED STORY LEVELS (C1–C3 · A1–A4 · I1–I3)                */}
       {/* =================================================================== */}
       <section className="space-y-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h2 className="text-2xl font-extrabold text-[#F3F7F8]">
               {isAr
-                ? 'خريطة المستويات القصصية العشرة (A1–A4 · C1–C3 · I1–I3)'
-                : 'The 10 Story Simulation Levels (A1–A4 · C1–C3 · I1–I3)'}
+                ? 'خريطة المستويات القصصية العشرة (C1–C3 · A1–A4 · I1–I3)'
+                : 'The 10 Story Simulation Levels (C1–C3 · A1–A4 · I1–I3)'}
             </h2>
             <p className="text-xs sm:text-sm text-[#A9C0CC]">
               {isAr
-                ? '٤ مستويات للبالغ + ٣ للطفل + ٣ للرضيع • ١٠ لقطات فريدة لكل مستوى • يمكنك تكرار أي مستوى بلا حدود دون حفظ السكور'
-                : '4 Adult + 3 Child + 3 Infant levels • 10 unique frames per level • Replay any level unlimited times without saving scores'}
+                ? '٣ مستويات للطفل مروان + ٣ للبالغ محمد + ١ للحامل + ٣ للرضيعة • ١٠ لقطات فريدة لكل مستوى • يمكنك تكرار أي مستوى بلا حدود'
+                : '3 Child (Marwan) + 3 Adult (Mohamed) + 1 Late Pregnancy + 3 Infant levels • 10 unique frames per level • Unlimited free replay'}
             </p>
           </div>
 

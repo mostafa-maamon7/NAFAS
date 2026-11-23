@@ -93,7 +93,7 @@ export const HomeView: React.FC = () => {
     ) || DEMO_VIDEO_CAPTIONS[0];
 
   const handleStartSimulation = () => {
-    startLevel('A2');
+    startLevel('C1');
   };
 
   const handlePlayDemoVideo = () => {
@@ -336,14 +336,14 @@ export const HomeView: React.FC = () => {
                 type="button"
                 data-testid="hero-start-simulation-btn"
                 onMouseEnter={() => {
-                  const a2 = getStoryLevelById('A2');
-                  if (a2) imagePreloader.warmLevelOnHover(a2);
-                  nafasAudio.prefetchLevelAudio('A2');
+                  const c1 = getStoryLevelById('C1');
+                  if (c1) imagePreloader.warmLevelOnHover(c1);
+                  nafasAudio.prefetchLevelAudio('C1');
                 }}
                 onPointerDown={() => {
-                  const a2 = getStoryLevelById('A2');
-                  if (a2) imagePreloader.preloadLevelSequence(a2);
-                  nafasAudio.prefetchLevelAudio('A2');
+                  const c1 = getStoryLevelById('C1');
+                  if (c1) imagePreloader.preloadLevelSequence(c1);
+                  nafasAudio.prefetchLevelAudio('C1');
                 }}
                 onClick={handleStartSimulation}
                 className="hero-cta-pulse-once min-h-[48px] px-7 sm:px-8 py-3 rounded-full bg-gradient-to-r from-[#13B8B0] to-[#43C7D1] hover:from-[#18C8C0] hover:to-[#53D5DF] text-[#071F2E] font-bold text-[15px] sm:text-base inline-flex items-center justify-center gap-2.5 shadow-[0_0_24px_rgba(19,184,176,0.38)] transition-all active:scale-95 cursor-pointer whitespace-nowrap"
