@@ -128,7 +128,7 @@ export const SOUND_VARIATION_POOLS: Record<SoundPoolId, string[]> = {
 
 export const LEVEL_AUDIO_CUE_SHEETS: Record<string, LevelAudioCueSheet> = {
   // =========================================================================
-  // A1 — ADULT MILD CHOKING (Tariq, Family Dining — Strong Effective Coughs)
+  // A1 — ADULT MILD CHOKING (Mohamed, Family Dining — Strong Effective Coughs)
   // =========================================================================
   A1: {
     levelId: 'A1',
@@ -147,7 +147,7 @@ export const LEVEL_AUDIO_CUE_SHEETS: Record<string, LevelAudioCueSheet> = {
         music: { mood: 'calm', volume: 0.7, filterHz: 18000, fadeSec: 1.5 },
         ambience: { id: 'amb_family_dining', volume: 0.42, filterHz: 18000 },
         cues: [{ sound: 'sfx_utensil_drop', at: 0.35, volume: 0.45, pan: 0.15 }],
-        notes: 'Tariq laughs while eating; fork clinks on plate.',
+        notes: 'Mohamed laughs while eating; fork clinks on plate.',
       },
       S3: {
         music: { mood: 'calm', volume: 0.56, filterHz: 12000, fadeSec: 1.4 },
@@ -261,7 +261,7 @@ export const LEVEL_AUDIO_CUE_SHEETS: Record<string, LevelAudioCueSheet> = {
   },
 
   // =========================================================================
-  // A2 — ADULT SEVERE CONSCIOUS CHOKING (Tariq, Office Lounge — SILENT AFTER GASP)
+  // A2 — ADULT SEVERE CONSCIOUS CHOKING (Mohamed, Office Lounge — SILENT AFTER GASP)
   // =========================================================================
   A2: {
     levelId: 'A2',
@@ -280,7 +280,7 @@ export const LEVEL_AUDIO_CUE_SHEETS: Record<string, LevelAudioCueSheet> = {
         music: { mood: 'calm', volume: 0.65, filterHz: 15000, fadeSec: 1.5 },
         ambience: { id: 'amb_office_lounge', volume: 0.36, filterHz: 16000 },
         cues: [{ sound: 'sfx_chair_scrape', at: 0.25, volume: 0.62, pan: -0.15 }],
-        notes: 'Tariq stands abruptly pushing chair back.',
+        notes: 'Mohamed stands abruptly pushing chair back.',
       },
       S3: {
         music: { mood: 'tension', volume: 0.5, filterHz: 1200, fadeSec: 1.6 },
@@ -396,7 +396,7 @@ export const LEVEL_AUDIO_CUE_SHEETS: Record<string, LevelAudioCueSheet> = {
   },
 
   // =========================================================================
-  // A3 — ADULT UNRESPONSIVE (Tariq — ZERO VOCALS, ZERO CPR METRONOME)
+  // A3 — ADULT UNRESPONSIVE (Mohamed — ZERO VOCALS, ZERO CPR METRONOME)
   // =========================================================================
   A3: {
     levelId: 'A3',
@@ -616,7 +616,7 @@ export const LEVEL_AUDIO_CUE_SHEETS: Record<string, LevelAudioCueSheet> = {
   },
 
   // =========================================================================
-  // C1 — CHILD SEVERE CHOKING (Youssef, School Cafeteria — SILENT AFTER GASP)
+  // C1 — CHILD SEVERE CHOKING (Marwan, School Cafeteria — SILENT AFTER GASP)
   // =========================================================================
   C1: {
     levelId: 'C1',
@@ -635,7 +635,7 @@ export const LEVEL_AUDIO_CUE_SHEETS: Record<string, LevelAudioCueSheet> = {
         music: { mood: 'calm', volume: 0.66, filterHz: 15000, fadeSec: 1.5 },
         ambience: { id: 'amb_school_cafeteria', volume: 0.4, filterHz: 16000 },
         cues: [{ sound: 'sfx_utensil_drop', at: 0.25, volume: 0.45 }],
-        notes: 'Youssef laughs while eating snack.',
+        notes: 'Marwan laughs while eating snack.',
       },
       S3: {
         music: { mood: 'tension', volume: 0.5, filterHz: 1200, fadeSec: 1.6 },
@@ -730,7 +730,7 @@ export const LEVEL_AUDIO_CUE_SHEETS: Record<string, LevelAudioCueSheet> = {
   },
 
   // =========================================================================
-  // C2 — CHILD UNRESPONSIVE (Youssef — ZERO VOCALS, ZERO CPR METRONOME)
+  // C2 — CHILD UNRESPONSIVE (Marwan — ZERO VOCALS, ZERO CPR METRONOME)
   // =========================================================================
   C2: {
     levelId: 'C2',
@@ -832,7 +832,7 @@ export const LEVEL_AUDIO_CUE_SHEETS: Record<string, LevelAudioCueSheet> = {
   },
 
   // =========================================================================
-  // C3 — CHILD MILD CHOKING (Youssef — Strong Effective Child Cough)
+  // C3 — CHILD MILD CHOKING (Marwan — Strong Effective Child Cough)
   // =========================================================================
   C3: {
     levelId: 'C3',
@@ -851,7 +851,7 @@ export const LEVEL_AUDIO_CUE_SHEETS: Record<string, LevelAudioCueSheet> = {
         music: { mood: 'calm', volume: 0.7, filterHz: 18000, fadeSec: 1.5 },
         ambience: { id: 'amb_school_cafeteria', volume: 0.38, filterHz: 18000 },
         cues: [{ sound: 'sfx_utensil_drop', at: 0.3, volume: 0.4 }],
-        notes: 'Youssef eats snack too fast.',
+        notes: 'Marwan eats snack too fast.',
       },
       S3: {
         music: { mood: 'calm', volume: 0.56, filterHz: 12000, fadeSec: 1.4 },
@@ -936,7 +936,7 @@ export const LEVEL_AUDIO_CUE_SHEETS: Record<string, LevelAudioCueSheet> = {
   },
 
   // =========================================================================
-  // I1 — INFANT SEVERE CHOKING (Layan, Nursery — STRICT SILENCE UNTIL CLEAR)
+  // I1 — INFANT SEVERE CHOKING (Nelly, Nursery — STRICT SILENCE UNTIL CLEAR)
   // =========================================================================
   I1: {
     levelId: 'I1',
@@ -955,7 +955,7 @@ export const LEVEL_AUDIO_CUE_SHEETS: Record<string, LevelAudioCueSheet> = {
         music: { mood: 'calm', volume: 0.66, filterHz: 15000, fadeSec: 1.5 },
         ambience: { id: 'amb_home_nursery', volume: 0.34, filterHz: 16000 },
         cues: [{ sound: 'sfx_hand_place', at: 0.25, volume: 0.42 }],
-        notes: 'Layan puts small piece in mouth.',
+        notes: 'Nelly puts small piece in mouth.',
       },
       S3: {
         music: { mood: 'tension', volume: 0.48, filterHz: 1200, fadeSec: 1.6 },
@@ -1049,7 +1049,7 @@ export const LEVEL_AUDIO_CUE_SHEETS: Record<string, LevelAudioCueSheet> = {
   },
 
   // =========================================================================
-  // I2 — INFANT UNRESPONSIVE (Layan — ZERO VOCALS, ZERO CPR METRONOME)
+  // I2 — INFANT UNRESPONSIVE (Nelly — ZERO VOCALS, ZERO CPR METRONOME)
   // =========================================================================
   I2: {
     levelId: 'I2',
@@ -1151,7 +1151,7 @@ export const LEVEL_AUDIO_CUE_SHEETS: Record<string, LevelAudioCueSheet> = {
   },
 
   // =========================================================================
-  // I3 — INFANT MILD CHOKING (Layan — Loud Cry & Effective Infant Cough)
+  // I3 — INFANT MILD CHOKING (Nelly — Loud Cry & Effective Infant Cough)
   // =========================================================================
   I3: {
     levelId: 'I3',
@@ -1216,7 +1216,7 @@ export const LEVEL_AUDIO_CUE_SHEETS: Record<string, LevelAudioCueSheet> = {
         music: { mood: 'calm', volume: 0.58, filterHz: 14000, fadeSec: 1.5 },
         ambience: { id: 'amb_home_nursery', volume: 0.3, filterHz: 16000 },
         cues: [{ sound: 'body_cough_infant', at: 0.25, volume: 0.78 }],
-        notes: 'Mother stays calm, keeps Layan upright, and monitors.',
+        notes: 'Mother stays calm, keeps Nelly upright, and monitors.',
       },
       OA2: {
         music: { mood: 'calm', volume: 0.62, filterHz: 16000, fadeSec: 1.5 },

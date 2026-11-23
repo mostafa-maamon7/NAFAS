@@ -29,14 +29,14 @@ const DEMO_VIDEO_CAPTIONS: {
   {
     start: 0,
     end: 6,
-    ar: 'طارق في معمل الكمبيوتر يتناول ساندويتش سريعاً أثناء العمل.',
-    en: 'Tariq is in the computer lab taking a quick bite of his sandwich while working.',
+    ar: 'محمد في معمل الكمبيوتر يتناول ساندويتش سريعاً أثناء العمل.',
+    en: 'Mohamed is in the computer lab taking a quick bite of his sandwich while working.',
   },
   {
     start: 6,
     end: 12,
-    ar: 'فجأة يمسك طارق رقبته بكلتا يديه — علامة الاختناق العالمية.',
-    en: 'Suddenly Tariq clutches his throat with both hands — the universal choking sign.',
+    ar: 'فجأة يمسك محمد رقبته بكلتا يديه — علامة الاختناق العالمية.',
+    en: 'Suddenly Mohamed clutches his throat with both hands — the universal choking sign.',
   },
   {
     start: 12,
@@ -47,8 +47,8 @@ const DEMO_VIDEO_CAPTIONS: {
   {
     start: 18,
     end: 24,
-    ar: 'اطلب الإسعاف فوراً، اسند صدر طارق وأمِله للأمام.',
-    en: "Call emergency services immediately, support Tariq's chest, and lean him forward.",
+    ar: 'اطلب الإسعاف فوراً، اسند صدر محمد وأمِله للأمام.',
+    en: "Call emergency services immediately, support Mohamed's chest, and lean him forward.",
   },
   {
     start: 24,
@@ -574,14 +574,14 @@ export const HomeView: React.FC = () => {
                     />
                     <track
                       kind="captions"
-                      src="/media/nafas-a2-demo.ar.vtt"
+                      src="/media/nafas-a2-demo.ar.vtt?v=2"
                       srcLang="ar"
                       label="العربية"
                       default={isAr}
                     />
                     <track
                       kind="captions"
-                      src="/media/nafas-a2-demo.en.vtt"
+                      src="/media/nafas-a2-demo.en.vtt?v=2"
                       srcLang="en"
                       label="English"
                       default={!isAr}

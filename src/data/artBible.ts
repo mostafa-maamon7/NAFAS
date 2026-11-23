@@ -77,7 +77,7 @@ export const ASSET_AUDIT_MANIFEST: AssetAuditRecord[] = [
     attempts: 1,
     hash: 'sha256-a1-10frames-f1a2b3',
     reviewerNote:
-      'Tariq (34 yrs) mild choking in university cafeteria; 5 story beats + 5 outcome frames (Slides 5, 6, 7, 26–27).',
+      'Mohamed (34 yrs) mild choking in university cafeteria; 5 story beats + 5 outcome frames (Slides 5, 6, 7, 26–27).',
   },
   {
     levelId: 2,
@@ -99,7 +99,7 @@ export const ASSET_AUDIT_MANIFEST: AssetAuditRecord[] = [
     attempts: 1,
     hash: 'sha256-a2-10frames-c4d5e6',
     reviewerNote:
-      'Primary Reference Implementation: Tariq severe choking in computer lab; up to 5 back blows & up to 5 abdominal thrusts (Slides 8–14, 17, 25, 28–29).',
+      'Primary Reference Implementation: Mohamed severe choking in computer lab; up to 5 back blows & up to 5 abdominal thrusts (Slides 8–14, 17, 25, 28–29).',
   },
   {
     levelId: 3,
@@ -121,7 +121,7 @@ export const ASSET_AUDIT_MANIFEST: AssetAuditRecord[] = [
     attempts: 1,
     hash: 'sha256-a3-10frames-a7b8c9',
     reviewerNote:
-      'Tariq unresponsive sequence; lower safely, call EMS, start CPR according to your training, visible object check only (Slides 15–17).',
+      'Mohamed unresponsive sequence; lower safely, call EMS, start CPR according to your training, visible object check only (Slides 15–17).',
   },
   {
     levelId: 4,
@@ -165,7 +165,7 @@ export const ASSET_AUDIT_MANIFEST: AssetAuditRecord[] = [
     attempts: 1,
     hash: 'sha256-c1-10frames-23a4b5',
     reviewerNote:
-      'Youssef (6 yrs) severe choking in school cafeteria; kneel to height, call early, up to 5 back blows & up to 5 abdominal thrusts (Slide 18).',
+      'Marwan (6 yrs) severe choking in school cafeteria; kneel to height, call early, up to 5 back blows & up to 5 abdominal thrusts (Slide 18).',
   },
   {
     levelId: 6,
@@ -187,7 +187,7 @@ export const ASSET_AUDIT_MANIFEST: AssetAuditRecord[] = [
     attempts: 1,
     hash: 'sha256-c2-10frames-67c8d9',
     reviewerNote:
-      'Youssef unresponsive sequence; firm flat surface, EMS, start pediatric CPR according to your training, no blind sweep (Slides 18–19, 16–17).',
+      'Marwan unresponsive sequence; firm flat surface, EMS, start pediatric CPR according to your training, no blind sweep (Slides 18–19, 16–17).',
   },
   {
     levelId: 7,
@@ -209,7 +209,7 @@ export const ASSET_AUDIT_MANIFEST: AssetAuditRecord[] = [
     attempts: 1,
     hash: 'sha256-c3-10frames-89e0f1',
     reviewerNote:
-      'Youssef mild choking at recess; effective cough, encourage coughing and monitor closely (Slides 5, 7).',
+      'Marwan mild choking at recess; effective cough, encourage coughing and monitor closely (Slides 5, 7).',
   },
   {
     levelId: 8,
@@ -231,13 +231,13 @@ export const ASSET_AUDIT_MANIFEST: AssetAuditRecord[] = [
     attempts: 1,
     hash: 'sha256-i1-10frames-12a3b4',
     reviewerNote:
-      'Layan (8 months) severe choking in nursery; up to 5 back blows & up to 5 chest thrusts, NO abdominal thrusts (Slides 20–21).',
+      'Nelly (8 months) severe choking in nursery; up to 5 back blows & up to 5 chest thrusts, NO abdominal thrusts (Slides 20–21).',
   },
   {
     levelId: 9,
     code: 'I2',
-    levelNameEn: 'Layan Limp in Your Arms',
-    levelNameAr: 'ليان ساكتة بين إيديك',
+    levelNameEn: 'Nelly Limp in Your Arms',
+    levelNameAr: 'نيللي ساكتة بين إيديك',
     beatCount: 5,
     outcomeFrameCount: 5,
     styleId: 'NAFAS-STYLE-01',
@@ -253,7 +253,7 @@ export const ASSET_AUDIT_MANIFEST: AssetAuditRecord[] = [
     attempts: 1,
     hash: 'sha256-i2-10frames-56c7d8',
     reviewerNote:
-      'Layan unresponsive infant sequence; ensure EMS, start infant CPR according to your training, visible object check only (Slide 20).',
+      'Nelly unresponsive infant sequence; ensure EMS, start infant CPR according to your training, visible object check only (Slide 20).',
   },
   {
     levelId: 10,
@@ -275,6 +275,6 @@ export const ASSET_AUDIT_MANIFEST: AssetAuditRecord[] = [
     attempts: 1,
     hash: 'sha256-i3-10frames-90e1f2',
     reviewerNote:
-      'Layan mild choking in high chair; loud crying and effective cough, monitor closely without shaking or blind finger sweep (Slide 5).',
+      'Nelly mild choking in high chair; loud crying and effective cough, monitor closely without shaking or blind finger sweep (Slide 5).',
   },
 ];

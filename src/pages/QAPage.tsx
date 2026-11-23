@@ -109,7 +109,7 @@ export const QAPage: React.FC = () => {
         <div className="bg-[#0B2A3F] rounded-2xl p-6 border border-[#13B8B0]/30 shadow-xl space-y-4">
           <h2 className="text-lg font-bold text-[#13B8B0] flex items-center gap-2">
             <Layers className="w-5 h-5" />
-            Character Registry (Single Source of Truth — Tariq / Youssef / Layan)
+            Character Registry (Single Source of Truth — Mohamed / Marwan / Nelly)
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {UNIQUE_PROTAGONISTS.map((char) => (

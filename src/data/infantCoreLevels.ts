@@ -6,7 +6,7 @@ const layanAr = CHARACTER_REGISTRY.infant.name.ar;
 
 export const INFANT_CORE_LEVELS: StoryLevel[] = [
   // =========================================================================
-  // I1 · الصمت في الحضانة (ليان، 8 شهور، حضانة البيت) — شديد (Slides 20–21)
+  // I1 · الصمت في الحضانة (نيللي، 8 شهور، حضانة البيت) — شديد (Slides 20–21)
   // =========================================================================
   {
     id: 'I1',
@@ -165,7 +165,7 @@ export const INFANT_CORE_LEVELS: StoryLevel[] = [
         phase: 'symptoms',
         durationSec: 4,
         mediaKey: 'i1_s4_caregiver_lifts_layan',
-        speaker: { en: 'S4 · Caregiver Picks Her Up', ar: 'S4 · المربّي يحمل ليان' },
+        speaker: { en: 'S4 · Caregiver Picks Her Up', ar: 'S4 · المربّي يحمل نيللي' },
         text: {
           en: `The caregiver picks ${layanEn} up immediately and calls out for emergency help.`,
           ar: `يحمل المربّي ${layanAr} فوراً وينادي لطلب المساعدة والإسعاف.`,
@@ -247,7 +247,7 @@ export const INFANT_CORE_LEVELS: StoryLevel[] = [
               },
               {
                 id: 'i1-o3',
-                stageLabel: { en: '3. Object Expelled & Crying', ar: '٣. خروج الجسم وبكاء ليان' },
+                stageLabel: { en: '3. Object Expelled & Crying', ar: '٣. خروج الجسم وبكاء نيللي' },
                 mediaKey: 'i1_o3_object_cleared_layan_cries',
                 caption: {
                   en: `The small object pops out and ${layanEn} cries out loudly with pink lips restored!`,
@@ -362,7 +362,7 @@ export const INFANT_CORE_LEVELS: StoryLevel[] = [
   },
 
   // =========================================================================
-  // I2 · ليان ساكتة بين إيديك (ليان، 8 شهور) — فاقد الوعي (Slide 20)
+  // I2 · نيللي ساكتة بين إيديك (نيللي، 8 شهور) — فاقد الوعي (Slide 20)
   // =========================================================================
   {
     id: 'I2',
@@ -373,8 +373,8 @@ export const INFANT_CORE_LEVELS: StoryLevel[] = [
     lectureSlideRefs: ['Slide 20', 'Slide 17', 'Slide 25'],
     ruleTags: ['R-UNRESP', 'R-SWEEP', 'R-EMS'],
     title: {
-      en: 'Layan Limp in Your Arms',
-      ar: 'ليان ساكتة بين إيديك',
+      en: 'Nelly Limp in Your Arms',
+      ar: 'نيللي ساكتة بين إيديك',
     },
     subtitle: {
       en: `${layanEn} (8 mos) • Nursery Firm Surface (Unresponsive Infant)`,
@@ -467,7 +467,7 @@ export const INFANT_CORE_LEVELS: StoryLevel[] = [
         phase: 'intro',
         durationSec: 4,
         mediaKey: 'i2_s1_layan_loses_response',
-        speaker: { en: 'S1 · Loss of Responsiveness', ar: 'S1 · ليان تفقد الاستجابة' },
+        speaker: { en: 'S1 · Loss of Responsiveness', ar: 'S1 · نيللي تفقد الاستجابة' },
         text: {
           en: `While choking in the nursery, 8-month-old ${layanEn} suddenly stops moving and loses responsiveness.`,
           ar: `أثناء الاختناق في الحضانة، تفقد الرضيعة ${layanAr} (٨ شهور) الاستجابة فجأة.`,
@@ -715,7 +715,7 @@ export const INFANT_CORE_LEVELS: StoryLevel[] = [
   },
 
   // =========================================================================
-  // I3 · سعال قوي في الكرسي العالي (ليان، 8 شهور) — خفيف (Slide 5)
+  // I3 · سعال قوي في الكرسي العالي (نيللي، 8 شهور) — خفيف (Slide 5)
   // =========================================================================
   {
     id: 'I3',
@@ -840,7 +840,7 @@ export const INFANT_CORE_LEVELS: StoryLevel[] = [
         phase: 'escalation',
         durationSec: 4,
         mediaKey: 'i3_s2_layan_eating_soft_food',
-        speaker: { en: 'S2 · Tasting Soft Food', ar: 'S2 · ليان تأكل' },
+        speaker: { en: 'S2 · Tasting Soft Food', ar: 'S2 · نيللي تأكل' },
         text: {
           en: `${layanEn} swallows a spoonful of soft food quickly and sputters.`,
           ar: `تبلع ${layanAr} لقمة صغيرة بسرعة وتشرق أثناء الأكل.`,
@@ -956,7 +956,7 @@ export const INFANT_CORE_LEVELS: StoryLevel[] = [
               },
               {
                 id: 'i3-o3',
-                stageLabel: { en: '3. Calm Breathing Restored', ar: '٣. هدوء ليان وعودة التنفس' },
+                stageLabel: { en: '3. Calm Breathing Restored', ar: '٣. هدوء نيللي وعودة التنفس' },
                 mediaKey: 'i3_o3_layan_calms_breathes',
                 caption: {
                   en: `${layanEn} calms down and breathes quietly with healthy pink cheeks!`,

@@ -187,7 +187,7 @@ export function validateCalibratedHotspot(
  */
 export const CALIBRATED_IMAGE_HOTSPOTS: Record<string, CalibratedHotspot[]> = {
   // ===========================================================================
-  // A1_S5 — Adult Mild Choking (Tariq in University Cafeteria) — Reassuring Signs
+  // A1_S5 — Adult Mild Choking (Mohamed in University Cafeteria) — Reassuring Signs
   // ===========================================================================
   A1_S5: [
     {
@@ -262,7 +262,7 @@ export const CALIBRATED_IMAGE_HOTSPOTS: Record<string, CalibratedHotspot[]> = {
   ],
 
   // ===========================================================================
-  // A2_S5 — Adult Severe Choking (Tariq in Computer Lab — Reference Level)
+  // A2_S5 — Adult Severe Choking (Mohamed in Computer Lab — Reference Level)
   // ===========================================================================
   A2_S5: [
     {
@@ -424,7 +424,7 @@ export const CALIBRATED_IMAGE_HOTSPOTS: Record<string, CalibratedHotspot[]> = {
   ],
 
   // ===========================================================================
-  // A3_S5 — Adult Unresponsive (Tariq slumped on chair in computer lab)
+  // A3_S5 — Adult Unresponsive (Mohamed slumped on chair in computer lab)
   // ===========================================================================
   A3_S5: [
     {
@@ -445,8 +445,8 @@ export const CALIBRATED_IMAGE_HOTSPOTS: Record<string, CalibratedHotspot[]> = {
         ar: 'لا يستجيب وعيناه مغمضتان',
       },
       meaning: {
-        en: 'Tariq does not wake up or respond to voice or touch.',
-        ar: 'طارق فقد الوعي ومش بيرد على النداء ولا اللمس.',
+        en: 'Mohamed does not wake up or respond to voice or touch.',
+        ar: 'محمد فقد الوعي ومش بيرد على النداء ولا اللمس.',
       },
       expectedBox: { xMin: 0.63, yMin: 0.26, xMax: 0.74, yMax: 0.36 },
     },
@@ -658,7 +658,7 @@ export const CALIBRATED_IMAGE_HOTSPOTS: Record<string, CalibratedHotspot[]> = {
   ],
 
   // ===========================================================================
-  // C1_S5 — Child Severe Choking (Youssef 6 yrs in School Cafeteria)
+  // C1_S5 — Child Severe Choking (Marwan 6 yrs in School Cafeteria)
   // ===========================================================================
   C1_S5: [
     {
@@ -678,8 +678,8 @@ export const CALIBRATED_IMAGE_HOTSPOTS: Record<string, CalibratedHotspot[]> = {
         ar: 'عيون متسعة من الخوف',
       },
       meaning: {
-        en: 'Youssef is terrified and cannot call out for help.',
-        ar: 'يوسف خايف ومش قادر ينادي أو يطلع أي صوت.',
+        en: 'Marwan is terrified and cannot call out for help.',
+        ar: 'مروان خايف ومش قادر ينادي أو يطلع أي صوت.',
       },
       expectedBox: { xMin: 0.39, yMin: 0.38, xMax: 0.50, yMax: 0.47 },
     },
@@ -757,8 +757,8 @@ export const CALIBRATED_IMAGE_HOTSPOTS: Record<string, CalibratedHotspot[]> = {
         ar: 'بين لوحَي الكتف بمستوى الطفل (ضربات الظهر)',
       },
       meaning: {
-        en: 'Kneel behind Youssef, lean him forward, and give up to 5 back blows.',
-        ar: 'اركع خلف يوسف، ميّله للأمام، ونفّذ حتى ٥ ضربات ظهر.',
+        en: 'Kneel behind Marwan, lean him forward, and give up to 5 back blows.',
+        ar: 'اركع خلف مروان، ميّله للأمام، ونفّذ حتى ٥ ضربات ظهر.',
       },
       expectedBox: { xMin: 0.26, yMin: 0.48, xMax: 0.38, yMax: 0.63 },
       initialDragPos: { x: 0.14, y: 0.28 },
@@ -797,7 +797,7 @@ export const CALIBRATED_IMAGE_HOTSPOTS: Record<string, CalibratedHotspot[]> = {
   ],
 
   // ===========================================================================
-  // C2_S5 — Child Unresponsive (Youssef 6 yrs limp at cafeteria table)
+  // C2_S5 — Child Unresponsive (Marwan 6 yrs limp at cafeteria table)
   // ===========================================================================
   C2_S5: [
     {
@@ -818,8 +818,8 @@ export const CALIBRATED_IMAGE_HOTSPOTS: Record<string, CalibratedHotspot[]> = {
         ar: 'فاقد الوعي ولا يستجيب',
       },
       meaning: {
-        en: 'Youssef went limp and does not wake up when spoken to.',
-        ar: 'يوسف جسمه ارتخى ومش بيرد ولا بيفتح عينيه.',
+        en: 'Marwan went limp and does not wake up when spoken to.',
+        ar: 'مروان جسمه ارتخى ومش بيرد ولا بيفتح عينيه.',
       },
       expectedBox: { xMin: 0.46, yMin: 0.49, xMax: 0.57, yMax: 0.59 },
     },
@@ -870,7 +870,7 @@ export const CALIBRATED_IMAGE_HOTSPOTS: Record<string, CalibratedHotspot[]> = {
   ],
 
   // ===========================================================================
-  // C3_S5 — Child Mild Choking (Youssef 6 yrs in Schoolyard — Reassuring Signs)
+  // C3_S5 — Child Mild Choking (Marwan 6 yrs in Schoolyard — Reassuring Signs)
   // ===========================================================================
   C3_S5: [
     {
@@ -945,7 +945,7 @@ export const CALIBRATED_IMAGE_HOTSPOTS: Record<string, CalibratedHotspot[]> = {
   ],
 
   // ===========================================================================
-  // I1_S5 — Infant Severe Choking (Layan 8 mos in Nursery)
+  // I1_S5 — Infant Severe Choking (Nelly 8 mos in Nursery)
   // ===========================================================================
   I1_S5: [
     {
@@ -965,8 +965,8 @@ export const CALIBRATED_IMAGE_HOTSPOTS: Record<string, CalibratedHotspot[]> = {
         ar: 'عينان واسعتان وصمت تام',
       },
       meaning: {
-        en: 'Layan is wide-eyed and completely silent — she cannot cry for air.',
-        ar: 'ليان عينيها مفتوحة على الآخر وساكتة خالص ومش قادرة تعيط.',
+        en: 'Nelly is wide-eyed and completely silent — she cannot cry for air.',
+        ar: 'نيللي عينيها مفتوحة على الآخر وساكتة خالص ومش قادرة تعيط.',
       },
       expectedBox: { xMin: 0.59, yMin: 0.36, xMax: 0.69, yMax: 0.44 },
     },
@@ -1083,7 +1083,7 @@ export const CALIBRATED_IMAGE_HOTSPOTS: Record<string, CalibratedHotspot[]> = {
   ],
 
   // ===========================================================================
-  // I2_S5 — Infant Unresponsive (Layan 8 mos limp in caregiver's arms)
+  // I2_S5 — Infant Unresponsive (Nelly 8 mos limp in caregiver's arms)
   // ===========================================================================
   I2_S5: [
     {
@@ -1104,8 +1104,8 @@ export const CALIBRATED_IMAGE_HOTSPOTS: Record<string, CalibratedHotspot[]> = {
         ar: 'لا استجابة وعينان مغمضتان',
       },
       meaning: {
-        en: 'Layan does not move or respond to voice or touch.',
-        ar: 'ليان فاقدة الوعي تماماً ومش بتستجيب للصوت أو اللمس.',
+        en: 'Nelly does not move or respond to voice or touch.',
+        ar: 'نيللي فاقدة الوعي تماماً ومش بتستجيب للصوت أو اللمس.',
       },
       expectedBox: { xMin: 0.56, yMin: 0.42, xMax: 0.69, yMax: 0.53 },
     },
@@ -1157,7 +1157,7 @@ export const CALIBRATED_IMAGE_HOTSPOTS: Record<string, CalibratedHotspot[]> = {
   ],
 
   // ===========================================================================
-  // I3_S5 — Infant Mild Choking (Layan 8 mos in High Chair — Reassuring Signs)
+  // I3_S5 — Infant Mild Choking (Nelly 8 mos in High Chair — Reassuring Signs)
   // ===========================================================================
   I3_S5: [
     {

@@ -183,7 +183,7 @@ export const SimulationCenterView: React.FC = () => {
     [activeLevelId]
   );
 
-  // Reference Level A2 ("Silence in the Lab" — Tariq, 34 yrs) per NAFAS-Levels-Restructure.md
+  // Reference Level A2 ("Silence in the Lab" — Mohamed, 34 yrs) per NAFAS-Levels-Restructure.md
   const referenceLevelA2 = useMemo(
     () => STORY_LEVELS.find((l) => l.id === 'A2') || STORY_LEVELS[1],
     []
@@ -386,8 +386,8 @@ export const SimulationCenterView: React.FC = () => {
                 <Play className="w-4 h-4 fill-current" />
                 <span>
                   {isAr
-                    ? 'ابدأ المستوى المرجعي A2 (طارق — المعمل)'
-                    : 'Start Reference Level A2 (Tariq — Lab)'}
+                    ? 'ابدأ المستوى المرجعي A2 (محمد — المعمل)'
+                    : 'Start Reference Level A2 (Mohamed — Lab)'}
                 </span>
               </button>
 
@@ -399,8 +399,8 @@ export const SimulationCenterView: React.FC = () => {
                 <Play className="w-3.5 h-3.5 text-[#43C7D1]" />
                 <span>
                   {isAr
-                    ? 'جرّب المستوى C1 (يوسف — كافيتريا المدرسة)'
-                    : 'Play Level C1 (Youssef — School Cafeteria)'}
+                    ? 'جرّب المستوى C1 (مروان — كافيتريا المدرسة)'
+                    : 'Play Level C1 (Marwan — School Cafeteria)'}
                 </span>
               </button>
             </div>

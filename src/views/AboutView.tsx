@@ -7,24 +7,24 @@ import {
   Users,
   Activity,
   ShieldCheck,
+  ShieldAlert,
   BookOpen,
   Play,
-  Palette,
   Layers,
   ClipboardCheck,
+  Wind,
+  Hand,
+  HeartPulse,
+  Move3d,
+  MousePointerClick,
+  RotateCw,
 } from 'lucide-react';
 import { useNafas } from '../context/NafasContext';
 import { STORY_LEVELS } from '../data/storyLevels';
-import { RiggedSceneCanvas } from '../components/RiggedSceneCanvas';
+import { AnatomicalExplorer3D } from '../components/respiratory3d/AnatomicalExplorer3D';
 import { MedicalDisclaimerBanner } from '../components/MedicalDisclaimerBanner';
 import { NafasLogoLockup } from '../components/Navbar';
-import {
-  ObstructionObjectType,
-  RescuerCharacterId,
-  RigPoseId,
-  SceneLocationId,
-  VictimCharacterId,
-} from '../types/nafas';
+import { RigPoseId, VictimCharacterId } from '../types/nafas';
 
 export const AboutView: React.FC = () => {
   const { language, t, navigateTo, startLevel } = useNafas();
@@ -40,48 +40,60 @@ export const AboutView: React.FC = () => {
     id: VictimCharacterId;
     name: { en: string; ar: string };
     age: { en: string; ar: string };
-    location: SceneLocationId;
-    rescuer: RescuerCharacterId;
-    obstruction: ObstructionObjectType;
+    heightLabel: { en: string; ar: string };
+    ratioLtr: string;
+    heightPct: number;
+    tag: { en: string; ar: string };
+    allowAbdominalThrust: boolean;
+    preferredThrust: 'abdominal_thrusts_5' | 'chest_thrusts_special';
     clinicalNote: { en: string; ar: string };
   }[] = [
     {
       id: 'youssef_adult',
-      name: { en: 'Adult Patient (1:7.5 Scale)', ar: 'مريض بالغ (نسبة ١:٧.٥)' },
+      name: { en: 'Mohamed · Adult', ar: 'محمد · مريض بالغ' },
       age: { en: '34 Years · 175 cm', ar: '٣٤ سنة · ١٧٥ سم' },
-      location: 'family_dining',
-      rescuer: 'rescuer_family',
-      obstruction: 'meat',
+      heightLabel: { en: '175 cm', ar: '١٧٥ سم' },
+      ratioLtr: '1 : 7.5',
+      heightPct: 100,
+      tag: { en: 'Adult Thoracic Scale', ar: 'تشريح البالغ القياسي' },
+      allowAbdominalThrust: true,
+      preferredThrust: 'abdominal_thrusts_5',
       clinicalNote: {
-        en: 'Standard adult anatomy: alternate 5 back blows & 5 abdominal thrusts above the navel.',
-        ar: 'تشريح البالغ القياسي: التبديل بين ٥ ضربات ظهرية و٥ ضغطات بطنية فوق السرة.',
+        en: 'Standard adult anatomy: alternate up to 5 back blows & up to 5 abdominal thrusts above the navel.',
+        ar: 'تشريح البالغ القياسي: التبديل بين حتى ٥ ضربات ظهرية وحتى ٥ ضغطات بطنية فوق السرة.',
       },
     },
     {
       id: 'salma_pregnant',
       name: {
-        en: 'Pregnant Adult (3rd Trimester)',
+        en: 'Pregnant Adult (3rd Trim.)',
         ar: 'سيدة حامل (الثلث الثالث)',
       },
-      age: { en: '31 Years · Sternal Protocol', ar: '٣١ سنة · بروتوكول القص' },
-      location: 'home_workplace_lounge',
-      rescuer: 'rescuer_colleague',
-      obstruction: 'meat',
+      age: { en: '31 Years · 166 cm', ar: '٣١ سنة · ١٦٦ سم' },
+      heightLabel: { en: '166 cm', ar: '١٦٦ سم' },
+      ratioLtr: '1 : 7.2',
+      heightPct: 95,
+      tag: { en: '3rd-Trimester Sternal', ar: 'حمل بالثلث الثالث' },
+      allowAbdominalThrust: false,
+      preferredThrust: 'chest_thrusts_special',
       clinicalNote: {
-        en: 'Never press on the abdomen in late pregnancy; use sternal chest thrusts.',
+        en: 'Never press on the abdomen in late pregnancy; use sternal chest thrusts at mid-sternum.',
         ar: 'يُمنع الضغط على البطن في الحمل المتقدم؛ تُستبدل بضغطات صدرية في منتصف عظمة القص.',
       },
     },
     {
       id: 'mostafa_child',
       name: {
-        en: 'Pediatric Child (1:5.5 Scale)',
-        ar: 'طفل (نسبة تشريحية ١:٥.٥)',
+        en: 'Marwan · Child (6 yrs)',
+        ar: 'مروان · طفل (٦ سنوات)',
       },
       age: { en: '6 Years · 115 cm', ar: '٦ سنوات · ١١٥ سم' },
-      location: 'school_cafeteria',
-      rescuer: 'rescuer_teacher',
-      obstruction: 'grape',
+      heightLabel: { en: '115 cm', ar: '١١٥ سم' },
+      ratioLtr: '1 : 5.5',
+      heightPct: 66,
+      tag: { en: '6y Pediatric Scale', ar: 'نسب طفل ٦ سنوات' },
+      allowAbdominalThrust: true,
+      preferredThrust: 'abdominal_thrusts_5',
       clinicalNote: {
         en: 'Kneel behind the child to align force vectors; use calibrated pediatric force.',
         ar: 'الركوع خلف الطفل لمحاذاة زاوية الدفع مع استخدام قوة متناسبة مع حجم الطفل.',
@@ -90,44 +102,57 @@ export const AboutView: React.FC = () => {
     {
       id: 'nelly_infant',
       name: {
-        en: 'Infant Patient (1:4 Scale)',
-        ar: 'رضيع (نسبة تشريحية ١:٤)',
+        en: 'Nelly · Infant (8 mos)',
+        ar: 'نيللي · رضيعة (٨ أشهر)',
       },
       age: { en: '8 Months · 68 cm', ar: '٨ أشهر · ٦٨ سم' },
-      location: 'home_nursery',
-      rescuer: 'rescuer_parent',
-      obstruction: 'soft_food',
+      heightLabel: { en: '68 cm', ar: '٦٨ سم' },
+      ratioLtr: '1 : 4.0',
+      heightPct: 39,
+      tag: { en: '8m Infant Forearm', ar: 'نسب رضيعة ٨ أشهر' },
+      allowAbdominalThrust: false,
+      preferredThrust: 'chest_thrusts_special',
       clinicalNote: {
-        en: 'Support prone on forearm head-lower-than-chest for 5 back blows + 5 two-finger chest thrusts.',
-        ar: 'إسناد الرضيع على الساعد ورأسه لأسفل مع ٥ ضربات ظهرية و٥ ضغطات صدرية بإصبعين.',
+        en: 'Support prone on forearm head-lower-than-chest for up to 5 back blows + up to 5 two-finger chest thrusts.',
+        ar: 'إسناد الرضيعة على الساعد ورأسها لأسفل لعمل حتى ٥ ضربات ظهرية وحتى ٥ ضغطات صدرية بإصبعين.',
       },
     },
   ];
 
-  const poseOptions: { id: RigPoseId; label: { en: string; ar: string } }[] = [
+  const poseOptions: {
+    id: RigPoseId;
+    label: { en: string; ar: string };
+    icon: React.ReactNode;
+  }[] = [
     {
       id: 'effective_cough',
       label: { en: 'Partial Flow / Cough', ar: 'انسداد جزئي / سعال' },
+      icon: <Wind className="w-3.5 h-3.5 shrink-0" />,
     },
     {
       id: 'severe_silent_choking',
       label: { en: 'Complete Obstruction', ar: 'انسداد كامل بمجرى الهواء' },
+      icon: <ShieldAlert className="w-3.5 h-3.5 shrink-0" />,
     },
     {
       id: 'back_blows_5',
       label: { en: '5 Back Blows', ar: '٥ ضربات ظهرية' },
+      icon: <Hand className="w-3.5 h-3.5 shrink-0" />,
     },
     {
       id: 'abdominal_thrusts_5',
       label: { en: '5 Abdominal Thrusts', ar: '٥ ضغطات بطنية' },
+      icon: <Target className="w-3.5 h-3.5 shrink-0" />,
     },
     {
       id: 'chest_thrusts_special',
       label: { en: 'Sternal Chest Thrusts', ar: 'ضغطات صدرية' },
+      icon: <HeartPulse className="w-3.5 h-3.5 shrink-0" />,
     },
     {
       id: 'object_expelled_recovery',
       label: { en: 'Airway Cleared', ar: 'فتح مجرى الهواء والتعافي' },
+      icon: <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />,
     },
   ];
 
@@ -135,16 +160,185 @@ export const AboutView: React.FC = () => {
     characterProfiles.find((c) => c.id === selectedCharacter) ||
     characterProfiles[0];
 
-  const colorTokens = [
-    { name: 'Main BG', hex: '#071F2E' },
-    { name: 'Secondary BG', hex: '#0B2D40' },
-    { name: 'Card Surface', hex: '#123B50' },
-    { name: 'Elevated', hex: '#19465B' },
-    { name: 'Primary Teal', hex: '#13B8B0' },
-    { name: 'Accent Cyan', hex: '#43C7D1' },
-    { name: 'Success', hex: '#16A36A' },
-    { name: 'Danger', hex: '#DC5252' },
-  ];
+  const isSelectedManeuverUnsafe =
+    selectedPose === 'abdominal_thrusts_5' && !activeChar.allowAbdominalThrust;
+
+  const getDynamicManeuverDetails = (): {
+    target: { en: string; ar: string };
+    technique: { en: string; ar: string };
+    airflow: { en: string; ar: string };
+  } => {
+    if (isSelectedManeuverUnsafe) {
+      return activeChar.id === 'salma_pregnant'
+        ? {
+            target: {
+              en: 'Abdomen is protected by the 3rd-trimester uterus (unsafe)',
+              ar: 'البطن مشغول بالرحم في الثلث الثالث (ممنوع الضغط عليه)',
+            },
+            technique: {
+              en: 'Move hands up to the center of the sternum for chest thrusts',
+              ar: 'ارفع يديك فوراً إلى منتصف عظمة القص لتنفيذ الضغطات الصدرية',
+            },
+            airflow: {
+              en: 'Abdominal pressure risks uterine injury without elevating the diaphragm safely',
+              ar: 'الضغط على البطن يعرّض الأم والجنين للخطر ولا يفتح مجرى الهواء بأمان',
+            },
+          }
+        : {
+            target: {
+              en: 'Infant abdomen houses an unprotected liver below soft ribs (unsafe)',
+              ar: 'بطن الرضيع يحتوي على كبد حساس غير محمي أسفل الأضلاع اللينة (ممنوع)',
+            },
+            technique: {
+              en: 'Use 2 fingers on the lower half of the sternum for 5 chest thrusts',
+              ar: 'استخدم إصبعين فقط على النصف السفلي لعظمة القص لعمل ٥ ضغطات صدرية',
+            },
+            airflow: {
+              en: 'Two-finger chest thrusts compress thoracic air safely without abdominal trauma',
+              ar: 'الضغطات الصدرية بإصبعين تضغط هواء الصدر بأمان تام دون إصابة البطن',
+            },
+          };
+    }
+
+    switch (selectedPose) {
+      case 'effective_cough':
+        return {
+          target: {
+            en: 'Upper airway partially open — no physical thrusts needed',
+            ar: 'مجرى الهواء مفتوح جزئياً — لا حاجة لتدخل يدوي',
+          },
+          technique: {
+            en:
+              activeChar.id === 'nelly_infant'
+                ? 'Keep upright, observe loud cry/cough closely, stay ready'
+                : 'Stay close, reassure calmly, and encourage strong coughing',
+            ar:
+              activeChar.id === 'nelly_infant'
+                ? 'أبقِ الرضيعة في وضع مريح وراقب البكاء والسعال القوي عن قرب'
+                : 'ابقَ قريباً، طمئن المصاب، وشجّعه على مواصلة السعال القوي',
+          },
+          airflow: {
+            en: 'Airflow continues passing around the loose bolus into both lungs',
+            ar: 'الهواء ما زال يمر حول اللقمة إلى الرئتين مما يسمح بطردها طبيعياً',
+          },
+        };
+      case 'severe_silent_choking':
+        return {
+          target: {
+            en: 'Complete laryngeal obstruction — urgent intervention required',
+            ar: 'انسداد كامل عند الحنجرة — يتطلب تدخلاً إسعافياً فورياً',
+          },
+          technique: {
+            en:
+              activeChar.id === 'nelly_infant'
+                ? 'Start immediately: up to 5 back blows + up to 5 two-finger chest thrusts'
+                : activeChar.id === 'salma_pregnant'
+                ? 'Start immediately: up to 5 back blows + up to 5 sternal chest thrusts'
+                : 'Call EMS and alternate up to 5 back blows + up to 5 abdominal thrusts',
+            ar:
+              activeChar.id === 'nelly_infant'
+                ? 'ابدأ فوراً: حتى ٥ ضربات ظهرية بالتبادل مع حتى ٥ ضغطات صدرية بإصبعين'
+                : activeChar.id === 'salma_pregnant'
+                ? 'ابدأ فوراً: حتى ٥ ضربات ظهرية بالتبادل مع حتى ٥ ضغطات صدرية على القص'
+                : 'اطلب الإسعاف وبدّل بين حتى ٥ ضربات ظهرية وحتى ٥ ضغطات بطنية',
+          },
+          airflow: {
+            en: 'Zero air enters the bronchi; trapped residual lung air must be compressed upward',
+            ar: 'توقف تام لدخول الهواء؛ نعتمد على ضغط الهواء المتبقي بالرئتين لطرد الجسم',
+          },
+        };
+      case 'back_blows_5':
+        return {
+          target: {
+            en: 'Midline between the shoulder blades (interscapular zone)',
+            ar: 'المنتصف بين لوحي الكتف (المنطقة البين كتفية)',
+          },
+          technique: {
+            en:
+              activeChar.id === 'nelly_infant'
+                ? 'Hold infant face-down along forearm, head lower than chest, supporting jaw'
+                : activeChar.id === 'mostafa_child'
+                ? 'Kneel behind child, support chest, lean forward, give up to 5 firm blows'
+                : 'Support chest with one hand, lean torso forward, deliver up to 5 heel blows',
+            ar:
+              activeChar.id === 'nelly_infant'
+                ? 'أسند الرضيعة على بطنها فوق ساعدك والرأس أخفض من الصدر مع تثبيت الفك'
+                : activeChar.id === 'mostafa_child'
+                ? 'اركع خلف الطفل، أسند صدره وأمله للأمام مع توجيه حتى ٥ ضربات محسوبة'
+                : 'أسند الصدر بيد وأمل الجذع للأمام مع توجيه حتى ٥ ضربات حازمة بكعب اليد',
+          },
+          airflow: {
+            en: 'Vibration + gravity + upward thoracic pressure jolt the blockage toward the mouth',
+            ar: 'الاهتزاز والجاذبية وموجة الضغط الصاعدة تدفع الجسم العالق نحو الفم',
+          },
+        };
+      case 'abdominal_thrusts_5':
+        return {
+          target: {
+            en: 'Midline just above the navel and well below the sternum tip',
+            ar: 'خط المنتصف فوق السرة مباشرة وأسفل طرف عظمة القص',
+          },
+          technique: {
+            en:
+              activeChar.id === 'mostafa_child'
+                ? 'Kneel behind child, thumb-side of fist inward & upward with child-calibrated force'
+                : 'Stand behind adult, thumb-side of fist inward & upward in distinct J-strokes',
+            ar:
+              activeChar.id === 'mostafa_child'
+                ? 'اركع خلف الطفل واضغط بقبضتك للداخل وللأعلى بقوة مناسبة لحجم الطفل'
+                : 'قف خلف البالغ واضغط بقبضتك للداخل وللأعلى بحركة J منفصلة وحازمة',
+          },
+          airflow: {
+            en: 'Elevates the diaphragm like a piston, blasting residual lung air upward',
+            ar: 'ترفع الحجاب الحاجز كالمكبس فتدفع الهواء المحبوس بالرئتين بقوة للأعلى',
+          },
+        };
+      case 'chest_thrusts_special':
+        return {
+          target: {
+            en:
+              activeChar.id === 'nelly_infant'
+                ? 'Lower half of the sternum, just below the nipple line (2 fingers)'
+                : 'Center of the sternum (mid-breastbone), safely above the abdomen',
+            ar:
+              activeChar.id === 'nelly_infant'
+                ? 'النصف السفلي لعظمة القص أسفل خط الحلمتين مباشرة (بإصبعين)'
+                : 'منتصف عظمة القص في الصدر — بعيداً تماماً عن منطقة البطن',
+          },
+          technique: {
+            en:
+              activeChar.id === 'nelly_infant'
+                ? 'Hold face-up head-lower-than-chest on forearm; deliver up to 5 two-finger thrusts'
+                : 'Wrap arms under armpits onto mid-sternum; pull sharply straight inward',
+            ar:
+              activeChar.id === 'nelly_infant'
+                ? 'اقلب الرضيعة على ظهرها والرأس لأسفل ونفّذ حتى ٥ ضغطات صدرية بإصبعين'
+                : 'مرّر ذراعيك تحت الإبطين لمنتصف عظمة القص واسحب للداخل مباشرة',
+          },
+          airflow: {
+            en: 'Direct sternal compression generates high intrathoracic pressure safely',
+            ar: 'الضغط المباشر على الصدر يولّد ضغطاً هوائياً طارداً بأمان تام',
+          },
+        };
+      default:
+        return {
+          target: {
+            en: 'Larynx & trachea clear — obstruction visibly expelled',
+            ar: 'الحنجرة والقصبة مفتوحتان — تم طرد الجسم الغريب بالكامل',
+          },
+          technique: {
+            en: 'Reassure patient, monitor breathing, and arrange medical check after thrusts',
+            ar: 'طمئن المصاب وراقب تنفسه، واعرضه لفحص طبي للاطمئنان بعد الضغطات',
+          },
+          airflow: {
+            en: 'Full laminar airflow restored smoothly across all bronchial branches',
+            ar: 'عاد تدفق الهواء الكامل والمنتظم إلى جميع الشعب الهوائية والرئتين',
+          },
+        };
+    }
+  };
+
+  const activeManeuverDetails = getDynamicManeuverDetails();
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
@@ -206,191 +400,282 @@ export const AboutView: React.FC = () => {
       </section>
 
       {/* INTERACTIVE ANATOMICAL VISUALIZATION & AGE DIFFERENTIATION SHOWCASE */}
-      <section className="bg-[#0B2D40] text-[#F3F7F8] rounded-2xl p-6 sm:p-8 lg:p-10 border border-[#285064] shadow-2xl space-y-6">
+      <section
+        data-testid="about-anatomical-section"
+        className="bg-[#0B2D40] text-[#F3F7F8] rounded-2xl p-6 sm:p-8 lg:p-10 border border-[#285064] shadow-2xl space-y-6"
+      >
         <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <div className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-[#43C7D1]">
+          <div className="space-y-1.5">
+            <div className="inline-flex items-center gap-2 text-xs font-extrabold tracking-wide text-[#43C7D1]">
               <Layers className="w-4 h-4 text-[#13B8B0]" />
               <span>
                 {isAr
-                  ? 'نظام التوضيح الطبي والتشريحي للفئات العمرية'
-                  : 'Age-Specific Medical Illustration & Anatomical Airway System'}
+                  ? 'المستكشف التشريحي ثلاثي الأبعاد للفئات العمرية'
+                  : 'Interactive 3D Age-Specific Anatomical & Airway Explorer'}
               </span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#F3F7F8] mt-1">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#F3F7F8] text-balance">
               {isAr
                 ? 'استكشف الفروق التشريحية بين البالغ والحامل والطفل والرضيع'
-                : 'Inspect Anatomical Proportions & Airway Overlays by Age Group'}
+                : 'Explore Anatomical Proportions & Airway Maneuvers by Age Group'}
             </h2>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          {/* Left: Patient Category Selector & Clinical State Controls */}
-          <div className="lg:col-span-5 space-y-4">
-            <div className="space-y-2">
-              <div className="text-xs font-extrabold uppercase tracking-wider text-[#A9C0CC]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          {/* Controls Column: Patient Category + Airway State & Maneuver + Dynamic Clinical Protocol */}
+          <div className="lg:col-span-5 flex flex-col justify-between gap-4">
+            {/* Step 1: Age & Anatomical Profile */}
+            <div className="space-y-2.5">
+              <div className="text-xs font-extrabold text-[#A9C0CC]">
                 {isAr
                   ? '١. اختر الفئة العمرية والتشريحية'
                   : '1. Select Age & Anatomical Profile'}
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {characterProfiles.map((char) => (
-                  <button
-                    key={char.id}
-                    type="button"
-                    onClick={() => setSelectedCharacter(char.id)}
-                    className={`text-start p-3 rounded-xl border transition-all cursor-pointer ${
-                      selectedCharacter === char.id
-                        ? 'bg-[#13B8B0] border-[#43C7D1] text-[#071F2E] font-extrabold'
-                        : 'bg-[#123B50] border-[#285064] text-[#F3F7F8] hover:bg-[#19465B]'
-                    }`}
-                  >
-                    <div className="text-xs font-extrabold">
-                      {char.name[language]}
-                    </div>
-                    <div
-                      className={`text-[11px] ${
-                        selectedCharacter === char.id
-                          ? 'text-[#071F2E]/85 font-bold'
-                          : 'text-[#A9C0CC]'
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {characterProfiles.map((char) => {
+                  const selected = selectedCharacter === char.id;
+                  return (
+                    <button
+                      key={char.id}
+                      type="button"
+                      data-testid={`about-char-btn-${char.id}`}
+                      onClick={() => setSelectedCharacter(char.id)}
+                      className={`text-start p-3 rounded-xl border transition-all cursor-pointer ${
+                        selected
+                          ? 'bg-[#13B8B0] border-[#43C7D1] text-[#071F2E] shadow-md'
+                          : 'bg-[#123B50] border-[#285064] text-[#F3F7F8] hover:bg-[#19465B] hover:border-[#43C7D1]/60'
                       }`}
                     >
-                      {char.age[language]}
-                    </div>
-                  </button>
-                ))}
+                      <div className="text-xs font-extrabold leading-snug">
+                        {char.name[language]}
+                      </div>
+                      <div
+                        className={`text-[11px] mt-0.5 tabular-nums ${
+                          selected
+                            ? 'text-[#071F2E]/85 font-bold'
+                            : 'text-[#A9C0CC]'
+                        }`}
+                      >
+                        {char.age[language]}
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
-            <div className="space-y-2">
-              <div className="text-xs font-extrabold uppercase tracking-wider text-[#A9C0CC]">
+            {/* Step 2: Airway State & Rescue Maneuver */}
+            <div className="space-y-2.5">
+              <div className="text-xs font-extrabold text-[#A9C0CC]">
                 {isAr
                   ? '٢. اختبر حالة مجرى الهواء والمناورة'
-                  : '2. Inspect Airway State & Rescue Landmark'}
+                  : '2. Inspect Airway State & Rescue Maneuver'}
               </div>
-              <div className="grid grid-cols-2 gap-2">
-                {poseOptions.map((p) => (
-                  <button
-                    key={p.id}
-                    type="button"
-                    onClick={() => setSelectedPose(p.id)}
-                    className={`text-start px-3 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
-                      selectedPose === p.id
-                        ? 'bg-[#19465B] border-[#43C7D1] text-[#43C7D1]'
-                        : 'bg-[#123B50] border-[#285064] text-[#A9C0CC] hover:text-[#F3F7F8]'
-                    }`}
-                  >
-                    {p.label[language]}
-                  </button>
-                ))}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {poseOptions.map((p) => {
+                  const isActive = selectedPose === p.id;
+                  const isUnsafeOption =
+                    p.id === 'abdominal_thrusts_5' &&
+                    !activeChar.allowAbdominalThrust;
+                  const isRecommendedThrust = p.id === activeChar.preferredThrust;
+
+                  return (
+                    <button
+                      key={p.id}
+                      type="button"
+                      data-testid={`about-pose-btn-${p.id}`}
+                      onClick={() => setSelectedPose(p.id)}
+                      className={`text-start px-3 py-2.5 rounded-xl text-xs font-bold border transition-all cursor-pointer flex flex-col gap-1 ${
+                        isActive && isUnsafeOption
+                          ? 'bg-[#36141C] border-[#DC5252] text-[#FFD4D8]'
+                          : isActive
+                          ? 'bg-[#19465B] border-[#43C7D1] text-[#FFFFFF] shadow-sm'
+                          : isUnsafeOption
+                          ? 'bg-[#1D1C26] border-[#DC5252]/40 text-[#E5A9B0] hover:border-[#DC5252]'
+                          : 'bg-[#123B50] border-[#285064] text-[#C6DCE6] hover:text-[#F3F7F8] hover:border-[#43C7D1]/50'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <span
+                          className={
+                            isUnsafeOption
+                              ? 'text-[#FF6B78]'
+                              : isActive
+                              ? 'text-[#43C7D1]'
+                              : 'text-[#7AA8BD]'
+                          }
+                        >
+                          {p.icon}
+                        </span>
+                        <span className="leading-snug">{p.label[language]}</span>
+                      </div>
+                      {isUnsafeOption && (
+                        <span className="text-[10.5px] font-extrabold text-[#FF8A95] ps-5">
+                          {isAr ? 'ممنوع لهذه الفئة' : 'Contraindicated'}
+                        </span>
+                      )}
+                      {!isUnsafeOption && isRecommendedThrust && (
+                        <span className="text-[10.5px] font-bold text-[#43C7D1] ps-5">
+                          {isAr ? 'الضغط المعتمد لهذه الفئة' : 'Recommended thrust'}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
-            <div className="p-4 rounded-xl bg-[#123B50] border border-[#285064] space-y-1.5">
-              <div className="text-xs font-extrabold text-[#43C7D1]">
-                {isAr ? 'القاعدة التشريحية المعتمدة:' : 'Clinical Anatomical Rule:'}
+            {/* Dynamic Clinical Protocol & Safety Box */}
+            <div
+              data-testid="about-clinical-rule-card"
+              className={`p-4 rounded-xl border space-y-2.5 ${
+                isSelectedManeuverUnsafe
+                  ? 'bg-[#2A1118] border-[#DC5252]'
+                  : 'bg-[#123B50] border-[#285064]'
+              }`}
+            >
+              <div className="flex items-center justify-between gap-2">
+                <div
+                  className={`inline-flex items-center gap-1.5 text-xs font-extrabold ${
+                    isSelectedManeuverUnsafe ? 'text-[#FF8A95]' : 'text-[#43C7D1]'
+                  }`}
+                >
+                  {isSelectedManeuverUnsafe ? (
+                    <ShieldAlert className="w-4 h-4 shrink-0" />
+                  ) : (
+                    <ShieldCheck className="w-4 h-4 shrink-0" />
+                  )}
+                  <span>
+                    {isSelectedManeuverUnsafe
+                      ? isAr
+                        ? 'تنبيه أمان طبي: مناورة ممنوعة'
+                        : 'Clinical Safety Alert: Contraindicated'
+                      : isAr
+                      ? 'التحليل التشريحي والتطبيقي'
+                      : 'Live Anatomical & Protocol Breakdown'}
+                  </span>
+                </div>
               </div>
-              <p className="text-xs text-[#F3F7F8] leading-relaxed">
-                {activeChar.clinicalNote[language]}
-              </p>
+
+              <dl className="space-y-2 text-xs leading-relaxed">
+                <div>
+                  <dt className="font-bold text-[#9AC2D4]">
+                    {isAr ? 'الموضع التشريحي:' : 'Anatomical Landmark:'}
+                  </dt>
+                  <dd className="text-[#F3F7F8]">
+                    {activeManeuverDetails.target[language]}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="font-bold text-[#9AC2D4]">
+                    {isAr ? 'طريقة التنفيذ:' : 'Technique & Posture:'}
+                  </dt>
+                  <dd className="text-[#F3F7F8]">
+                    {activeManeuverDetails.technique[language]}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="font-bold text-[#9AC2D4]">
+                    {isAr ? 'تأثير مجرى الهواء:' : 'Airway Physics:'}
+                  </dt>
+                  <dd className="text-[#DCECF3]">
+                    {activeManeuverDetails.airflow[language]}
+                  </dd>
+                </div>
+              </dl>
+
+              {isSelectedManeuverUnsafe && (
+                <button
+                  type="button"
+                  data-testid="about-panel-switch-safe-btn"
+                  onClick={() => setSelectedPose('chest_thrusts_special')}
+                  className="w-full mt-1 py-2 px-3 rounded-lg bg-[#13B8B0] hover:bg-[#43C7D1] text-[#071F2E] text-xs font-extrabold inline-flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                >
+                  <CheckCircle2 className="w-4 h-4 shrink-0" />
+                  <span>
+                    {isAr
+                      ? 'انتقل إلى البديل الآمن: الضغطات الصدرية'
+                      : 'Switch to Safe Alternative: Chest Thrusts'}
+                  </span>
+                </button>
+              )}
             </div>
           </div>
 
-          {/* Right: Live 3D Anatomical Model & 2D Illustration Viewport */}
-          <div className="lg:col-span-7 space-y-3">
-            <div className="relative aspect-[16/10] rounded-2xl overflow-hidden border border-[#285064] bg-[#071F2E] shadow-xl">
-              <RiggedSceneCanvas
-                location={activeChar.location}
+          {/* 3D Interactive Medical-Glass Viewport Column */}
+          <div className="lg:col-span-7 flex flex-col gap-3">
+            <div className="relative aspect-[4/3] sm:aspect-[16/11] rounded-2xl overflow-hidden border border-[#285064] bg-[#061A28] shadow-xl">
+              <AnatomicalExplorer3D
                 victim={activeChar.id}
-                rescuer={activeChar.rescuer}
-                obstruction={activeChar.obstruction}
                 pose={selectedPose}
-                spo2={selectedPose === 'severe_silent_choking' ? 83 : 97}
-                heartRate={selectedPose === 'severe_silent_choking' ? 136 : 92}
                 language={language}
-                defaultRenderMode="3d"
-                onSelectVictim={setSelectedCharacter}
+                onSelectPose={setSelectedPose}
               />
             </div>
 
-            {/* 4-Category Anatomical Proportions & Scale Comparison Strip */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-              {[
-                {
-                  id: 'youssef_adult' as VictimCharacterId,
-                  ratio: '1 : 7.5',
-                  height: '175 cm',
-                  tag: { en: 'Adult Thoracic Scale', ar: 'تشريح البالغ القياسي' },
-                },
-                {
-                  id: 'salma_pregnant' as VictimCharacterId,
-                  ratio: '1 : 7.2',
-                  height: '166 cm',
-                  tag: { en: '3rd-Trimester Sternal', ar: 'حمل بالثلث الثالث' },
-                },
-                {
-                  id: 'mostafa_child' as VictimCharacterId,
-                  ratio: '1 : 5.5',
-                  height: '115 cm',
-                  tag: { en: '6y Pediatric Scale', ar: 'نسب طفل ٦ سنوات' },
-                },
-                {
-                  id: 'nelly_infant' as VictimCharacterId,
-                  ratio: '1 : 4.0',
-                  height: '68 cm',
-                  tag: { en: '8m Infant Forearm', ar: 'نسب رضيع ٨ أشهر' },
-                },
-              ].map((spec) => (
-                <button
-                  key={spec.id}
-                  type="button"
-                  onClick={() => setSelectedCharacter(spec.id)}
-                  className={`text-start p-2.5 rounded-xl border transition-all cursor-pointer ${
-                    selectedCharacter === spec.id
-                      ? 'bg-[#19465B] border-[#43C7D1] text-[#F3F7F8]'
-                      : 'bg-[#123B50] border-[#285064] text-[#A9C0CC] hover:text-[#F3F7F8]'
-                  }`}
-                >
-                  <div className="flex items-center justify-between text-[11px] font-extrabold text-[#43C7D1]">
-                    <span>{spec.height}</span>
-                    <span>{spec.ratio}</span>
-                  </div>
-                  <div className="text-[11px] font-bold text-[#F3F7F8] mt-0.5 truncate">
-                    {spec.tag[language]}
-                  </div>
-                </button>
-              ))}
+            {/* 4-Category Anatomical Proportions & Scale Comparison Strip (RTL-Safe + Visual Height Bar) */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              {characterProfiles.map((spec) => {
+                const isSelected = selectedCharacter === spec.id;
+                return (
+                  <button
+                    key={spec.id}
+                    type="button"
+                    data-testid={`about-scale-card-${spec.id}`}
+                    onClick={() => setSelectedCharacter(spec.id)}
+                    className={`text-start p-3 rounded-xl border transition-all cursor-pointer space-y-1.5 ${
+                      isSelected
+                        ? 'bg-[#19465B] border-[#43C7D1] text-[#F3F7F8]'
+                        : 'bg-[#123B50] border-[#285064] text-[#A9C0CC] hover:text-[#F3F7F8] hover:border-[#43C7D1]/50'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between gap-1 text-[11px] font-extrabold text-[#43C7D1] tabular-nums">
+                      <span>{spec.heightLabel[language]}</span>
+                      <span dir="ltr" className="text-[#BFEBF2]">
+                        {spec.ratioLtr}
+                      </span>
+                    </div>
+                    {/* Relative Proportional Height Bar */}
+                    <div className="w-full h-1.5 rounded-full bg-[#071F2E] overflow-hidden">
+                      <div
+                        className={`h-full rounded-full transition-all duration-300 ${
+                          isSelected ? 'bg-[#13B8B0]' : 'bg-[#3C7B96]'
+                        }`}
+                        style={{ width: `${spec.heightPct}%` }}
+                      />
+                    </div>
+                    <div className="text-[11px] font-bold text-[#F3F7F8] leading-snug">
+                      {spec.tag[language]}
+                    </div>
+                  </button>
+                );
+              })}
             </div>
 
-            {/* Dark Medical Technology Color Tokens Strip */}
-            <div className="bg-[#123B50] border border-[#285064] rounded-xl p-3.5">
-              <div className="flex items-center gap-2 text-xs font-extrabold text-[#43C7D1] mb-2">
-                <Palette className="w-3.5 h-3.5 text-[#13B8B0]" />
+            {/* Clean Unboxed Interactive Guide Strip (Replaces Truncated Color Swatches) */}
+            <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-[#071F2E]/75 border border-[#1E4458] text-xs text-[#B9D3E0]">
+              <div className="inline-flex items-center gap-1.5">
+                <Move3d className="w-3.5 h-3.5 text-[#43C7D1] shrink-0" />
                 <span>
-                  {isAr
-                    ? 'نظام ألوان التكنولوجيا الطبية الداكنة في نَفَس'
-                    : 'NAFAS Dark Medical Technology Color System'}
+                  {isAr ? 'اسحب لتدوير النموذج 360°' : 'Drag to rotate 360°'}
                 </span>
               </div>
-              <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
-                {colorTokens.map((tok) => (
-                  <div
-                    key={tok.name}
-                    className="rounded-lg p-1.5 bg-[#071F2E] border border-[#285064] text-center"
-                  >
-                    <div
-                      className="w-full h-5 rounded mb-1 border border-[#285064]"
-                      style={{ backgroundColor: tok.hex }}
-                    />
-                    <div className="text-[10px] font-bold text-[#F3F7F8] truncate">
-                      {tok.name}
-                    </div>
-                    <div className="text-[9px] text-[#A9C0CC] font-mono">
-                      {tok.hex}
-                    </div>
-                  </div>
-                ))}
+              <div className="inline-flex items-center gap-1.5">
+                <MousePointerClick className="w-3.5 h-3.5 text-[#43C7D1] shrink-0" />
+                <span>
+                  {isAr
+                    ? 'اضغط على أي عضو لمعرفة وظيفته'
+                    : 'Click any organ to inspect'}
+                </span>
+              </div>
+              <div className="inline-flex items-center gap-1.5">
+                <RotateCw className="w-3.5 h-3.5 text-[#43C7D1] shrink-0" />
+                <span>
+                  {isAr
+                    ? 'بدّل الزاوية (أمامي · جانبي · خلفي) لرؤية موضع الضربات'
+                    : 'Switch Front / Side / Back views'}
+                </span>
               </div>
             </div>
           </div>

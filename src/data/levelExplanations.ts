@@ -6,7 +6,7 @@ import { StructuredResultExplanation } from '../types/nafas';
  */
 export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = {
   // ===========================================================================
-  // A1 — The First Cough (Tariq, Cafeteria — Mild Choking)
+  // A1 — The First Cough (Mohamed, Cafeteria — Mild Choking)
   // ===========================================================================
   'a1-c1': {
     verdict: {
@@ -14,8 +14,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'تصرف سليم — سعاله القوي طرد اللقمة',
     },
     whatHappened: {
-      en: 'You asked Tariq if he was choking, kept him calm, and stayed right beside him until his cough pushed the food out.',
-      ar: 'سألت طارق بهدوء «هل بتشرق؟» وشجعته يكمل كحة لحد ما اللقمة خرجت لوحدها.',
+      en: 'You asked Mohamed if he was choking, kept him calm, and stayed right beside him until his cough pushed the food out.',
+      ar: 'سألت محمد بهدوء «هل بتشرق؟» وشجعته يكمل كحة لحد ما اللقمة خرجت لوحدها.',
     },
     why: {
       en: 'A loud cough means air is still moving in and out of the lungs. No hands-on maneuver beats the body’s own strong cough reflex.',
@@ -31,8 +31,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'كحة قوية وصوت مسموع؟ خليك جنبه وشجّعه يكح من غير ضرب على الضهر.',
     },
     afterCare: {
-      en: 'Make sure Tariq breathes comfortably for a few minutes and watch for any lingering cough.',
-      ar: 'اطمّن إن نفس طارق رجع هادي ومرتاح لبضع دقائق.',
+      en: 'Make sure Mohamed breathes comfortably for a few minutes and watch for any lingering cough.',
+      ar: 'اطمّن إن نفس محمد رجع هادي ومرتاح لبضع دقائق.',
     },
   },
 
@@ -42,8 +42,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'المية بتقطع الكحة الطبيعية وبتزود الخطر',
     },
     whatHappened: {
-      en: 'Tariq tried to take a sip while coughing, which made him sputter harder and interrupted his breathing rhythm.',
-      ar: 'طارق حاول يشرب وهو بيكح، فالمية قطعت كحته وزوّدت الشرقة بدل ما تريّحه.',
+      en: 'Mohamed tried to take a sip while coughing, which made him sputter harder and interrupted his breathing rhythm.',
+      ar: 'محمد حاول يشرب وهو بيكح، فالمية قطعت كحته وزوّدت الشرقة بدل ما تريّحه.',
     },
     why: {
       en: 'Many people reach for a glass of water first out of kindness. But swallowing closes the throat right when the lungs need an open path to cough the food up.',
@@ -66,8 +66,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'تدخل مش في وقته — كحته القوية كانت كافية',
     },
     whatHappened: {
-      en: 'Squeezing Tariq’s belly startled him in the middle of a strong cough and broke his natural breathing effort.',
-      ar: 'الضغط المفاجئ على بطن طارق وهو بيكح بقوة خضّه وربك نفسه الطبيعي.',
+      en: 'Squeezing Mohamed’s belly startled him in the middle of a strong cough and broke his natural breathing effort.',
+      ar: 'الضغط المفاجئ على بطن محمد وهو بيكح بقوة خضّه وربك نفسه الطبيعي.',
     },
     why: {
       en: 'Many people rush to do belly thrusts the second someone coughs. When a person can cough loudly and speak, external thrusts only disrupt their own effective cough.',
@@ -85,7 +85,7 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
   },
 
   // ===========================================================================
-  // A2 — Silence in the Lab (Tariq, Computer Lab — Severe Choking)
+  // A2 — Silence in the Lab (Mohamed, Computer Lab — Severe Choking)
   // ===========================================================================
   'a2-c1': {
     verdict: {
@@ -93,8 +93,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'أنقذت حياته — ضربات الضهر وضغطات البطن نجحت',
     },
     whatHappened: {
-      en: 'You called for an ambulance, leaned Tariq forward for firm back blows, and followed with inward-and-upward belly thrusts until the sandwich piece popped out.',
-      ar: 'طلبت الإسعاف، سندت صدر طارق وميّلته لقدام مع ضربات ضهر محسوبة ثم ضغطات بطن للداخل ولأعلى لحد ما اللقمة خرجت.',
+      en: 'You called for an ambulance, leaned Mohamed forward for firm back blows, and followed with inward-and-upward belly thrusts until the sandwich piece popped out.',
+      ar: 'طلبت الإسعاف، سندت صدر محمد وميّلته لقدام مع ضربات ضهر محسوبة ثم ضغطات بطن للداخل ولأعلى لحد ما اللقمة خرجت.',
     },
     why: {
       en: 'Leaning forward lets gravity help the blockage fall out instead of deeper. Back blows send a sharp pressure wave, and inward-upward belly thrusts push trapped lung air up like popping a cork.',
@@ -110,8 +110,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'الاختناق الصامت محتاج تدخل فوري: ميل لقدام، حتى ٥ على الضهر، وحتى ٥ على البطن.',
     },
     afterCare: {
-      en: 'Confirm Tariq is breathing easily, stay with him, and make sure a doctor checks him after belly thrusts.',
-      ar: 'تأكد إن نفس طارق رجع طبيعي، خليك معاه، ولازم دكتور يفحصه بعد ضغطات البطن.',
+      en: 'Confirm Mohamed is breathing easily, stay with him, and make sure a doctor checks him after belly thrusts.',
+      ar: 'تأكد إن نفس محمد رجع طبيعي، خليك معاه، ولازم دكتور يفحصه بعد ضغطات البطن.',
     },
   },
 
@@ -121,8 +121,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'المية مستحيل تعدي ومجرى النفس مسدود بالكامل',
     },
     whatHappened: {
-      en: 'Tariq could not swallow the water at all; liquid pooled in his throat while his lips turned bluer and oxygen kept falling.',
-      ar: 'طارق مقدرش يبلع المية خالص، والسائل اتجمع فوق الانسداد وشفاهه ازرقّت أكتر مع نزول الأكسجين.',
+      en: 'Mohamed could not swallow the water at all; liquid pooled in his throat while his lips turned bluer and oxygen kept falling.',
+      ar: 'محمد مقدرش يبلع المية خالص، والسائل اتجمع فوق الانسداد وشفاهه ازرقّت أكتر مع نزول الأكسجين.',
     },
     why: {
       en: 'Many people instinctively offer water when someone chokes at the table. When the airway is blocked, water has nowhere to go and steals precious seconds needed for physical rescue.',
@@ -145,8 +145,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'إدخال الصوابع بدون رؤية زق اللقمة لجوه أعمق',
     },
     whatHappened: {
-      en: 'Reaching fingers into Tariq’s mouth without seeing the food wedged the blockage tighter down his throat.',
-      ar: 'لما دخلت صوابعك في بق طارق من غير ما تكون شايف اللقمة، اتزقت لتحت واتحشرت أعمق في الحلق.',
+      en: 'Reaching fingers into Mohamed’s mouth without seeing the food wedged the blockage tighter down his throat.',
+      ar: 'لما دخلت صوابعك في بق محمد من غير ما تكون شايف اللقمة، اتزقت لتحت واتحشرت أعمق في الحلق.',
     },
     why: {
       en: 'Many people try to fish the food out with their fingers in a panic. A blind finger sweep acts like a ramrod, pushing an unseen piece deeper into the narrow airway.',
@@ -164,7 +164,7 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
   },
 
   // ===========================================================================
-  // A3 — When He Collapses Unresponsive (Tariq — Unresponsive Adult)
+  // A3 — When He Collapses Unresponsive (Mohamed — Unresponsive Adult)
   // ===========================================================================
   'a3-c1': {
     verdict: {
@@ -172,8 +172,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'ترتيب مضبوط — أرض صلبة، إسعاف، وبدء الإنعاش',
     },
     whatHappened: {
-      en: 'You lowered Tariq gently to the floor, made sure the ambulance was on the line, and started chest compressions while checking his mouth only by sight.',
-      ar: 'نزّلت طارق بأمان على الأرض، اتأكدت إن الإسعاف على السبيكر، وبدأت إنعاش الصدر مع فحص الفم بالنظر بس.',
+      en: 'You lowered Mohamed gently to the floor, made sure the ambulance was on the line, and started chest compressions while checking his mouth only by sight.',
+      ar: 'نزّلت محمد بأمان على الأرض، اتأكدت إن الإسعاف على السبيكر، وبدأت إنعاش الصدر مع فحص الفم بالنظر بس.',
     },
     why: {
       en: 'Once a choking person goes limp, standing maneuvers no longer work. Chest compressions on a firm floor pump blood to the brain and build chest pressure that helps loosen the blockage.',
@@ -200,8 +200,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'قعدته على الكرسي بتأخر الإنعاش اللي هينقذ حياته',
     },
     whatHappened: {
-      en: 'Propping an unconscious Tariq on a chair left his airway blocked and kept oxygen from reaching his brain while waiting.',
-      ar: 'لما قعّدت طارق على كرسي وهو فاقد الوعي، مجرى النفس فضل مقفول والأكسجين موصلش للمخ في أهم دقايق.',
+      en: 'Propping an unconscious Mohamed on a chair left his airway blocked and kept oxygen from reaching his brain while waiting.',
+      ar: 'لما قعّدت محمد على كرسي وهو فاقد الوعي، مجرى النفس فضل مقفول والأكسجين موصلش للمخ في أهم دقايق.',
     },
     why: {
       en: 'Many people try to sit a fainted person on a chair to rest. But an unresponsive choking person cannot breathe on their own and needs immediate chest compressions on a flat floor.',
@@ -224,8 +224,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'المسح الأعمى بالصوابع بيحشر الجسم أعمق في الحلق',
     },
     whatHappened: {
-      en: 'Sweeping fingers blindly inside Tariq’s mouth pushed the hidden food piece tighter against his windpipe and delayed chest compressions.',
-      ar: 'البحث بالصوابع جوه بق طارق من غير رؤية زق اللقمة المخفية أعمق في مجرى الهوا وأخّر ضغطات الصدر.',
+      en: 'Sweeping fingers blindly inside Mohamed’s mouth pushed the hidden food piece tighter against his windpipe and delayed chest compressions.',
+      ar: 'البحث بالصوابع جوه بق محمد من غير رؤية زق اللقمة المخفية أعمق في مجرى الهوا وأخّر ضغطات الصدر.',
     },
     why: {
       en: 'Many people hope to hook the food out once the person is on the floor. Without seeing it clearly, fingers push the object down instead of pulling it out.',
@@ -322,7 +322,7 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
   },
 
   // ===========================================================================
-  // C1 — Cafeteria Alarm (Youssef, 6 yrs — Severe Child Choking)
+  // C1 — Cafeteria Alarm (Marwan, 6 yrs — Severe Child Choking)
   // ===========================================================================
   'c1-c1': {
     verdict: {
@@ -330,8 +330,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'إنقاذ ممتاز — نزولك لمستوى طوله نجّح الإسعاف',
     },
     whatHappened: {
-      en: 'You knelt behind Youssef, leaned him forward for up to 5 back blows, and gave up to 5 child-sized belly thrusts until the food popped out.',
-      ar: 'نزلت على ركبتيك ورا يوسف، ميّلته لقدام لعمل ضربات الضهر، وبدّلت مع ضغطات بطن بقوة مناسبة لسنه لحد ما اللقمة خرجت.',
+      en: 'You knelt behind Marwan, leaned him forward for up to 5 back blows, and gave up to 5 child-sized belly thrusts until the food popped out.',
+      ar: 'نزلت على ركبتيك ورا مروان، ميّلته لقدام لعمل ضربات الضهر، وبدّلت مع ضغطات بطن بقوة مناسبة لسنه لحد ما اللقمة خرجت.',
     },
     why: {
       en: 'Kneeling brings your hands to the exact angle of a child’s shoulder blades and belly. That lets you control your force so the air pop clears the throat without hurting smaller ribs.',
@@ -347,8 +347,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'مع الطفل المختنق: انزل لطوله، حتى ٥ على الضهر، وحتى ٥ على البطن بقوة مناسبة.',
     },
     afterCare: {
-      en: 'Comfort Youssef, watch his breathing closely, and have a doctor check him after belly thrusts.',
-      ar: 'طمّن يوسف وراقب تنفسه، وخلي دكتور يفحصه للاطمئنان بعد ضغطات البطن.',
+      en: 'Comfort Marwan, watch his breathing closely, and have a doctor check him after belly thrusts.',
+      ar: 'طمّن مروان وراقب تنفسه، وخلي دكتور يفحصه للاطمئنان بعد ضغطات البطن.',
     },
   },
 
@@ -358,8 +358,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'المية مش هتبلّع لقمة قافلة مجرى النفس',
     },
     whatHappened: {
-      en: 'Holding a cup of water to Youssef’s mouth while he was silent only spilled liquid into a blocked throat and wasted vital seconds.',
-      ar: 'تقديم المية ليوسف وهو صامت ومش بيتنفس خلاه يشرق أكتر وضيّع ثواني حاسمة كان لازم تتدخل فيها.',
+      en: 'Holding a cup of water to Marwan’s mouth while he was silent only spilled liquid into a blocked throat and wasted vital seconds.',
+      ar: 'تقديم المية لمروان وهو صامت ومش بيتنفس خلاه يشرق أكتر وضيّع ثواني حاسمة كان لازم تتدخل فيها.',
     },
     why: {
       en: 'Many adults rush to give a child water when food gets stuck. When the windpipe is blocked, the child cannot swallow and needs air pushed up from the lungs instead.',
@@ -382,8 +382,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'الضرب العشوائي على الرقبة بيؤذي الحلق ومبيخرجش اللقمة',
     },
     whatHappened: {
-      en: 'Slapping Youssef high on the neck while he stood upright shook his throat without building the chest pressure needed to move the blockage.',
-      ar: 'الضرب العشوائي على رقبة يوسف وهو واقف مفرود وجع حلقه من غير ما يعمل أي ضغط يطرد اللقمة المحشورة.',
+      en: 'Slapping Marwan high on the neck while he stood upright shook his throat without building the chest pressure needed to move the blockage.',
+      ar: 'الضرب العشوائي على رقبة مروان وهو واقف مفرود وجع حلقه من غير ما يعمل أي ضغط يطرد اللقمة المحشورة.',
     },
     why: {
       en: 'In a scary moment, people often pat or slap the back of the neck hurriedly. Only firm blows lower down between the shoulder blades—while leaning forward—send a pressure wave through the chest.',
@@ -401,7 +401,7 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
   },
 
   // ===========================================================================
-  // C2 — The Unresponsive Child (Youssef, 6 yrs — Unresponsive Child)
+  // C2 — The Unresponsive Child (Marwan, 6 yrs — Unresponsive Child)
   // ===========================================================================
   'c2-c1': {
     verdict: {
@@ -409,8 +409,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'تصرف مظبوط — أرض ثابتة، إسعاف، وإنعاش للطفل',
     },
     whatHappened: {
-      en: 'You laid Youssef gently on the floor, made sure the ambulance was called, started CPR, and took the food out only once you saw it clearly.',
-      ar: 'نزّلت يوسف برفق على الأرض، أكدت طلب الإسعاف، بدأت الإنعاش، وشيلت اللقمة بس لما ظهرت بوضوح قدام عينك.',
+      en: 'You laid Marwan gently on the floor, made sure the ambulance was called, started CPR, and took the food out only once you saw it clearly.',
+      ar: 'نزّلت مروان برفق على الأرض، أكدت طلب الإسعاف، بدأت الإنعاش، وشيلت اللقمة بس لما ظهرت بوضوح قدام عينك.',
     },
     why: {
       en: 'An unconscious child needs a firm flat surface so chest compressions can circulate blood and squeeze the lungs strongly enough to push the trapped food into view.',
@@ -426,8 +426,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'أول ما الطفل المختنق يفقد الوعي: أرض ثابتة، إسعاف، وابدأ الإنعاش فوراً.',
     },
     afterCare: {
-      en: 'Keep Youssef warm and monitored until emergency paramedics arrive and examine him.',
-      ar: 'خليك جنب يوسف وراقب تنفسه لحد ما فريق الإسعاف يوصل ويفحصه.',
+      en: 'Keep Marwan warm and monitored until emergency paramedics arrive and examine him.',
+      ar: 'خليك جنب مروان وراقب تنفسه لحد ما فريق الإسعاف يوصل ويفحصه.',
     },
   },
 
@@ -437,8 +437,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'المسح الأعمى بالصبع بيزق اللقمة أعمق في حلق الطفل',
     },
     whatHappened: {
-      en: 'Probing inside Youssef’s mouth without seeing the food jammed the piece tighter into his small airway.',
-      ar: 'إدخال صبعك للتدوير في بق يوسف من غير ما تشوف اللقمة زقها لتحت وحشرها أكتر في مجرى نفسه الضيق.',
+      en: 'Probing inside Marwan’s mouth without seeing the food jammed the piece tighter into his small airway.',
+      ar: 'إدخال صبعك للتدوير في بق مروان من غير ما تشوف اللقمة زقها لتحت وحشرها أكتر في مجرى نفسه الضيق.',
     },
     why: {
       en: 'Many caregivers try to hook the food out with a finger as soon as a child faints. Because a child’s throat is narrow, a blind finger easily pushes the object down like a cork.',
@@ -461,8 +461,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'ضربات الضهر وهو واقف مبتنفعش بعد فقدان الوعي',
     },
     whatHappened: {
-      en: 'Trying to hold a limp Youssef up for back blows wasted precious seconds while his brain and heart needed CPR on the floor.',
-      ar: 'محاولة سند يوسف وهو مرتخي وفاقد الوعي عشان تضرب على ضهره ضيّعت ثواني غالية كان لازم يبدأ فيها الإنعاش على الأرض.',
+      en: 'Trying to hold a limp Marwan up for back blows wasted precious seconds while his brain and heart needed CPR on the floor.',
+      ar: 'محاولة سند مروان وهو مرتخي وفاقد الوعي عشان تضرب على ضهره ضيّعت ثواني غالية كان لازم يبدأ فيها الإنعاش على الأرض.',
     },
     why: {
       en: 'Many people keep repeating back blows hoping the next one will work. Once a child goes limp, they need chest compressions on a firm flat floor to keep blood flowing.',
@@ -480,7 +480,7 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
   },
 
   // ===========================================================================
-  // C3 — Cough at Recess (Youssef, 6 yrs — Mild Child Choking)
+  // C3 — Cough at Recess (Marwan, 6 yrs — Mild Child Choking)
   // ===========================================================================
   'c3-c1': {
     verdict: {
@@ -488,8 +488,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'أحسنت — تشجيعك الهادي ساعده يطردها بكحته',
     },
     whatHappened: {
-      en: 'You stayed right beside Youssef at recess, reassured him, and let his loud cough clear the snack piece on its own.',
-      ar: 'وقفت جنب يوسف في الفسحة وطمّنته بهدوء وشجعته يكح لحد ما قطعة السناك خرجت لوحدها.',
+      en: 'You stayed right beside Marwan at recess, reassured him, and let his loud cough clear the snack piece on its own.',
+      ar: 'وقفت جنب مروان في الفسحة وطمّنته بهدوء وشجعته يكح لحد ما قطعة السناك خرجت لوحدها.',
     },
     why: {
       en: 'When a child can cough loudly, talk, or cry, plenty of air is getting past the food. Staying calm prevents panic gasps that could pull the food deeper.',
@@ -505,8 +505,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'كحة مسموعة وصوت واضح عند الطفل؟ طمّنه، شجّعه يكح، وراقبه عن قرب.',
     },
     afterCare: {
-      en: 'Let Youssef catch his breath quietly before running back to play.',
-      ar: 'خلّي يوسف ياخد نفسه ويرتاح شوية قبل ما يرجع يلعب.',
+      en: 'Let Marwan catch his breath quietly before running back to play.',
+      ar: 'خلّي مروان ياخد نفسه ويرتاح شوية قبل ما يرجع يلعب.',
     },
   },
 
@@ -516,8 +516,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'تدخل غير لازم — ضغط البطن خض الطفل وقطع كحته',
     },
     whatHappened: {
-      en: 'Grabbing Youssef for forceful belly thrusts while he was coughing and talking frightened him and broke his natural cough.',
-      ar: 'مسك يوسف وعمل ضغطات بطن قوية وهو بيكح وبيتكلم خوّفه جداً وقطع كحته الطبيعية اللي كانت هتطلّع اللقمة.',
+      en: 'Grabbing Marwan for forceful belly thrusts while he was coughing and talking frightened him and broke his natural cough.',
+      ar: 'مسك مروان وعمل ضغطات بطن قوية وهو بيكح وبيتكلم خوّفه جداً وقطع كحته الطبيعية اللي كانت هتطلّع اللقمة.',
     },
     why: {
       en: 'Many adults panic when a child coughs and jump straight to belly thrusts. Thrusts are strong physical maneuvers reserved only for silent, severe choking.',
@@ -540,8 +540,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'المية بتقطع كحة الطفل وممكن تزود الشرقة',
     },
     whatHappened: {
-      en: 'Trying to make Youssef drink water while coughing made him gag harder and interrupted his steady breathing.',
-      ar: 'محاولة شرب يوسف للمية وهو بيكح خلته يشرق بزيادة وعطّلت اندفاع الهوا اللي كان بيطرد اللقمة.',
+      en: 'Trying to make Marwan drink water while coughing made him gag harder and interrupted his steady breathing.',
+      ar: 'محاولة شرب مروان للمية وهو بيكح خلته يشرق بزيادة وعطّلت اندفاع الهوا اللي كان بيطرد اللقمة.',
     },
     why: {
       en: 'Many parents offer a water bottle right away at recess. Swallowing water forces the airway valve to close right when the child needs to cough air upward.',
@@ -559,7 +559,7 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
   },
 
   // ===========================================================================
-  // I1 — Silence in the Nursery (Layan, 8 mos — Severe Infant Choking)
+  // I1 — Silence in the Nursery (Nelly, 8 mos — Severe Infant Choking)
   // ===========================================================================
   'i1-c1': {
     verdict: {
@@ -567,8 +567,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'إنقاذ آمن للرضيعة — ضربات الضهر وضغطات الصدر نجحت',
     },
     whatHappened: {
-      en: 'You supported Layan face-down on your forearm for up to 5 back blows, turned her onto her back for up to 5 two-finger chest thrusts, and the piece popped out as she cried.',
-      ar: 'سندت رأس وفك ليان على ساعدك لعمل حتى ٥ ضربات ضهر، وبعدين قلبتها بأمان لعمل حتى ٥ ضغطات صدر بإصبعين لحد ما الجسم خرج وبكت.',
+      en: 'You supported Nelly face-down on your forearm for up to 5 back blows, turned her onto her back for up to 5 two-finger chest thrusts, and the piece popped out as she cried.',
+      ar: 'سندت رأس وفك نيللي على ساعدك لعمل حتى ٥ ضربات ضهر، وبعدين قلبتها بأمان لعمل حتى ٥ ضغطات صدر بإصبعين لحد ما الجسم خرج وبكت.',
     },
     why: {
       en: 'Supporting the baby tilted downward lets gravity assist the back blows. Two-finger chest thrusts push air from the lungs safely without pressing a baby’s delicate belly organs.',
@@ -584,8 +584,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'للرضيع أقل من سنة: ضربات ضهر وضغطات صدر بإصبعين — وممنوع لمس البطن نهائياً.',
     },
     afterCare: {
-      en: 'Hold Layan calmly, watch her breathing, and have a doctor examine her after choking rescue.',
-      ar: 'طبطب على ليان وراقب نفسها، واعرضها على دكتور للاطمئنان بعد الإنقاذ.',
+      en: 'Hold Nelly calmly, watch her breathing, and have a doctor examine her after choking rescue.',
+      ar: 'طبطب على نيللي وراقب نفسها، واعرضها على دكتور للاطمئنان بعد الإنقاذ.',
     },
   },
 
@@ -595,8 +595,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'خطر شديد — ممنوع ضغطات البطن للرضيع نهائياً',
     },
     whatHappened: {
-      en: 'Pressing on 8-month-old Layan’s soft belly risked injuring her liver and internal organs instead of safely clearing her airway.',
-      ar: 'الضغط على بطن ليان (٨ شهور) عرّض كبدها وأعضاءها الداخلية لإصابة خطيرة بدل ما يفتح مجرى النفس بأمان.',
+      en: 'Pressing on 8-month-old Nelly’s soft belly risked injuring her liver and internal organs instead of safely clearing her airway.',
+      ar: 'الضغط على بطن نيللي (٨ شهور) عرّض كبدها وأعضاءها الداخلية لإصابة خطيرة بدل ما يفتح مجرى النفس بأمان.',
     },
     why: {
       en: 'Many people assume the adult belly-thrust move works for everyone. In infants under one year, the liver sits unprotected under soft ribs and can be badly hurt by belly pressure.',
@@ -619,8 +619,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'المسح الأعمى بالصبع بيزق الجسم أعمق في حلق الرضيعة',
     },
     whatHappened: {
-      en: 'Putting an adult finger blindly into Layan’s tiny mouth pushed the small toy piece deeper into her throat.',
-      ar: 'إدخال صبعك في بق ليان الصغير من غير ما تكون شايف الجسم زق القطعة لجوه وقفل مجرى الهوا أكتر.',
+      en: 'Putting an adult finger blindly into Nelly’s tiny mouth pushed the small toy piece deeper into her throat.',
+      ar: 'إدخال صبعك في بق نيللي الصغير من غير ما تكون شايف الجسم زق القطعة لجوه وقفل مجرى الهوا أكتر.',
     },
     why: {
       en: 'In a panic, a caregiver’s first instinct is often to reach into the baby’s mouth. An adult finger fills a baby’s small throat and easily rams an unseen object tightly into the windpipe.',
@@ -638,7 +638,7 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
   },
 
   // ===========================================================================
-  // I2 — Layan Limp in Your Arms (Layan, 8 mos — Unresponsive Infant)
+  // I2 — Nelly Limp in Your Arms (Nelly, 8 mos — Unresponsive Infant)
   // ===========================================================================
   'i2-c1': {
     verdict: {
@@ -646,8 +646,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'تصرف سليم — سطح ثابت، إسعاف، وإنعاش للرضيعة',
     },
     whatHappened: {
-      en: 'You placed Layan on a firm padded table, confirmed the ambulance call on speaker, started infant CPR, and removed the piece only when you saw it clearly.',
-      ar: 'حطيت ليان على سطح ثابت وآمن، أكدت طلب الإسعاف على السبيكر، وبدأت إنعاش الرضيع وشيلت الجسم بس لما ظهر بوضوح.',
+      en: 'You placed Nelly on a firm padded table, confirmed the ambulance call on speaker, started infant CPR, and removed the piece only when you saw it clearly.',
+      ar: 'حطيت نيللي على سطح ثابت وآمن، أكدت طلب الإسعاف على السبيكر، وبدأت إنعاش الرضيع وشيلت الجسم بس لما ظهر بوضوح.',
     },
     why: {
       en: 'When an infant goes limp, they need a firm flat surface right away so gentle chest compressions can keep oxygen moving to the brain and push the blockage loose.',
@@ -663,8 +663,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'رضيع مرتخي ومبيستجيبش؟ سطح ثابت فوراً، إسعاف، وابدأ إنعاش الرضيع.',
     },
     afterCare: {
-      en: 'Keep Layan warm and closely watched until paramedics arrive to take over care.',
-      ar: 'حافظ على دفا ليان وراقب نفسها لحظة بلحظة لحد ما الإسعاف يستلمها.',
+      en: 'Keep Nelly warm and closely watched until paramedics arrive to take over care.',
+      ar: 'حافظ على دفا نيللي وراقب نفسها لحظة بلحظة لحد ما الإسعاف يستلمها.',
     },
   },
 
@@ -674,8 +674,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'المسح الأعمى بالصبع بيحشر الجسم في حنجرة الرضيعة',
     },
     whatHappened: {
-      en: 'Searching blindly with your finger inside unconscious Layan’s mouth pushed the unseen object deeper and delayed CPR.',
-      ar: 'التدوير بالصبع جوه بق ليان وهي فاقدة الوعي من غير رؤية واضحة زق الجسم الغريب أعمق وعطّل بدء الإنعاش.',
+      en: 'Searching blindly with your finger inside unconscious Nelly’s mouth pushed the unseen object deeper and delayed CPR.',
+      ar: 'التدوير بالصبع جوه بق نيللي وهي فاقدة الوعي من غير رؤية واضحة زق الجسم الغريب أعمق وعطّل بدء الإنعاش.',
     },
     why: {
       en: 'Many caregivers desperately try to scoop the object out when a baby goes limp. Without seeing it, a finger pushes the blockage straight down into the tiny windpipe.',
@@ -698,8 +698,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'تأخير خطير جداً — الرضيع الفاقد للوعي مش هيفوق لوحده',
     },
     whatHappened: {
-      en: 'Waiting and watching while Layan lay limp meant zero oxygen reached her lungs or brain during the most critical seconds.',
-      ar: 'الانتظار جنب ليان وهي مرتخية ومبتتنفسش حرم مخها ورئتها من الأكسجين في أخطر ثواني.',
+      en: 'Waiting and watching while Nelly lay limp meant zero oxygen reached her lungs or brain during the most critical seconds.',
+      ar: 'الانتظار جنب نيللي وهي مرتخية ومبتتنفسش حرم مخها ورئتها من الأكسجين في أخطر ثواني.',
     },
     why: {
       en: 'Sometimes people freeze or hope a baby simply fainted and will wake up in a moment. An unresponsive choking infant has no air flow and needs immediate CPR.',
@@ -717,7 +717,7 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
   },
 
   // ===========================================================================
-  // I3 — Strong Cough in the High Chair (Layan, 8 mos — Mild Infant Choking)
+  // I3 — Strong Cough in the High Chair (Nelly, 8 mos — Mild Infant Choking)
   // ===========================================================================
   'i3-c1': {
     verdict: {
@@ -725,8 +725,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'تصرف حكيم — كحتها وبكاؤها القوي طردوا اللقمة بأمان',
     },
     whatHappened: {
-      en: 'You stayed right beside Layan’s high chair, watched her closely, and let her strong cough clear the soft food bit naturally.',
-      ar: 'فضلت واقف جنب الكرسي العالي بتاع ليان وراقبتها بهدوء، لحد ما كحتها القوية طردت اللقمة ورجعت تتنفس براحة.',
+      en: 'You stayed right beside Nelly’s high chair, watched her closely, and let her strong cough clear the soft food bit naturally.',
+      ar: 'فضلت واقف جنب الكرسي العالي بتاع نيللي وراقبتها بهدوء، لحد ما كحتها القوية طردت اللقمة ورجعت تتنفس براحة.',
     },
     why: {
       en: 'A loud cough and strong cry mean the baby’s airway is open enough to move air fast. Watching closely without shaking or hitting lets her own cough reflex finish the job.',
@@ -742,8 +742,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'كحة مسموعة وبكاء قوي عند الرضيع؟ خليك جنبه، راقب كل نفس، وكن مستعد.',
     },
     afterCare: {
-      en: 'Give Layan a calm break from eating and watch that her breathing stays quiet and easy.',
-      ar: 'وقّف الأكل شوية وطمّن ليان لحد ما تتأكد إن نفسها هادي ومرتاح.',
+      en: 'Give Nelly a calm break from eating and watch that her breathing stays quiet and easy.',
+      ar: 'وقّف الأكل شوية وطمّن نيللي لحد ما تتأكد إن نفسها هادي ومرتاح.',
     },
   },
 
@@ -753,8 +753,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'ممنوع ضغط بطن الرضيع نهائياً — وخصوصاً وهو بيكح بقوة',
     },
     whatHappened: {
-      en: 'Pressing on Layan’s belly endangered her fragile internal organs when her own loud cough was already clearing the food.',
-      ar: 'الضغط على بطن ليان عرّض أعضاءها الداخلية للخطر في وقت كانت كحتها الطبيعية أصلاً قادرة تطرد اللقمة.',
+      en: 'Pressing on Nelly’s belly endangered her fragile internal organs when her own loud cough was already clearing the food.',
+      ar: 'الضغط على بطن نيللي عرّض أعضاءها الداخلية للخطر في وقت كانت كحتها الطبيعية أصلاً قادرة تطرد اللقمة.',
     },
     why: {
       en: 'Many people panic when a baby sputters at mealtime. Not only does a loudly coughing baby need no thrusts at all, abdominal thrusts are strictly unsafe for infants under one year.',
@@ -777,8 +777,8 @@ export const CHOICE_EXPLANATIONS: Record<string, StructuredResultExplanation> = 
       ar: 'المسح الأعمى بالصبع ممكن يحوّل الشرقة البسيطة لانسداد كامل',
     },
     whatHappened: {
-      en: 'Reaching a finger into Layan’s mouth while she was coughing pushed the loose food bit down toward her windpipe.',
-      ar: 'مد صبعك في بق ليان وهي بتكح زق اللقمة اللي كانت على وشك تخرج ودخلها لتحت ناحية القصبة الهوائية.',
+      en: 'Reaching a finger into Nelly’s mouth while she was coughing pushed the loose food bit down toward her windpipe.',
+      ar: 'مد صبعك في بق نيللي وهي بتكح زق اللقمة اللي كانت على وشك تخرج ودخلها لتحت ناحية القصبة الهوائية.',
     },
     why: {
       en: 'Many parents try to scoop food out of a coughing baby’s mouth right away. A finger easily pushes the piece past the throat valve and turns a mild cough into a silent blockage.',
