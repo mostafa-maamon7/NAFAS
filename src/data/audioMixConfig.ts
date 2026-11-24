@@ -40,13 +40,13 @@ export interface CueMixEntry {
 }
 
 export const DEFAULT_MIX_SLIDERS = {
-  /** Lowered ~5 dB vs earlier default (was 0.45 * 0.55; now combined with -9 dB category offset) */
-  musicVolume: 0.36,
+  /** Warm, present background score that ducks -6 dB under every clinical & rescue cue */
+  musicVolume: 0.48,
   effectsVolume: 0.78,
 };
 
 export const DEFAULT_CATEGORY_GAIN_DB: Record<AudioAssetCategory, number> = {
-  music: -9.0, // 8–10 dB below effects at default slider
+  music: -7.5, // Balanced ~7.5 dB below effects at default slider (ducks -6 dB during cues)
   ambience: -13.5, // 12–15 dB below effects
   body: 0.0, // Reference: coughs, gasps, cries, relieved breaths clear above ambience
   rescue: 0.5, // Tactile back blows & thrusts crisp and grounded

@@ -357,12 +357,14 @@ export const AboutView: React.FC = () => {
           </p>
           <div
             data-testid="about-supervision-line"
-            className="inline-flex items-center gap-2 pt-1 text-xs sm:text-sm text-[#C8DCE6]"
+            className="inline-flex items-center gap-3 px-4 py-2.5 rounded-xl bg-[#071F2E]/85 border border-[#13B8B0]/50 shadow-md"
           >
-            <GraduationCap className="w-4 h-4 text-[#43C7D1] shrink-0" />
-            <span>
-              {isAr ? 'تحت إشراف أكاديمي من ' : 'Under the academic supervision of '}
-              <strong className="font-bold text-[#F3F7F8]">
+            <span className="w-8 h-8 rounded-lg bg-[#13B8B0]/15 border border-[#43C7D1]/35 flex items-center justify-center shrink-0">
+              <GraduationCap className="w-4 h-4 text-[#43C7D1]" />
+            </span>
+            <span className="text-xs sm:text-sm text-[#C8DCE6]">
+              {isAr ? 'تحت الإشراف الأكاديمي لـ ' : 'Under the academic supervision of '}
+              <strong className="text-sm sm:text-base font-extrabold text-[#F3F7F8]">
                 {isAr ? 'د. مي مهران' : 'Dr. Mai Mahran'}
               </strong>
             </span>
@@ -971,18 +973,18 @@ export const AboutView: React.FC = () => {
 
         <div
           data-testid="about-supervision-card"
-          className="bg-[#0B2D40]/90 border border-[#1E4B63] rounded-xl px-5 py-4 lg:min-w-[260px] shrink-0 space-y-1.5"
+          className="bg-gradient-to-br from-[#0B2D40] to-[#082436] border border-[#13B8B0]/55 rounded-xl px-5 py-4 lg:min-w-[280px] shrink-0 space-y-2 shadow-[0_8px_28px_rgba(19,184,176,0.12)]"
         >
-          <div className="inline-flex items-center gap-1.5 text-[11px] font-bold text-[#43C7D1]">
-            <GraduationCap className="w-3.5 h-3.5 text-[#13B8B0]" />
+          <div className="inline-flex items-center gap-2 text-xs font-bold text-[#43C7D1]">
+            <GraduationCap className="w-4 h-4 text-[#13B8B0]" />
             <span>
               {isAr ? 'الإشراف الأكاديمي والعلمي' : 'Academic Supervision'}
             </span>
           </div>
-          <div className="text-base font-extrabold text-[#F3F7F8]">
+          <div className="text-lg sm:text-xl font-extrabold text-[#F3F7F8] tracking-tight">
             {isAr ? 'د. مي مهران' : 'Dr. Mai Mahran'}
           </div>
-          <p className="text-xs text-[#A9C0CC] leading-relaxed">
+          <p className="text-xs text-[#B8D2DE] leading-relaxed">
             {isAr
               ? 'مشروع تعليمي رقمي مُنفّذ تحت إشرافها وبما يتوافق مع المادة العلمية المعتمدة.'
               : 'Academic digital health project developed under her supervision and course guidance.'}

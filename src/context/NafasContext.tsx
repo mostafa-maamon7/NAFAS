@@ -286,8 +286,10 @@ export const NafasProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const startLevel = (levelId: string) => {
-    // User click counts as audio unlock gesture — fade in calm music + location ambience automatically
-    nafasAudio.enterLevel(levelId);
+    // Keep the level title card completely silent — stop any previous audio and silently warm bytes in RAM.
+    // Music and ambience only begin once the player clicks "Start Level" inside CinematicStoryPlayer.
+    nafasAudio.leaveLevel();
+    nafasAudio.prefetchLevelAudio(levelId);
     setActiveLevelId(levelId);
     setActiveSection('simulation');
     window.scrollTo({ top: 0, behavior: 'smooth' });

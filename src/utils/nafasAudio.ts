@@ -120,6 +120,13 @@ class NafasAudioEngine {
   private currentAmbienceId: string | null = null;
   private ambienceTransitionToken = 0;
 
+  // Track sources currently fading out so leaveLevel() stops them cleanly with zero ghost overlap
+  private fadingLoopNodes = new Set<{
+    src: AudioBufferSourceNode;
+    gain: GainNode;
+    timer: number;
+  }>();
+
   // Looping beat cues (e.g. subtle heartbeat tied to falling SpO2)
   private heartbeatTimer: number | null = null;
   private heartbeatActive = false;
@@ -993,19 +1000,72 @@ class NafasAudioEngine {
   // =========================================================================
   // LOOPING MUSIC & AMBIENCE WITH SMOOTH 1–3s CROSSFADES
   // =========================================================================
+  private holdParamAtTime(param: AudioParam, now: number) {
+    const withHold = param as AudioParam & {
+      cancelAndHoldAtTime?: (t: number) => AudioParam;
+    };
+    if (typeof withHold.cancelAndHoldAtTime === 'function') {
+      try {
+        withHold.cancelAndHoldAtTime(now);
+        return;
+      } catch {
+        // Fallback below
+      }
+    }
+    param.cancelScheduledValues(now);
+    param.setValueAtTime(Math.max(0.0001, param.value), now);
+  }
+
+  private fadeOutAndTrackLoop(
+    src: AudioBufferSourceNode,
+    gain: GainNode,
+    fadeSec: number
+  ) {
+    if (!this.ctx) {
+      try {
+        src.stop();
+        src.disconnect();
+        gain.disconnect();
+      } catch {}
+      return;
+    }
+    const now = this.ctx.currentTime;
+    this.holdParamAtTime(gain.gain, now);
+    gain.gain.linearRampToValueAtTime(0.0001, now + fadeSec);
+    const entry = {
+      src,
+      gain,
+      timer: 0,
+    };
+    entry.timer = window.setTimeout(() => {
+      this.fadingLoopNodes.delete(entry);
+      try {
+        src.stop();
+        src.disconnect();
+        gain.disconnect();
+      } catch {
+        // Already stopped
+      }
+    }, Math.ceil((fadeSec + 0.15) * 1000));
+    this.fadingLoopNodes.add(entry);
+  }
+
   private async switchMusicTrack(
     trackId: string,
     volumeMultiplier: number,
     filterHz: number,
     fadeSec = 1.8
   ) {
+    // Music must NEVER start unless a level is actively playing
+    if (!this.state.activeLevelId) return;
     const ctx = this.ensureGraph();
     if (!ctx || !this.musicBus || !this.musicFilter) return;
 
+    const safeFilterHz = Math.max(2200, Math.min(20000, filterHz));
     const now = ctx.currentTime;
     this.musicFilter.frequency.cancelScheduledValues(now);
     this.musicFilter.frequency.setTargetAtTime(
-      Math.max(400, Math.min(20000, filterHz)),
+      safeFilterHz,
       now,
       Math.max(0.25, fadeSec * 0.35)
     );
@@ -1017,7 +1077,7 @@ class NafasAudioEngine {
     ) {
       this.currentMusicGain.gain.cancelScheduledValues(now);
       this.currentMusicGain.gain.setTargetAtTime(
-        volumeMultiplier,
+        Math.max(0.001, volumeMultiplier),
         now,
         Math.max(0.25, fadeSec * 0.35)
       );
@@ -1027,6 +1087,7 @@ class NafasAudioEngine {
     const token = ++this.musicTransitionToken;
     const buffer = await this.loadBuffer(trackId);
     if (
+      !this.state.activeLevelId ||
       token !== this.musicTransitionToken ||
       !buffer ||
       !this.ctx ||
@@ -1037,20 +1098,11 @@ class NafasAudioEngine {
 
     const startNow = this.ctx.currentTime;
     if (this.currentMusicSource && this.currentMusicGain) {
-      const oldSource = this.currentMusicSource;
-      const oldGain = this.currentMusicGain;
-      oldGain.gain.cancelScheduledValues(startNow);
-      oldGain.gain.setValueAtTime(oldGain.gain.value, startNow);
-      oldGain.gain.linearRampToValueAtTime(0.0001, startNow + fadeSec);
-      window.setTimeout(() => {
-        try {
-          oldSource.stop();
-          oldSource.disconnect();
-          oldGain.disconnect();
-        } catch {
-          // Already stopped
-        }
-      }, Math.ceil((fadeSec + 0.15) * 1000));
+      this.fadeOutAndTrackLoop(
+        this.currentMusicSource,
+        this.currentMusicGain,
+        Math.min(fadeSec, 1.4)
+      );
     }
 
     const src = this.ctx.createBufferSource();
@@ -1081,13 +1133,15 @@ class NafasAudioEngine {
     filterHz = 18000,
     fadeSec = 1.6
   ) {
+    // Ambience must NEVER start unless a level is actively playing
+    if (!this.state.activeLevelId) return;
     const ctx = this.ensureGraph();
     if (!ctx || !this.ambienceBus || !this.ambienceFilter) return;
 
     const now = ctx.currentTime;
     this.ambienceFilter.frequency.cancelScheduledValues(now);
     this.ambienceFilter.frequency.setTargetAtTime(
-      Math.max(500, Math.min(20000, filterHz)),
+      Math.max(700, Math.min(20000, filterHz)),
       now,
       0.35
     );
@@ -1099,7 +1153,7 @@ class NafasAudioEngine {
     ) {
       this.currentAmbienceGain.gain.cancelScheduledValues(now);
       this.currentAmbienceGain.gain.setTargetAtTime(
-        volumeMultiplier,
+        Math.max(0.001, volumeMultiplier),
         now,
         0.35
       );
@@ -1109,6 +1163,7 @@ class NafasAudioEngine {
     const token = ++this.ambienceTransitionToken;
     const buffer = await this.loadBuffer(ambienceId);
     if (
+      !this.state.activeLevelId ||
       token !== this.ambienceTransitionToken ||
       !buffer ||
       !this.ctx ||
@@ -1119,20 +1174,11 @@ class NafasAudioEngine {
 
     const startNow = this.ctx.currentTime;
     if (this.currentAmbienceSource && this.currentAmbienceGain) {
-      const oldSrc = this.currentAmbienceSource;
-      const oldGain = this.currentAmbienceGain;
-      oldGain.gain.cancelScheduledValues(startNow);
-      oldGain.gain.setValueAtTime(oldGain.gain.value, startNow);
-      oldGain.gain.linearRampToValueAtTime(0.0001, startNow + fadeSec);
-      window.setTimeout(() => {
-        try {
-          oldSrc.stop();
-          oldSrc.disconnect();
-          oldGain.disconnect();
-        } catch {
-          // Already stopped
-        }
-      }, Math.ceil((fadeSec + 0.15) * 1000));
+      this.fadeOutAndTrackLoop(
+        this.currentAmbienceSource,
+        this.currentAmbienceGain,
+        Math.min(fadeSec, 1.2)
+      );
     }
 
     const src = this.ctx.createBufferSource();
@@ -1302,25 +1348,34 @@ class NafasAudioEngine {
   // =========================================================================
   // LEVEL LIFECYCLE & CUE-SHEET RUNNER
   // =========================================================================
-  public enterLevel(levelId: string) {
+  public enterLevel(
+    levelId: string,
+    options?: { startPlayback?: boolean }
+  ) {
     const upper = levelId.toUpperCase();
     const isSame = this.state.activeLevelId === upper;
+    const startPlayback = options?.startPlayback ?? true;
+
     this.state.activeLevelId = upper;
     this.currentContextKey = 'ENTER';
     this.unlockAudio();
     this.preloadLevelAssets(upper);
 
-    if (!isSame) {
+    if (startPlayback && !isSame) {
       const sheet = getLevelAudioCueSheet(upper);
       const trackId = this.resolveTrackForLevelAndMood(upper, 'calm');
       this.state.activeMood = 'calm';
-      this.switchMusicTrack(trackId, 0.72, 18000, 1.8);
-      this.switchAmbience(sheet.ambienceId, 0.42, 18000, 1.6);
+      this.switchMusicTrack(trackId, 0.72, 18000, 1.6);
+      this.switchAmbience(sheet.ambienceId, 0.42, 18000, 1.5);
     }
     this.emitState();
   }
 
   public leaveLevel() {
+    // Cancel ALL in-flight async track/ambience loads so stale promises can NEVER start zombie music
+    this.musicTransitionToken++;
+    this.ambienceTransitionToken++;
+
     this.clearScheduledCues();
     this.stopHeartbeat();
     this.stopAudition();
@@ -1329,37 +1384,41 @@ class NafasAudioEngine {
     this.state.activeAmbienceId = null;
     this.currentContextKey = 'IDLE';
 
-    if (this.ctx) {
-      const now = this.ctx.currentTime;
-      if (this.currentMusicSource && this.currentMusicGain) {
-        const s = this.currentMusicSource;
-        const g = this.currentMusicGain;
-        g.gain.cancelScheduledValues(now);
-        g.gain.setValueAtTime(g.gain.value, now);
-        g.gain.linearRampToValueAtTime(0.0001, now + 0.6);
-        window.setTimeout(() => {
-          try {
-            s.stop();
-            s.disconnect();
-            g.disconnect();
-          } catch {}
-        }, 700);
-      }
-      if (this.currentAmbienceSource && this.currentAmbienceGain) {
-        const s = this.currentAmbienceSource;
-        const g = this.currentAmbienceGain;
-        g.gain.cancelScheduledValues(now);
-        g.gain.setValueAtTime(g.gain.value, now);
-        g.gain.linearRampToValueAtTime(0.0001, now + 0.6);
-        window.setTimeout(() => {
-          try {
-            s.stop();
-            s.disconnect();
-            g.disconnect();
-          } catch {}
-        }, 700);
-      }
+    // Immediately fade out any previously crossfading sources too
+    this.fadingLoopNodes.forEach((entry) => {
+      window.clearTimeout(entry.timer);
+      try {
+        if (this.ctx) {
+          const now = this.ctx.currentTime;
+          this.holdParamAtTime(entry.gain.gain, now);
+          entry.gain.gain.linearRampToValueAtTime(0.0001, now + 0.25);
+          window.setTimeout(() => {
+            try {
+              entry.src.stop();
+              entry.src.disconnect();
+              entry.gain.disconnect();
+            } catch {}
+          }, 300);
+        } else {
+          entry.src.stop();
+          entry.src.disconnect();
+          entry.gain.disconnect();
+        }
+      } catch {}
+    });
+    this.fadingLoopNodes.clear();
+
+    if (this.currentMusicSource && this.currentMusicGain) {
+      this.fadeOutAndTrackLoop(this.currentMusicSource, this.currentMusicGain, 0.45);
     }
+    if (this.currentAmbienceSource && this.currentAmbienceGain) {
+      this.fadeOutAndTrackLoop(
+        this.currentAmbienceSource,
+        this.currentAmbienceGain,
+        0.45
+      );
+    }
+
     this.currentMusicSource = null;
     this.currentMusicGain = null;
     this.currentMusicTrackId = null;
@@ -1375,6 +1434,7 @@ class NafasAudioEngine {
     contextKey: string,
     block: BeatAudioBlock
   ) {
+    if (!this.state.activeLevelId) return;
     this.clearScheduledCues();
     this.currentContextKey = contextKey;
 
@@ -1384,7 +1444,7 @@ class NafasAudioEngine {
       trackId,
       block.music.volume,
       block.music.filterHz,
-      block.music.fadeSec ?? 1.8
+      block.music.fadeSec ?? 1.6
     );
     this.switchAmbience(
       block.ambience.id,
@@ -1426,6 +1486,7 @@ class NafasAudioEngine {
   }
 
   public triggerBeat(levelId: string, beatIndexZeroBased: number) {
+    if (!this.state.activeLevelId) return;
     const keys: BeatKey[] = ['S1', 'S2', 'S3', 'S4', 'S5'];
     const key = keys[Math.max(0, Math.min(4, beatIndexZeroBased))];
     const sheet = getLevelAudioCueSheet(levelId);
@@ -1433,31 +1494,33 @@ class NafasAudioEngine {
   }
 
   public triggerOutcome(levelId: string, outcomeKey: OutcomeKey) {
+    if (!this.state.activeLevelId) return;
     const sheet = getLevelAudioCueSheet(levelId);
     this.applyAudioBlock(levelId, outcomeKey, sheet.outcomes[outcomeKey]);
   }
 
   public setMusicMood(mood: MusicMood) {
-    const levelId = this.state.activeLevelId || 'A2';
+    if (!this.state.activeLevelId) return;
+    const levelId = this.state.activeLevelId;
     this.state.activeMood = mood;
     const trackId = this.resolveTrackForLevelAndMood(levelId, mood);
     const filterHz =
       mood === 'tension'
-        ? 1200
+        ? 2600
         : mood === 'hopeful'
         ? 20000
         : mood === 'neutral'
-        ? 8500
+        ? 9500
         : 18000;
     const volume =
       mood === 'tension'
-        ? 0.48
-        : mood === 'hopeful'
-        ? 0.78
-        : mood === 'neutral'
         ? 0.56
-        : 0.72;
-    const fadeSec = mood === 'hopeful' ? 3.5 : 1.8;
+        : mood === 'hopeful'
+        ? 0.8
+        : mood === 'neutral'
+        ? 0.58
+        : 0.74;
+    const fadeSec = mood === 'hopeful' ? 3.2 : 1.6;
     this.switchMusicTrack(trackId, volume, filterHz, fadeSec);
     this.emitState();
   }

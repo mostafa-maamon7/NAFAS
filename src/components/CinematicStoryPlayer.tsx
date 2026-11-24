@@ -381,6 +381,10 @@ export const CinematicStoryPlayer: React.FC<CinematicStoryPlayerProps> = ({
       return;
     }
 
+    // Keep Title Card completely silent while silently warming level audio bytes in RAM
+    nafasAudio.leaveLevel();
+    nafasAudio.prefetchLevelAudio(level.id);
+
     setEntryStep('title_card');
     setPhase('story_intro');
     setIntroBeatIdx(0);
@@ -429,8 +433,8 @@ export const CinematicStoryPlayer: React.FC<CinematicStoryPlayerProps> = ({
   const handleFullReplayLevel = useCallback(() => {
     clearAutoTimers();
     nafasAudio.playPageTurn();
-    nafasAudio.enterLevel(level.id);
-    nafasAudio.setMusicMood('calm');
+    nafasAudio.enterLevel(level.id, { startPlayback: false });
+    nafasAudio.triggerBeat(level.id, 0);
     setPhase('story_intro');
     setIntroBeatIdx(0);
     setOutcomeFrameIdx(0);
@@ -599,6 +603,9 @@ export const CinematicStoryPlayer: React.FC<CinematicStoryPlayerProps> = ({
   // Sync per-level audio cue sheet across Watch (S1-S5) -> Look -> Decide -> Outcomes (OA1-OA3 / OB / OC)
   useEffect(() => {
     if (entryStep !== 'playing') return;
+    if (nafasAudio.getState().activeLevelId !== level.id.toUpperCase()) {
+      nafasAudio.enterLevel(level.id, { startPlayback: false });
+    }
     if (phase === 'story_intro') {
       nafasAudio.triggerBeat(level.id, introBeatIdx);
     } else if (phase === 'assess_signs' || phase === 'decision_crisis') {
@@ -1162,9 +1169,9 @@ export const CinematicStoryPlayer: React.FC<CinematicStoryPlayerProps> = ({
     handleSelectChoice,
   ]);
 
-  // Start playing from title card (counts as user gesture — starts music + SFX automatically)
+  // Start playing from title card (counts as user gesture — unlocks audio and lets Beat S1 fade music in cleanly once)
   const handleStartFromTitle = () => {
-    nafasAudio.enterLevel(level.id);
+    nafasAudio.enterLevel(level.id, { startPlayback: false });
     nafasAudio.unlockAudio();
     setEntryStep('playing');
   };

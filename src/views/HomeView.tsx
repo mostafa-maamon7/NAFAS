@@ -363,22 +363,22 @@ export const HomeView: React.FC = () => {
               </button>
             </div>
 
-            {/* Subtle, Refined Academic Supervision Attribution */}
-            <div className="hero-stagger-5 pt-1">
+            {/* Clear, Refined Academic Supervision Attribution */}
+            <div className="hero-stagger-5 pt-2">
               <button
                 type="button"
                 data-testid="hero-supervision-credit"
                 onClick={() => navigateTo('about')}
-                className="group inline-flex items-center gap-2 text-xs sm:text-[13px] text-[#9EB9C6] hover:text-[#F3F7F8] transition-colors cursor-pointer"
+                className="group inline-flex items-center gap-3 px-4 py-2.5 rounded-xl bg-[#0B2D40]/90 hover:bg-[#10384E] border border-[#13B8B0]/45 hover:border-[#43C7D1]/80 shadow-[0_6px_24px_rgba(7,31,46,0.45)] transition-all cursor-pointer text-start"
               >
-                <span
-                  className="w-5 h-[1.5px] bg-[#13B8B0]/70 group-hover:w-7 group-hover:bg-[#43C7D1] transition-all"
-                  aria-hidden="true"
-                />
-                <GraduationCap className="w-3.5 h-3.5 text-[#43C7D1] shrink-0" />
-                <span>
-                  {isAr ? 'مشروع أكاديمي تحت إشراف ' : 'Academic project supervised by '}
-                  <span className="font-bold text-[#E6F4F7] group-hover:text-[#43C7D1] transition-colors">
+                <span className="w-8 h-8 rounded-lg bg-[#13B8B0]/15 border border-[#43C7D1]/35 flex items-center justify-center shrink-0">
+                  <GraduationCap className="w-4 h-4 text-[#43C7D1]" />
+                </span>
+                <span className="flex flex-col leading-tight">
+                  <span className="text-[11px] font-semibold text-[#9EC4D4]">
+                    {isAr ? 'مشروع أكاديمي تحت إشراف' : 'Academic project supervised by'}
+                  </span>
+                  <span className="text-sm sm:text-[15px] font-extrabold text-[#F3F7F8] group-hover:text-[#43C7D1] transition-colors mt-0.5">
                     {isAr ? 'د. مي مهران' : 'Dr. Mai Mahran'}
                   </span>
                 </span>

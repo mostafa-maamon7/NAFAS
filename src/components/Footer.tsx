@@ -116,12 +116,12 @@ export const Footer: React.FC = () => {
           <div className="flex flex-wrap items-center justify-center gap-2.5 shrink-0">
             <span
               data-testid="footer-supervision-credit"
-              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#071F2E]/80 border border-[#1E4B63] text-[#C6DCE6]"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#071F2E] border border-[#13B8B0]/55 text-[13px] text-[#C8DCE6] shadow-sm"
             >
-              <GraduationCap className="w-3.5 h-3.5 text-[#43C7D1] shrink-0" />
+              <GraduationCap className="w-4 h-4 text-[#43C7D1] shrink-0" />
               <span>
                 {isAr ? 'تحت إشراف ' : 'Supervised by '}
-                <strong className="font-bold text-[#F3F7F8]">
+                <strong className="font-extrabold text-[#F3F7F8]">
                   {isAr ? 'د. مي مهران' : 'Dr. Mai Mahran'}
                 </strong>
               </span>

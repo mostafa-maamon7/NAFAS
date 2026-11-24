@@ -567,17 +567,19 @@ export const SimulationCenterView: React.FC = () => {
               </button>
             </div>
 
-            <div className="pt-1">
+            <div className="pt-1.5">
               <button
                 type="button"
                 data-testid="sim-supervision-credit"
                 onClick={() => navigateTo('about')}
-                className="inline-flex items-center gap-2 text-xs text-[#9EB9C6] hover:text-[#F3F7F8] transition-colors cursor-pointer"
+                className="group inline-flex items-center gap-2.5 px-3.5 py-2 rounded-xl bg-[#071F2E]/90 hover:bg-[#0D3247] border border-[#13B8B0]/45 hover:border-[#43C7D1]/80 transition-all cursor-pointer"
               >
-                <GraduationCap className="w-3.5 h-3.5 text-[#43C7D1] shrink-0" />
-                <span>
-                  {isAr ? 'محتوى ومحاكاة تحت إشراف ' : 'Simulation & curriculum supervised by '}
-                  <strong className="font-bold text-[#E6F4F7]">
+                <span className="w-7 h-7 rounded-lg bg-[#13B8B0]/15 border border-[#43C7D1]/35 flex items-center justify-center shrink-0">
+                  <GraduationCap className="w-4 h-4 text-[#43C7D1]" />
+                </span>
+                <span className="text-xs sm:text-sm text-[#B8D2DE]">
+                  {isAr ? 'تحت إشراف ' : 'Supervised by '}
+                  <strong className="font-extrabold text-[#F3F7F8] group-hover:text-[#43C7D1] transition-colors">
                     {isAr ? 'د. مي مهران' : 'Dr. Mai Mahran'}
                   </strong>
                 </span>
