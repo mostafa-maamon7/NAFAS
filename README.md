@@ -50,12 +50,12 @@ All levels are 100% data-driven. No view or player code needs to be modified to 
 
 | Level | Scenario & Patient | Clinical Focus | Guideline Rules Verified (AHA · ARC · RCUK) |
 | :--- | :--- | :--- | :--- |
-| **L1** | *The First Cough at Dinner* — Youssef (34y) | Mild vs. Severe Airway Obstruction | Effective cough present: encourage coughing & monitor; do not deliver back blows or water. |
-| **L2** | *Silent at the Table* — Youssef (34y) | Conscious Adult Severe Choking | Universal choking sign + silent airway: alternate 5 interscapular back blows & 5 abdominal thrusts above navel. |
+| **L1** | *The First Cough at Dinner* — Mohammed (34y) | Mild vs. Severe Airway Obstruction | Effective cough present: encourage coughing & monitor; do not deliver back blows or water. |
+| **L2** | *Silent at the Table* — Mohammed (34y) | Conscious Adult Severe Choking | Universal choking sign + silent airway: alternate 5 interscapular back blows & 5 abdominal thrusts above navel. |
 | **L3** | *When Standard Doesn't Fit* — Salma (31y, 3rd Trimester) | Choking in Late Pregnancy + Unresponsive Transition | Never perform abdominal thrusts in late pregnancy; use sternal chest thrusts and transition to 30:2 supine CPR if unresponsive. |
-| **L4** | *Cafeteria Alarm* — Mostafa (6y) | Conscious Child Severe Choking (Whole Grape) | Kneel behind child; alternate 5 back blows & 5 calibrated abdominal thrusts; never shake upside down or give water. |
-| **L5** | *Forceful Cough at Recess* — Mostafa (6y) | Pediatric Mild Airway Obstruction | Loud forceful cough with air exchange: encourage coughing and keep child upright and calm. |
-| **L6** | *Unresponsive in the Cafeteria* — Mostafa (6y) | Unresponsive Child Choking & Pediatric CPR | Lower to firm floor, start 30:2 CPR (~5 cm depth), visually inspect mouth before breaths, never perform blind finger sweeps. |
+| **L4** | *Cafeteria Alarm* — Marwan (6y) | Conscious Child Severe Choking (Whole Grape) | Kneel behind child; alternate 5 back blows & 5 calibrated abdominal thrusts; never shake upside down or give water. |
+| **L5** | *Forceful Cough at Recess* — Marwan (6y) | Pediatric Mild Airway Obstruction | Loud forceful cough with air exchange: encourage coughing and keep child upright and calm. |
+| **L6** | *Unresponsive in the Cafeteria* — Marwan (6y) | Unresponsive Child Choking & Pediatric CPR | Lower to firm floor, start 30:2 CPR (~5 cm depth), visually inspect mouth before breaths, never perform blind finger sweeps. |
 | **L7** | *Silent in the Nursery* — Nelly (8m) | Conscious Infant Severe Choking | Support prone on forearm head-lower-than-chest: 5 back blows + 5 two-finger chest thrusts. **NEVER** perform abdominal thrusts on an infant. |
 | **L8** | *Loud Cry & Cough in the Nursery* — Nelly (8m) | Infant Mild Airway Obstruction | Loud cry and forceful cough indicate open airway; hold upright and monitor without forceful back blows. |
 | **L9** | *Unresponsive in the Nursery* — Nelly (8m) | Unresponsive Infant Choking & Infant CPR | Firm flat surface, 30:2 two-finger sternal CPR (~4 cm / 1.5 in depth), visual-only mouth check, gentle mouth-to-mouth-and-nose puffs. |
